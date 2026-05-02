@@ -1,7 +1,7 @@
 [
   {
     "name": "Melpot",
-    "description": "Melpot is a comprehensive social networking platform that connects people through shared interests, activities, and communities. This innovative app offers a unique blend of social features, including real-time messaging, group discussions, event planning, and content sharing. With its intuitive interface and advanced privacy controls, Melpot creates meaningful connections while maintaining user security and data protection. The app supports multiple languages and provides seamless cross-platform functionality, making it accessible to users worldwide.",
+    "description": "Melpot \u2013 Communities That Create Value\n\nMelpot is a community-driven social platform where creators and groups come together to build, manage, and monetize their content, all in one place.\n\nUnlike traditional social networks, Melpot is built around communities, not feeds. Whether you\u2019re a creator, educator, or niche group leader, Melpot gives you the tools to grow an audience, engage deeply, and generate revenue, without juggling multiple platforms.\n\nWhat you can do on Melpot\n\nBuild and join communities\n\t\u2022\tCreate or join interest-based communities around topics you care about\n\t\u2022\tEngage through posts, images, videos, and voice content\n\t\u2022\tParticipate in focused, meaningful conversations, not noise\n\nCreate and share content\n\t\u2022\tPublish posts, media, and updates inside your community\n\t\u2022\tInteract through reactions, comments, and discussions\n\t\u2022\tDiscover new communities aligned with your interests\n\nMonetize your content (for creators)\n\t\u2022\tChoose monetization models that fit your business\n\t\u2022\tManage members, content access, and revenue in one place\n\t\u2022\tTrack performance and earnings transparently\n\nStay connected, your way\n\t\u2022\tFollow creators and communities you trust\n\t\u2022\tControl what you see, who you engage with, and how you participate\n\t\u2022\tEnjoy a cleaner, more intentional social experience\n\nMelpot is designed for creators and communities who want ownership, control, and sustainability, not just reach.\n\nJoin communities that matter.\nBuild value, not just followers.\n\nTerms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/",
     "screenshots": [
       "./melpot_local/0x0ss (6).png",
       "./melpot_local/0x0ss (7).png",
@@ -11,8 +11,8 @@
       "./melpot_local/0x0ss (11).png"
     ],
     "icon": "./melpot_local/appicon.png",
-    "version": "2.0.3",
-    "category": "Social Networking",
+    "version": "1.0.0.8",
+    "category": "Lifestyle",
     "ratings": "5",
     "developer": "SUHUB ARMAA COMPANY FOR INFORMATION TECHNOLOGY",
     "price": "Free",
