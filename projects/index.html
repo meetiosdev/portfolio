@@ -22,12 +22,43 @@
       gtag('config', 'G-LXSRQY10PK');
 
       function trackClick(name) {
-        if (typeof gtag === 'function') {
-          gtag('event', 'click', {
-            event_category: 'portfolio',
-            event_label: name
-          });
+        if (typeof gtag !== 'function') return;
+        
+        let eventName = 'click';
+        let category = 'portfolio';
+        let label = name;
+        
+        const n = name.toLowerCase();
+        if (n.includes('linkedin')) {
+          eventName = 'linkedin_click';
+          category = 'social';
+          label = 'LinkedIn Profile';
+        } else if (n.includes('github')) {
+          eventName = 'github_click';
+          category = 'social';
+          label = 'GitHub Profile';
+        } else if (n.includes('resume')) {
+          eventName = 'resume_click';
+          category = 'career';
+        } else if (n.includes('whatsapp')) {
+          eventName = 'whatsapp_click';
+          category = 'contact';
+          label = 'WhatsApp Chat';
+        } else if (n.includes('email') || n.includes('phone')) {
+          eventName = 'contact_click';
+          category = 'contact';
+        } else if (n.includes('app store')) {
+          eventName = 'app_store_click';
+          category = 'conversion';
+        } else {
+          eventName = n.replace(/[^a-z0-9]/g, '_') + '_click';
+          category = 'social';
         }
+
+        gtag('event', eventName, {
+          event_category: category,
+          event_label: label
+        });
       }
     </script>
     
