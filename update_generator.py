@@ -38,15 +38,15 @@ html_template = """<!DOCTYPE html>
     <header>
         <nav class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-outline-variant/50 shadow-[0_4px_30px_rgba(0,0,0,0.05)] h-20">
             <div class="max-w-[1140px] mx-auto px-8 flex items-center justify-between h-full font-['Inter'] antialiased tracking-tight text-sm font-medium">
-                <a href="../index.html" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
                     <img src="../assets/images/profile.jpeg" alt="Swarajmeet" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
                     <span class="text-xl font-bold tracking-tighter text-on-background">Swarajmeet</span>
                 </a>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a class="text-secondary hover:text-on-background transition-colors" href="../index.html">Home</a>
-                    <a class="text-on-background border-b-2 border-on-background pb-1" href="./index.html">Projects</a>
-                    <a class="text-secondary hover:text-on-background transition-colors" href="../index.html#experience">Experience</a>
-                    <a class="text-secondary hover:text-on-background transition-colors" href="../index.html#contact">Contact</a>
+                    <a class="text-secondary hover:text-on-background transition-colors" href="/">Home</a>
+                    <a class="text-on-background border-b-2 border-on-background pb-1" href="/projects/">Projects</a>
+                    <a class="text-secondary hover:text-on-background transition-colors" href="/#experience">Experience</a>
+                    <a class="text-secondary hover:text-on-background transition-colors" href="/#contact">Contact</a>
                 </div>
                 <div class="flex items-center gap-6">
                     <button id="theme-toggle" class="active:scale-95 transition-transform duration-200 cursor-pointer" aria-label="Toggle Dark Mode">
@@ -61,10 +61,10 @@ html_template = """<!DOCTYPE html>
             
             <!-- Mobile Menu Dropdown -->
             <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-background/80 backdrop-blur-xl border-b border-outline-variant/50 shadow-lg flex-col items-center py-6 space-y-6 md:hidden transition-all">
-                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html">Home</a>
-                <a class="text-on-background font-medium" href="./index.html">Projects</a>
-                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html#experience">Experience</a>
-                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html#contact">Contact</a>
+                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="/">Home</a>
+                <a class="text-on-background font-medium" href="/projects/">Projects</a>
+                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="/#experience">Experience</a>
+                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="/#contact">Contact</a>
             </div>
         </nav>
     </header>
@@ -274,7 +274,7 @@ for i, app in enumerate(apps):
 final_html = html_template.replace("{projects_html}", projects_html)
 final_html = final_html.replace("{app_ids_json}", json.dumps(app_ids))
 
-with open('project/index.html', 'w') as f:
+with open('projects/index.html', 'w') as f:
     f.write(final_html)
 
-print("Regenerated project/index.html with LIVE Sync!")
+print("Regenerated projects/index.html with LIVE Sync!")
