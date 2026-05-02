@@ -1,7 +1,19 @@
 import json
+from datetime import datetime
 
 with open('data/app_data_maximum.json', 'r') as f:
     apps = json.load(f)
+
+def get_app_date(app):
+    date_str = app.get("release_date_human", "")
+    if not date_str:
+        return datetime.min
+    try:
+        return datetime.strptime(date_str, "%A %d %B %Y")
+    except ValueError:
+        return datetime.min
+
+apps.sort(key=get_app_date, reverse=True)
 
 html_template = """<!DOCTYPE html>
 <html lang="en">
