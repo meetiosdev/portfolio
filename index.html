@@ -21,6 +21,15 @@
       gtag('js', new Date());
 
       gtag('config', 'G-LXSRQY10PK');
+
+      function trackClick(name) {
+        if (typeof gtag === 'function') {
+          gtag('event', 'click', {
+            event_category: 'portfolio',
+            event_label: name
+          });
+        }
+      }
     </script>
     
     <!-- External Styles and Scripts -->
@@ -260,19 +269,19 @@
                         Currently open to discussing new opportunities, collaborations, or just talking shop about the latest in mobile tech.
                     </p>
                     <div class="flex flex-col md:flex-row items-center justify-center gap-4 flex-wrap">
-                        <a class="w-full md:w-auto px-8 py-4 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-opacity active:scale-95 flex items-center justify-center gap-2" href="mailto:hello@meetiosdev.com">
+                        <a class="w-full md:w-auto px-8 py-4 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-opacity active:scale-95 flex items-center justify-center gap-2" href="mailto:hello@meetiosdev.com" onclick="trackClick('Email')">
                             <span class="material-symbols-outlined" data-icon="mail">mail</span>
                             Email Me
                         </a>
-                        <a class="w-full md:w-auto px-8 py-4 border-2 border-primary text-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all active:scale-95 flex items-center justify-center gap-2" href="./resume/">
+                        <a class="w-full md:w-auto px-8 py-4 border-2 border-primary text-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all active:scale-95 flex items-center justify-center gap-2" href="./resume/" onclick="trackClick('Resume')">
                             <span class="material-symbols-outlined" data-icon="description">description</span>
                             View Resume
                         </a>
-                        <a class="w-full md:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2" href="https://wa.me/919878568733" target="_blank" rel="noopener noreferrer">
+                        <a class="w-full md:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2" href="https://wa.me/919878568733" target="_blank" rel="noopener noreferrer" onclick="trackClick('WhatsApp')">
                             <span class="material-symbols-outlined text-[20px]">chat</span>
                             WhatsApp
                         </a>
-                        <a class="w-full md:w-auto px-8 py-4 bg-surface-container-high text-on-background rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2" href="tel:+919878568733">
+                        <a class="w-full md:w-auto px-8 py-4 bg-surface-container-high text-on-background rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2" href="tel:+919878568733" onclick="trackClick('Phone')">
                             <span class="material-symbols-outlined" data-icon="call">call</span>
                             Call Me
                         </a>
@@ -287,13 +296,13 @@
         <div class="max-w-[1140px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8 font-['Inter'] text-xs uppercase tracking-widest">
             <p class="text-secondary">&copy; 2026 Swarajmeet. Built with Swift precision.</p>
             <div class="flex gap-4 flex-wrap justify-center">
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.linkedin.com/in/swarajmeet/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://github.com/meetiosdev" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://stackoverflow.com/users/10851721/meet-ios-developer" target="_blank" rel="noopener noreferrer">StackOverflow</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://twitter.com/Swarajmeet" target="_blank" rel="noopener noreferrer">Twitter (X)</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://instagram.com/swarajmeet" target="_blank" rel="noopener noreferrer">Instagram</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://t.me/meetheiosdev" target="_blank" rel="noopener noreferrer">Telegram</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.buymeacoffee.com/meetiosdev" target="_blank" rel="noopener noreferrer">Coffee</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.linkedin.com/in/swarajmeet/" target="_blank" rel="noopener noreferrer" onclick="trackClick('LinkedIn')">LinkedIn</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://github.com/meetiosdev" target="_blank" rel="noopener noreferrer" onclick="trackClick('GitHub')">GitHub</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://stackoverflow.com/users/10851721/meet-ios-developer" target="_blank" rel="noopener noreferrer" onclick="trackClick('StackOverflow')">StackOverflow</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://twitter.com/Swarajmeet" target="_blank" rel="noopener noreferrer" onclick="trackClick('Twitter')">Twitter (X)</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://instagram.com/swarajmeet" target="_blank" rel="noopener noreferrer" onclick="trackClick('Instagram')">Instagram</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://t.me/meetheiosdev" target="_blank" rel="noopener noreferrer" onclick="trackClick('Telegram')">Telegram</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.buymeacoffee.com/meetiosdev" target="_blank" rel="noopener noreferrer" onclick="trackClick('Coffee')">Coffee</a>
             </div>
         </div>
     </footer>

@@ -39,6 +39,15 @@ html_template = """<!DOCTYPE html>
       gtag('js', new Date());
 
       gtag('config', 'G-LXSRQY10PK');
+
+      function trackClick(name) {
+        if (typeof gtag === 'function') {
+          gtag('event', 'click', {
+            event_category: 'portfolio',
+            event_label: name
+          });
+        }
+      }
     </script>
     
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -274,7 +283,7 @@ for i, app in enumerate(apps):
                                 {desc}
                             </p>
                             
-                            <a href="{url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95">
+                            <a href="{url}" target="_blank" rel="noopener noreferrer" onclick="trackClick('App Store: {name}')" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95">
                                 <span class="material-symbols-outlined text-[18px]">download</span>
                                 View on App Store
                             </a>

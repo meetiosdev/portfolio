@@ -21,6 +21,15 @@
       gtag('js', new Date());
 
       gtag('config', 'G-LXSRQY10PK');
+
+      function trackClick(name) {
+        if (typeof gtag === 'function') {
+          gtag('event', 'click', {
+            event_category: 'portfolio',
+            event_label: name
+          });
+        }
+      }
     </script>
     
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -35,7 +44,7 @@
     
     <!-- Custom Top Bar -->
     <header class="h-16 bg-[#1a1b1e] border-b border-white/10 flex items-center justify-between px-4 md:px-8 shrink-0 relative z-10 shadow-md">
-        <a href="../" class="text-white flex items-center gap-2 hover:opacity-80 transition-opacity">
+        <a href="../" class="text-white flex items-center gap-2 hover:opacity-80 transition-opacity" onclick="trackClick('Resume Back')">
             <span class="material-symbols-outlined text-[20px]">arrow_back</span>
             <span class="font-bold tracking-tight hidden sm:block">Back to Portfolio</span>
         </a>
@@ -45,11 +54,11 @@
         </div>
         
         <div class="flex items-center gap-3">
-            <button onclick="shareResume()" class="flex items-center justify-center gap-2 px-4 py-2 bg-white/10 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-white/20 transition-colors active:scale-95">
+            <button onclick="trackClick('Resume Share'); shareResume()" class="flex items-center justify-center gap-2 px-4 py-2 bg-white/10 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-white/20 transition-colors active:scale-95">
                 <span class="material-symbols-outlined text-[18px]">share</span>
                 <span class="hidden sm:inline">Share</span>
             </button>
-            <a href="../assets/docs/ios_developer_swarajmeet_resume.pdf" download="Swarajmeet_Singh_iOS_Resume.pdf" class="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-blue-500 transition-colors active:scale-95 shadow-lg shadow-blue-900/50">
+            <a href="../assets/docs/ios_developer_swarajmeet_resume.pdf" download="Swarajmeet_Singh_iOS_Resume.pdf" class="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-blue-500 transition-colors active:scale-95 shadow-lg shadow-blue-900/50" onclick="trackClick('Resume Download')">
                 <span class="material-symbols-outlined text-[18px]">download</span>
                 <span class="hidden sm:inline">Download</span>
             </a>
