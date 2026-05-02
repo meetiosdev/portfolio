@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Swaraj | iOS Developer Portfolio</title>
+    
+    <!-- External Styles and Scripts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Load Tailwind config from external file -->
+    <script src="./assets/js/tailwind.config.js"></script>
+    <!-- Load Custom CSS -->
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body class="font-body-md text-body-md selection:bg-primary selection:text-on-primary">
+
+    <!-- TopNavBar -->
+    <header>
+        <nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-slate-200/50 shadow-[0_4px_30px_rgba(0,0,0,0.05)] h-20">
+            <div class="max-w-[1140px] mx-auto px-8 flex items-center justify-between h-full font-['Inter'] antialiased tracking-tight text-sm font-medium">
+                <span class="text-xl font-bold tracking-tighter text-slate-900">Swaraj.</span>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a class="text-slate-900 border-b-2 border-slate-900 pb-1" href="#home">Home</a>
+                    <a class="text-slate-500 hover:text-slate-900 transition-colors" href="#work">Work</a>
+                    <a class="text-slate-500 hover:text-slate-900 transition-colors" href="#experience">Experience</a>
+                    <a class="text-slate-500 hover:text-slate-900 transition-colors" href="#contact">Contact</a>
+                    <button class="active:scale-95 transition-transform duration-200 cursor-pointer" aria-label="Toggle Dark Mode">
+                        <span class="material-symbols-outlined text-slate-900" data-icon="dark_mode">dark_mode</span>
+                    </button>
+                </div>
+                <!-- Mobile Menu Trigger -->
+                <div class="md:hidden">
+                    <span class="material-symbols-outlined" data-icon="menu">menu</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="pt-[200px] pb-[120px] px-8" id="home">
+            <div class="max-w-[1140px] mx-auto flex flex-col items-center text-center">
+                <div class="mb-8 inline-block px-4 py-1.5 rounded-full border border-outline-variant bg-surface-container-low text-label-caps uppercase font-label-caps">
+                    Available for high-impact projects
+                </div>
+                <h1 class="font-display text-display text-on-background mb-6 max-w-3xl">
+                    Crafting Premium iOS Experiences
+                </h1>
+                <p class="font-body-lg text-body-lg text-secondary mb-10 max-w-2xl">
+                    Swaraj — Lead iOS & Mobile Developer. Building elegant, scalable, and user-centric applications for the modern mobile ecosystem.
+                </p>
+                <a class="px-8 py-4 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-opacity active:scale-95 duration-200 ios-shadow" href="#work">
+                    View My Work
+                </a>
+            </div>
+        </section>
+
+        <!-- Work Showcase (Bento-style Grid) -->
+        <section class="py-[120px] px-8 bg-surface-container-low" id="work">
+            <div class="max-w-[1140px] mx-auto">
+                <div class="flex items-end justify-between mb-16">
+                    <div>
+                        <h2 class="font-h1 text-h1 text-on-background mb-2">Featured Projects</h2>
+                        <p class="font-body-md text-body-md text-secondary">A selection of premium iOS applications built from the ground up.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                    
+                    <!-- Melpot -->
+                    <article class="md:col-span-8 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer transition-transform duration-300 hover:-translate-y-1">
+                        <div class="p-10 flex flex-col md:flex-row gap-10 items-center">
+                            <div class="flex-1">
+                                <div class="w-16 h-16 rounded-2xl bg-black mb-6 overflow-hidden flex items-center justify-center border border-slate-200">
+                                    <img alt="Melpot Icon" class="w-full h-full object-cover" src="./assets/images/melpot/appicon.png"/>
+                                </div>
+                                <span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">Lead iOS Developer</span>
+                                <h3 class="font-h2 text-h2 mb-4">Melpot</h3>
+                                <p class="font-body-md text-body-md text-secondary mb-8">Built core social features, real-time messaging, and secure user authentication system for this comprehensive social platform.</p>
+                                <button class="px-6 py-2 border border-outline rounded-full text-label-caps font-label-caps uppercase hover:bg-on-background hover:text-white transition-all">View Details</button>
+                            </div>
+                            <div class="flex-1 h-[400px] rounded-xl overflow-hidden flex items-center justify-center p-4">
+                                <img alt="Melpot UI Screenshot" class="h-full w-auto object-contain rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-500" src="./assets/images/melpot/0x0ss (6).png"/>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Franck Muller Labs -->
+                    <article class="md:col-span-4 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer transition-transform duration-300 hover:-translate-y-1">
+                        <div class="p-8 h-full flex flex-col">
+                            <div class="w-16 h-16 rounded-2xl bg-white mb-6 border border-slate-200 overflow-hidden">
+                                <img alt="Franck Muller Icon" class="w-full h-full object-cover" src="./assets/images/franck_muller/app_icon_1024.png"/>
+                            </div>
+                            <span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">iOS Developer</span>
+                            <h3 class="font-h2 text-h2 mb-4">Franck Muller Labs</h3>
+                            <p class="font-body-md text-body-md text-secondary mb-8">Created luxury lifestyle app with personalized horology recommendations and elite tracking features.</p>
+                            <div class="mt-auto overflow-hidden rounded-lg h-60 flex justify-center bg-slate-50">
+                                <img alt="Franck Muller UI Screenshot" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="./assets/images/franck_muller/0x0ss (6).png"/>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- MO - mobyyou -->
+                    <article class="md:col-span-4 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer transition-transform duration-300 hover:-translate-y-1">
+                        <div class="p-8 h-full flex flex-col">
+                            <div class="w-16 h-16 rounded-2xl bg-white mb-6 overflow-hidden border border-slate-200">
+                                <img alt="MO mobyyou Icon" class="w-full h-full object-cover" src="./assets/images/mo_mobyyou/app_icon_1024.png"/>
+                            </div>
+                            <span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">Lead Developer</span>
+                            <h3 class="font-h2 text-h2 mb-4">MO - mobyyou</h3>
+                            <p class="font-body-md text-body-md text-secondary mb-8">Built lifestyle platform with user preferences, seamless navigation, and engaging social sharing mechanics.</p>
+                            <div class="mt-auto overflow-hidden rounded-lg h-48 flex justify-center bg-slate-50">
+                                <img alt="MO mobyyou Screenshot" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="./assets/images/mo_mobyyou/0x0ss (6).png"/>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Droob -->
+                    <article class="md:col-span-4 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer transition-transform duration-300 hover:-translate-y-1">
+                        <div class="p-8 h-full flex flex-col">
+                            <div class="w-16 h-16 rounded-2xl bg-white mb-6 overflow-hidden border border-slate-200">
+                                <img alt="Droob Icon" class="w-full h-full object-cover" src="./assets/images/droob/0x0ss (6).png"/>
+                            </div>
+                            <span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">Lead Developer</span>
+                            <h3 class="font-h2 text-h2 mb-4">Droob</h3>
+                            <p class="font-body-md text-body-md text-secondary mb-8">Built a comprehensive logistics and business app featuring user management, real-time tracking, and analytics dashboard.</p>
+                            <div class="mt-auto overflow-hidden rounded-lg h-48 flex justify-center bg-slate-50">
+                                <img alt="Droob Screenshot" class="h-full w-full object-cover object-top group-hover:scale-110 transition-transform duration-500" src="./assets/images/droob/0x0ss (7).png"/>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Cabau -->
+                    <article class="md:col-span-4 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer transition-transform duration-300 hover:-translate-y-1">
+                        <div class="p-8 h-full flex flex-col">
+                            <div class="w-16 h-16 rounded-2xl bg-white mb-6 overflow-hidden border border-slate-200">
+                                <img alt="Cabau Icon" class="w-full h-full object-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/36/e9/2c/36e92c40-c0eb-433f-db1d-a0ceab602119/AppIcon-0-0-1x_U007emarketing-0-5-0-85-220.png/512x512bb.jpg"/>
+                            </div>
+                            <span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">iOS Developer</span>
+                            <h3 class="font-h2 text-h2 mb-4">Cabau</h3>
+                            <p class="font-body-md text-body-md text-secondary mb-8">Developed immersive fitness tracking app with high-quality step-by-step video workouts and progress monitoring.</p>
+                            <div class="mt-auto overflow-hidden rounded-lg h-48 flex justify-center bg-slate-50">
+                                <img alt="Cabau Screenshot" class="h-full w-full object-cover object-top group-hover:scale-110 transition-transform duration-500" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource112/v4/bb/d8/cf/bbd8cf6e-a43c-127d-dfa8-38c6d9df36cd/abc1ab87-e36d-44a3-830b-0d185414054a_1.jpg/392x696bb.jpg"/>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience & Skills -->
+        <section class="py-[120px] px-8 bg-white" id="experience">
+            <div class="max-w-[1140px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <!-- Experience Timeline -->
+                <div>
+                    <h2 class="font-h1 text-h1 text-on-background mb-12">Professional Journey</h2>
+                    <div class="space-y-12">
+                        <div class="relative pl-8 border-l-2 border-surface-container-highest">
+                            <div class="absolute -left-1.5 top-0 w-3 h-3 bg-primary rounded-full"></div>
+                            <span class="text-label-caps font-label-caps text-secondary mb-1 block">Present</span>
+                            <h4 class="font-h2 text-h2 text-on-background mb-1">Lead iOS Developer</h4>
+                            <p class="font-body-md text-body-md text-secondary mb-4">Pioneering mobile architecture and leading high-performance engineering teams to deliver world-class applications like Melpot and Droob.</p>
+                            <div class="flex gap-2 flex-wrap">
+                                <span class="px-3 py-1 bg-surface-container-low text-[10px] font-bold uppercase tracking-wider rounded-full border border-outline-variant">Team Leadership</span>
+                                <span class="px-3 py-1 bg-surface-container-low text-[10px] font-bold uppercase tracking-wider rounded-full border border-outline-variant">Architecture</span>
+                            </div>
+                        </div>
+                        <div class="relative pl-8 border-l-2 border-surface-container-highest">
+                            <div class="absolute -left-1.5 top-0 w-3 h-3 bg-surface-container-highest rounded-full"></div>
+                            <span class="text-label-caps font-label-caps text-secondary mb-1 block">Past</span>
+                            <h4 class="font-h2 text-h2 text-on-background mb-1">Senior Mobile Engineer</h4>
+                            <p class="font-body-md text-body-md text-secondary mb-4">Spearheaded the development of complex features, optimized app performance, and integrated real-time systems across diverse product verticals including lifestyle and fitness.</p>
+                        </div>
+                        <div class="relative pl-8 border-l-2 border-surface-container-highest">
+                            <div class="absolute -left-1.5 top-0 w-3 h-3 bg-surface-container-highest rounded-full"></div>
+                            <span class="text-label-caps font-label-caps text-secondary mb-1 block">Early Career</span>
+                            <h4 class="font-h2 text-h2 text-on-background mb-1">iOS Developer</h4>
+                            <p class="font-body-md text-body-md text-secondary mb-4">Focused on building intuitive user interfaces and integrating robust backend services into native iOS platforms.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Grid -->
+                <div>
+                    <h2 class="font-h1 text-h1 text-on-background mb-12">Technical Expertise</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-6 rounded-xl bg-surface-container-low border border-outline-variant flex flex-col gap-4 group hover:bg-on-background hover:text-white transition-all">
+                            <span class="material-symbols-outlined text-4xl" data-icon="developer_mode">developer_mode</span>
+                            <div>
+                                <h5 class="font-label-caps text-label-caps mb-1">iOS Development</h5>
+                                <p class="text-xs opacity-70">Swift, SwiftUI, UIKit, Combine</p>
+                            </div>
+                        </div>
+                        <div class="p-6 rounded-xl bg-surface-container-low border border-outline-variant flex flex-col gap-4 group hover:bg-on-background hover:text-white transition-all">
+                            <span class="material-symbols-outlined text-4xl" data-icon="architecture">architecture</span>
+                            <div>
+                                <h5 class="font-label-caps text-label-caps mb-1">Architecture</h5>
+                                <p class="text-xs opacity-70">MVVM, Clean Architecture, VIPER</p>
+                            </div>
+                        </div>
+                        <div class="p-6 rounded-xl bg-surface-container-low border border-outline-variant flex flex-col gap-4 group hover:bg-on-background hover:text-white transition-all">
+                            <span class="material-symbols-outlined text-4xl" data-icon="brush">brush</span>
+                            <div>
+                                <h5 class="font-label-caps text-label-caps mb-1">UI/UX Design</h5>
+                                <p class="text-xs opacity-70">Figma, Auto Layout, HIG</p>
+                            </div>
+                        </div>
+                        <div class="p-6 rounded-xl bg-surface-container-low border border-outline-variant flex flex-col gap-4 group hover:bg-on-background hover:text-white transition-all">
+                            <span class="material-symbols-outlined text-4xl" data-icon="terminal">terminal</span>
+                            <div>
+                                <h5 class="font-label-caps text-label-caps mb-1">Tools & DevOps</h5>
+                                <p class="text-xs opacity-70">Xcode, Git, CI/CD, Fastlane</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="py-[120px] px-8 bg-surface-container-low" id="contact">
+            <div class="max-w-[1140px] mx-auto text-center">
+                <div class="glass-card rounded-[40px] p-16 md:p-24 ios-shadow">
+                    <h2 class="font-display text-display mb-6">Let's build something great together</h2>
+                    <p class="font-body-lg text-body-lg text-secondary mb-12 max-w-2xl mx-auto">
+                        Currently open to discussing new opportunities, collaborations, or just talking shop about the latest in mobile tech.
+                    </p>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4 flex-wrap">
+                        <a class="w-full md:w-auto px-8 py-4 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-opacity active:scale-95 flex items-center justify-center gap-2" href="mailto:hello@meetiosdev.com">
+                            <span class="material-symbols-outlined" data-icon="mail">mail</span>
+                            Email Me
+                        </a>
+                        <a class="w-full md:w-auto px-8 py-4 border-2 border-primary text-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all active:scale-95 flex items-center justify-center gap-2" href="./assets/docs/ios_developer_swarajmeet_resume.pdf" target="_blank">
+                            <span class="material-symbols-outlined" data-icon="description">description</span>
+                            View Resume
+                        </a>
+                        <a class="w-full md:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2" href="https://wa.me/919878568733" target="_blank">
+                            <span class="material-symbols-outlined" data-icon="chat">chat</span>
+                            WhatsApp
+                        </a>
+                        <a class="w-full md:w-auto px-8 py-4 bg-surface-container-high text-on-background rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2" href="tel:+919878568733">
+                            <span class="material-symbols-outlined" data-icon="call">call</span>
+                            Call Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-20 border-t border-slate-100 bg-white">
+        <div class="max-w-[1140px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8 font-['Inter'] text-xs uppercase tracking-widest">
+            <p class="text-slate-400">&copy; 2026 Swaraj. Built with Swift precision.</p>
+            <div class="flex gap-4 flex-wrap justify-center">
+                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://www.linkedin.com/in/swarajmeet/" target="_blank">LinkedIn</a>
+                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://github.com/meetiosdev" target="_blank">GitHub</a>
+                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://stackoverflow.com/users/10851721/meet-ios-developer" target="_blank">StackOverflow</a>
+                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://twitter.com/Swarajmeet" target="_blank">Twitter (X)</a>
+                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://instagram.com/swarajmeet" target="_blank">Instagram</a>
+                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://t.me/meetheiosdev" target="_blank">Telegram</a>
+                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://www.buymeacoffee.com/meetiosdev" target="_blank">Coffee</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

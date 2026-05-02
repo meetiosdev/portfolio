@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#1b1b1b",
+                    "surface-container-highest": "#e2e2e2",
+                    "surface-container-high": "#e8e8e8",
+                    "surface-variant": "#e2e2e2",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#1a1c1f",
+                    "on-secondary-container": "#626267",
+                    "on-secondary-fixed": "#1a1b1f",
+                    "secondary-fixed": "#e3e2e7",
+                    "surface-bright": "#f9f9f9",
+                    "tertiary-fixed-dim": "#c6c6cb",
+                    "outline-variant": "#cfc4c5",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#e2e2e7",
+                    "surface-container": "#eeeeee",
+                    "background": "#f9f9f9",
+                    "surface-dim": "#dadada",
+                    "tertiary": "#000000",
+                    "primary": "#000000",
+                    "on-primary-fixed-variant": "#474747",
+                    "on-primary-fixed": "#1b1b1b",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#1b1b1b",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#5d5e63",
+                    "on-surface-variant": "#4c4546",
+                    "error": "#ba1a1a",
+                    "surface": "#f9f9f9",
+                    "secondary-container": "#e0dfe4",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#303030",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#5e5e5e",
+                    "primary-fixed": "#e2e2e2",
+                    "on-tertiary-container": "#828488",
+                    "inverse-primary": "#c6c6c6",
+                    "on-primary-container": "#848484",
+                    "outline": "#7e7576",
+                    "on-secondary-fixed-variant": "#46464b",
+                    "on-surface": "#1b1b1b",
+                    "secondary-fixed-dim": "#c6c6cb",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#f1f1f1",
+                    "surface-container-low": "#f3f3f3",
+                    "tertiary-container": "#1a1c1f",
+                    "on-tertiary-fixed-variant": "#45474b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1140px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px",
+                    "stack-md": "16px",
+                    "gutter": "24px",
+                    "unit": "8px",
+                    "section-padding": "120px"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "h1": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "h2": ["Inter"],
+                    "display": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.06em", "fontWeight": "600"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.017em", "fontWeight": "600"}],
+                    "body-lg": ["19px", {"lineHeight": "1.5", "letterSpacing": "-0.011em", "fontWeight": "400"}],
+                    "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.014em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.022em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "-0.006em", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(209, 211, 214, 0.5);
+        }
+        .ios-shadow {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+        body {
+            background-color: #f9f9f9;
+            color: #1b1b1b;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-slate-200/50 shadow-[0_4px_30px_rgba(0,0,0,0.05)] h-20">
+<div class="max-w-[1140px] mx-auto px-8 flex items-center justify-between h-full font-['Inter'] antialiased tracking-tight text-sm font-medium">
+<span class="text-xl font-bold tracking-tighter text-slate-900">iOS Dev Portfolio</span>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-slate-900 border-b-2 border-slate-900 pb-1" href="#home">Home</a>
+<a class="text-slate-500 hover:text-slate-900 transition-colors" href="#work">Work</a>
+<a class="text-slate-500 hover:text-slate-900 transition-colors" href="#experience">Experience</a>
+<a class="text-slate-500 hover:text-slate-900 transition-colors" href="#contact">Contact</a>
+<button class="active:scale-95 transition-transform duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-slate-900" data-icon="dark_mode">dark_mode</span>
+</button>
+</div>
+<!-- Mobile Menu Trigger (Simple) -->
+<div class="md:hidden">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="pt-[200px] pb-[120px] px-8" id="home">
+<div class="max-w-[1140px] mx-auto flex flex-col items-center text-center">
+<div class="mb-8 inline-block px-4 py-1.5 rounded-full border border-outline-variant bg-surface-container-low text-label-caps uppercase font-label-caps">
+                Available for high-impact projects
+            </div>
+<h1 class="font-display text-display text-on-background mb-6 max-w-3xl">
+                Crafting Premium iOS Experiences
+            </h1>
+<p class="font-body-lg text-body-lg text-secondary mb-10 max-w-2xl">
+                Swaraj — Lead iOS &amp; Mobile Developer. Building elegant, scalable, and user-centric applications for the modern mobile ecosystem.
+            </p>
+<a class="px-8 py-4 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-opacity active:scale-95 duration-200 ios-shadow" href="#work">
+                View My Work
+            </a>
+</div>
+</section>
+<!-- Work Showcase (Bento-style Grid) -->
+<section class="py-[120px] px-8 bg-surface-container-low" id="work">
+<div class="max-w-[1140px] mx-auto">
+<div class="flex items-end justify-between mb-16">
+<div>
+<h2 class="font-h1 text-h1 text-on-background mb-2">Featured Projects</h2>
+<p class="font-body-md text-body-md text-secondary">A selection of premium iOS applications built from the ground up.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Melpot -->
+<div class="md:col-span-8 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer">
+<div class="p-10 flex flex-col md:flex-row gap-10 items-center">
+<div class="flex-1">
+<div class="w-16 h-16 rounded-2xl bg-black mb-6 overflow-hidden">
+<img alt="Melpot Icon" class="w-full h-full object-cover" data-alt="A sophisticated iOS app icon for a social network named Melpot, showcasing a minimalist geometric logo rendered in a sleek metallic silver against a deep obsidian background. The lighting is focused and professional, giving it a premium feel that aligns with a high-end mobile aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNefZIxdEvbLN_leMbs0egnAfV1pj_Bg0pCyRljAjRLCdlz0ePnYEJ3rvYfJnr3iOM649OZNv5R7SVbEdzUxKb9SZW_C0e2X51-KUk8hwa39kXwShSMCXyQ-zgLvwgKccQOA8bfG00S6WaBixGWVHYMbhz_l6cC2UOzUkhZNQxSym_0sg4XDOi_ohaKgQPmK2QAPv83gshcwAK5h1O1hu4tv1DcbxDZWKClo9wRp-a6O0kI6pnUciAU6-8W8Zve1U7THgyJhIQtKhx"/>
+</div>
+<span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">Lead iOS Developer</span>
+<h3 class="font-h2 text-h2 mb-4">Melpot</h3>
+<p class="font-body-md text-body-md text-secondary mb-8">A next-generation social platform focused on meaningful human connections through refined UX and fluid Swift animations.</p>
+<button class="px-6 py-2 border border-outline rounded-full text-label-caps font-label-caps uppercase hover:bg-on-background hover:text-white transition-all">View Details</button>
+</div>
+<div class="flex-1 h-[400px] bg-surface-container-highest rounded-xl overflow-hidden">
+<img alt="Melpot UI" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A premium iPhone 15 Pro mockup displaying a sophisticated social media interface. The design features soft glassmorphism blur effects, clean Inter typography, and high-quality photography. The scene is illuminated by soft studio lights creating realistic reflections on the glass surface of the phone, maintaining a high-end light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzsLXe-bjasYFYkXJA0W9ADLDapuIAjJXBeXilmPftJFIZNXOBH9uC__3t6wh5fZbFLvVmo2g4S6EUDFDEdmx0Hmcaxx50cbYqzxN-C6hoWhqJyNvPMUQzs_7_w4yyQBqQ4U3946wqx7dADOBZztdUAEXunC9uT9KmmH-4a7Ku-zaFq43lPD5tKNLny7XttjnNgghc2oI76Eaeoq57YhN4CaFZQX4RNOza34mKUbIXgE8JjbS93ZUOXcauKTjbaPol4HjfsBUiAwqC"/>
+</div>
+</div>
+</div>
+<!-- Franck Muller Labs -->
+<div class="md:col-span-4 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer">
+<div class="p-8 h-full flex flex-col">
+<div class="w-16 h-16 rounded-2xl bg-white mb-6 border border-slate-100 overflow-hidden">
+<img alt="Franck Muller Icon" class="w-full h-full object-cover" data-alt="A luxurious minimalist app icon for Franck Muller Labs, featuring a refined monogram in brushed gold textures on a pristine white background. The visual style is elegant and high-end, utilizing soft ambient occlusion shadows to give depth to the metallic elements, perfectly fitting the luxury brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnG1-qeuHn811nA2eVCModQy_oR9bndo2Hlau9ot69jE-kvCqZV-jFS1u82mLLo3WbDcBz6fN5zygrdi2_6_KAEwiAnqQ4h0rdq-jjnvPCwHXjEDWLQexZ1iOyCnBdKZBarVaUmvlj-ZNOkvmjYQtkAYUskWJ2w9AxOeDTRN_VAnQjfagCn7XMlfCPb0ihH63hYWCjQskA2tiupMHefn0Tctjm9z5CEWtur--sCDhlGuckSmGX79pSxQjyNEG3YBASiqh42q4CnfVo"/>
+</div>
+<span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">Swift Specialist</span>
+<h3 class="font-h2 text-h2 mb-4">Franck Muller Labs</h3>
+<p class="font-body-md text-body-md text-secondary mb-8">Bridging luxury horology with digital craftsmanship for elite clientele.</p>
+<div class="mt-auto overflow-hidden rounded-lg h-60">
+<img alt="Franck Muller UI" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A high-fidelity digital interface for a luxury watch application, displaying intricate watch complications with gold and slate grey accents. The UI is clean and sophisticated, presented in a high-key lighting environment that suggests a premium and modern atelier setting. The mood is one of technical precision and timeless elegance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuMLemOQ1G3K2kn4MKwfTF4rNeYAOwhWuFF7fIN_225fGnTBz47fDIfCOhs448vjJBWKMdAGSZJo4Z55-IUOUyiFu_9ZHfnfXglkw-v-sca8T3np9qClG0AvxCbtMtc-b-GlHBTPuT2dEDShdr3FvbpeSuy0QjSr34LEZnoqczoJRB9ka0-PqG1vs2dWhpsAxqdsZBCXfZ8fyx1YBzrZOTEUhkc0QRp1QwTK7RYyzp9Oms-hM85gBE9Q7NwTAJlqc-qKnyZkvADQib"/>
+</div>
+</div>
+</div>
+<!-- MO -->
+<div class="md:col-span-4 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer">
+<div class="p-8 h-full flex flex-col">
+<div class="w-16 h-16 rounded-2xl bg-tertiary mb-6 overflow-hidden">
+<img alt="MO Icon" class="w-full h-full object-cover" data-alt="A minimalist app icon featuring a bold, rounded monogram of the letters MO. The color palette is a sophisticated mix of deep charcoal and bone white, rendered with a matte finish. The design is clean and balanced, epitomizing modern mobile design standards with its simple yet impactful geometric form." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm7HP2Qghmk7LDjl4Qy-jQVnfPCo6tlTiuG6cPsHmeGZyftH_2QQeONrBJUItxiBMMBLGjj-ci-TuZkVYehcQHk2w2THJQ4np8uprRxQw7vA3zbdf-trglPJh78OjOIj179fVfX2tR_PQn71VwsnqwGhMV7TcGf94TCGYTNIZQXiFR2HDPGMc4D1Tf3RvSdZ_VJeE_TG2RrIPhWX-rtGa6P5Kk6u8F1uMUPY-wulK-ffEUGQxRKz9wVRiUFyXao1rRqrOqVadaY2uR"/>
+</div>
+<span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">iOS Lead</span>
+<h3 class="font-h2 text-h2 mb-4">MO</h3>
+<p class="font-body-md text-body-md text-secondary mb-8">Redefining urban mobility through a streamlined, map-first iOS utility.</p>
+</div>
+</div>
+<!-- Droob -->
+<div class="md:col-span-4 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer">
+<div class="p-8 h-full flex flex-col">
+<div class="w-16 h-16 rounded-2xl bg-on-primary-fixed-variant mb-6 overflow-hidden">
+<img alt="Droob Icon" class="w-full h-full object-cover" data-alt="An abstract app icon for the Droob delivery service, featuring vibrant blue and crisp white organic shapes that suggest fluid movement. The design is clean and energetic, set against a bright, minimalist background with soft, diffused lighting that enhances its modern and reliable feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBh9Uvi911u4M9XbEe0FWQQeqOXCYDtDjTbDzpdiOuel7SqqyNsn4ufm_6N6e0BYX9CvwC0W3En_7yFTOnM9XrFCgSbwvynP1A0Me-qezx8eJXT9WUPqklUuNRGF4Pxy_PVH4K0nxFRbgBmR0HF1q-drs4fK3oK7FUR0lyO3mGRgBwEJabApnd0ef0IvFrPz0hoICwhXAn7GfaK0lx2J0XjRTEHAGBGcSk1Wyw1ywyBhz9hVuZxbCat_vD2j6TXImyL6W2_SbDDLycK"/>
+</div>
+<span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">Senior Mobile Dev</span>
+<h3 class="font-h2 text-h2 mb-4">Droob</h3>
+<p class="font-body-md text-body-md text-secondary mb-8">Complex logistics simplified for the end-user with real-time tracking.</p>
+</div>
+</div>
+<!-- Cabau -->
+<div class="md:col-span-4 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer">
+<div class="p-8 h-full flex flex-col">
+<div class="w-16 h-16 rounded-2xl bg-secondary-container mb-6 overflow-hidden">
+<img alt="Cabau Icon" class="w-full h-full object-cover" data-alt="A minimalist wellness and fitness app icon for Cabau, using soft terracotta and cream tones. The design features a modern serif font with elegant curves, set in a high-key, warm-lit environment. The aesthetic is serene and health-focused, reflecting a premium lifestyle brand through its clean and balanced composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNnB2pnj2lY1l9afmsEDGAxMJHJO_GXammmd3YtpTono3Dc76Tgfql2Pe9zLHZt4kmIkX67S7TX4BM2MlD1_JSQaNueyxItkCIlM_I4hveuYd7Fv6Qs1EqUPyJiTQM4h2OlqRf55rD86pTSWj-L8hqwau4n2B1eXZuzEfTbKajQCQYn3EmdYCiuWfhNuztsrz6zYrQ8uGeloW8H3pNMMzFLI2m7g3yv_HFJf9obJEbig2kFeiZ08wQ0WSkgoCo4cabShtHnI3NtYqI"/>
+</div>
+<span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">Lead iOS Engineer</span>
+<h3 class="font-h2 text-h2 mb-4">Cabau</h3>
+<p class="font-body-md text-body-md text-secondary mb-8">An immersive health and lifestyle app designed for peak daily performance.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Experience & Skills -->
+<section class="py-[120px] px-8 bg-white" id="experience">
+<div class="max-w-[1140px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
+<!-- Experience Timeline -->
+<div>
+<h2 class="font-h1 text-h1 text-on-background mb-12">Professional Journey</h2>
+<div class="space-y-12">
+<div class="relative pl-8 border-l-2 border-surface-container-highest">
+<div class="absolute -left-1.5 top-0 w-3 h-3 bg-primary rounded-full"></div>
+<span class="text-label-caps font-label-caps text-secondary mb-1 block">2022 — Present</span>
+<h4 class="font-h2 text-h2 text-on-background mb-1">Lead iOS Developer</h4>
+<p class="font-body-md text-body-md text-secondary mb-4">Pioneering mobile architecture and leading high-performance engineering teams to deliver world-class applications.</p>
+<div class="flex gap-2 flex-wrap">
+<span class="px-3 py-1 bg-surface-container-low text-[10px] font-bold uppercase tracking-wider rounded-full border border-outline-variant">Team Leadership</span>
+<span class="px-3 py-1 bg-surface-container-low text-[10px] font-bold uppercase tracking-wider rounded-full border border-outline-variant">Architecture</span>
+</div>
+</div>
+<div class="relative pl-8 border-l-2 border-surface-container-highest">
+<div class="absolute -left-1.5 top-0 w-3 h-3 bg-surface-container-highest rounded-full"></div>
+<span class="text-label-caps font-label-caps text-secondary mb-1 block">2019 — 2022</span>
+<h4 class="font-h2 text-h2 text-on-background mb-1">Senior Mobile Engineer</h4>
+<p class="font-body-md text-body-md text-secondary mb-4">Spearheaded the development of complex features and optimized app performance across diverse product verticals.</p>
+</div>
+<div class="relative pl-8 border-l-2 border-surface-container-highest">
+<div class="absolute -left-1.5 top-0 w-3 h-3 bg-surface-container-highest rounded-full"></div>
+<span class="text-label-caps font-label-caps text-secondary mb-1 block">2017 — 2019</span>
+<h4 class="font-h2 text-h2 text-on-background mb-1">iOS Developer</h4>
+<p class="font-body-md text-body-md text-secondary mb-4">Focused on building intuitive user interfaces and integrating robust backend services into iOS platforms.</p>
+</div>
+</div>
+</div>
+<!-- Skills Grid -->
+<div>
+<h2 class="font-h1 text-h1 text-on-background mb-12">Technical Expertise</h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-6 rounded-xl bg-surface-container-low border border-outline-variant flex flex-col gap-4 group hover:bg-on-background hover:text-white transition-all">
+<span class="material-symbols-outlined text-4xl" data-icon="developer_mode">developer_mode</span>
+<div>
+<h5 class="font-label-caps text-label-caps mb-1">iOS Development</h5>
+<p class="text-xs opacity-70">Swift, SwiftUI, UIKit, Combine</p>
+</div>
+</div>
+<div class="p-6 rounded-xl bg-surface-container-low border border-outline-variant flex flex-col gap-4 group hover:bg-on-background hover:text-white transition-all">
+<span class="material-symbols-outlined text-4xl" data-icon="architecture">architecture</span>
+<div>
+<h5 class="font-label-caps text-label-caps mb-1">Architecture</h5>
+<p class="text-xs opacity-70">MVVM, Clean Architecture, VIPER</p>
+</div>
+</div>
+<div class="p-6 rounded-xl bg-surface-container-low border border-outline-variant flex flex-col gap-4 group hover:bg-on-background hover:text-white transition-all">
+<span class="material-symbols-outlined text-4xl" data-icon="brush">brush</span>
+<div>
+<h5 class="font-label-caps text-label-caps mb-1">UI/UX Design</h5>
+<p class="text-xs opacity-70">Figma, Prototyping, Human Interface Guidelines</p>
+</div>
+</div>
+<div class="p-6 rounded-xl bg-surface-container-low border border-outline-variant flex flex-col gap-4 group hover:bg-on-background hover:text-white transition-all">
+<span class="material-symbols-outlined text-4xl" data-icon="terminal">terminal</span>
+<div>
+<h5 class="font-label-caps text-label-caps mb-1">Tools</h5>
+<p class="text-xs opacity-70">Xcode, Git, CI/CD, Fastlane</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-[120px] px-8 bg-surface-container-low" id="contact">
+<div class="max-w-[1140px] mx-auto text-center">
+<div class="glass-card rounded-[40px] p-16 md:p-24 ios-shadow">
+<h2 class="font-display text-display mb-6">Let's build something great together</h2>
+<p class="font-body-lg text-body-lg text-secondary mb-12 max-w-2xl mx-auto">
+                    Currently open to discussing new opportunities, collaborations, or just talking shop about the latest in mobile tech.
+                </p>
+<div class="flex flex-col md:flex-row items-center justify-center gap-6">
+<a class="w-full md:w-auto px-10 py-5 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-opacity active:scale-95 flex items-center justify-center gap-3" href="mailto:hello@swaraj.dev">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+                        Email Me
+                    </a>
+<a class="w-full md:w-auto px-10 py-5 border-2 border-primary text-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all active:scale-95 flex items-center justify-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                        Resume
+                    </a>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full py-20 border-t border-slate-100 bg-white">
+<div class="max-w-[1140px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8 font-['Inter'] text-xs uppercase tracking-widest">
+<p class="text-slate-400">© 2024 iOS Developer Portfolio. Built with Swift precision.</p>
+<div class="flex gap-10">
+<a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="#">LinkedIn</a>
+<a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="#">GitHub</a>
+<a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="#">Twitter</a>
+</div>
+</div>
+</footer>
+</body></html>

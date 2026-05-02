@@ -1,0 +1,12 @@
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(209, 211, 214, 0.5);
+}
+.ios-shadow {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+body {
+    background-color: #f9f9f9;
+    color: #1b1b1b;
+}
