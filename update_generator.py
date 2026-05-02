@@ -130,6 +130,9 @@ html_template = """<!DOCTYPE html>
 def fix_path(path):
     if not path: return ""
     if path.startswith("http"): return path
+    if "assets/images/" in path:
+        idx = path.find("assets/images/")
+        return "../" + path[idx:]
     path = path.replace("./", "")
     path = path.replace("_local", "")
     return f"../assets/images/{path}"
