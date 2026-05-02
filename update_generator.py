@@ -43,7 +43,7 @@ html_template = """<!DOCTYPE html>
                 </div>
                 <div class="flex items-center gap-6">
                     <button id="theme-toggle" class="active:scale-95 transition-transform duration-200 cursor-pointer" aria-label="Toggle Dark Mode">
-                        <span id="theme-toggle-icon" class="material-symbols-outlined text-on-background" data-icon="dark_mode">dark_mode</span>
+                        <span id="theme-toggle-icon" class="material-symbols-outlined text-on-background transition-all duration-300" data-icon="dark_mode">dark_mode</span>
                     </button>
                     <!-- Mobile Menu Trigger -->
                     <div class="md:hidden flex items-center">
@@ -126,14 +126,25 @@ html_template = """<!DOCTYPE html>
         }
 
         themeToggleBtn.addEventListener('click', function() {
-            document.documentElement.classList.toggle('dark');
-            if (document.documentElement.classList.contains('dark')) {
-                localStorage.setItem('theme', 'dark');
-                themeToggleIcon.textContent = 'light_mode';
-            } else {
-                localStorage.setItem('theme', 'light');
-                themeToggleIcon.textContent = 'dark_mode';
-            }
+            themeToggleIcon.style.transform = 'rotate(90deg) scale(0.5)';
+            themeToggleIcon.style.opacity = '0';
+            
+            setTimeout(() => {
+                document.documentElement.classList.toggle('dark');
+                if (document.documentElement.classList.contains('dark')) {
+                    localStorage.setItem('theme', 'dark');
+                    themeToggleIcon.textContent = 'light_mode';
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    themeToggleIcon.textContent = 'dark_mode';
+                }
+                
+                themeToggleIcon.style.transform = 'rotate(-90deg) scale(0.5)';
+                void themeToggleIcon.offsetWidth; // Force reflow
+                
+                themeToggleIcon.style.transform = 'rotate(0deg) scale(1)';
+                themeToggleIcon.style.opacity = '1';
+            }, 150);
         });
 
         // App Store Live Sync Logic
