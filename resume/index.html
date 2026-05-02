@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Resume | Swaraj - iOS Developer</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1b1e">
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#1a1b1e] h-[100dvh] flex flex-col m-0 overflow-hidden">
+    
+    <!-- Custom Top Bar -->
+    <header class="h-16 bg-[#1a1b1e] border-b border-white/10 flex items-center justify-between px-4 md:px-8 shrink-0 relative z-10 shadow-md">
+        <a href="../" class="text-white flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+            <span class="font-bold tracking-tight hidden sm:block">Back to Portfolio</span>
+        </a>
+        
+        <div class="text-white/80 font-medium text-sm hidden md:block">
+            Swarajmeet Singh - iOS Developer Resume
+        </div>
+        
+        <div class="flex items-center gap-3">
+            <button onclick="shareResume()" class="flex items-center justify-center gap-2 px-4 py-2 bg-white/10 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-white/20 transition-colors active:scale-95">
+                <span class="material-symbols-outlined text-[18px]">share</span>
+                <span class="hidden sm:inline">Share</span>
+            </button>
+            <a href="../assets/docs/ios_developer_swarajmeet_resume.pdf" download="Swarajmeet_Singh_iOS_Resume.pdf" class="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-blue-500 transition-colors active:scale-95 shadow-lg shadow-blue-900/50">
+                <span class="material-symbols-outlined text-[18px]">download</span>
+                <span class="hidden sm:inline">Download</span>
+            </a>
+        </div>
+    </header>
+    
+    <!-- PDF Viewer -->
+    <main class="flex-1 w-full relative bg-[#121212]">
+        <!-- PDF embed fallback to iframe for widest compatibility -->
+        <iframe src="../assets/docs/ios_developer_swarajmeet_resume.pdf" class="absolute inset-0 w-full h-full border-0" title="Resume">
+            <p>Your browser does not support PDFs. <a href="../assets/docs/ios_developer_swarajmeet_resume.pdf">Download the PDF</a>.</p>
+        </iframe>
+    </main>
+    
+    <script>
+        function shareResume() {
+            const shareData = {
+                title: 'Swarajmeet Singh - Lead iOS Developer',
+                text: 'Check out Swarajmeet\'s iOS Developer resume and portfolio!',
+                url: window.location.href
+            };
+            
+            if (navigator.share) {
+                navigator.share(shareData)
+                    .then(() => console.log('Resume shared successfully'))
+                    .catch((error) => console.error('Error sharing:', error));
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('Resume link copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy link: ', err);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
