@@ -84,7 +84,6 @@ html_template = """<!DOCTYPE html>
 def fix_path(path):
     if not path: return ""
     if path.startswith("http"): return path
-    # replace ./folder_local with ../assets/images/folder
     path = path.replace("./", "")
     path = path.replace("_local", "")
     return f"../assets/images/{path}"
@@ -98,7 +97,7 @@ for i, app in enumerate(apps):
     
     screenshots = app.get("screenshots", [])
     screenshots_html = ""
-    for s in screenshots[:4]:  # Show up to 4 screenshots
+    for s in screenshots[:4]:  
         s_src = fix_path(s)
         screenshots_html += f'<img src="{s_src}" class="h-80 w-auto object-cover rounded-xl shadow-md border border-outline-variant" alt="{name} Screenshot"/>\n'
     
@@ -106,6 +105,12 @@ for i, app in enumerate(apps):
     url = app.get("url", "#")
     category = app.get("category", "")
     release = app.get("release_date_human", "")
+    
+    tags_html = ""
+    if category:
+        tags_html += f'<span class="px-3 py-1 bg-surface text-[10px] font-bold uppercase tracking-wider rounded-full border border-outline-variant text-secondary">{category}</span>\n'
+    if release:
+        tags_html += f'<span class="px-3 py-1 bg-surface text-[10px] font-bold uppercase tracking-wider rounded-full border border-outline-variant text-secondary">{release}</span>\n'
     
     project_html = f"""
                 <article class="bg-surface-container-low dark:bg-surface-container rounded-[32px] p-8 md:p-12 border border-outline-variant ios-shadow">
@@ -120,8 +125,7 @@ for i, app in enumerate(apps):
                             </div>
                             
                             <div class="flex flex-wrap gap-2 mb-8">
-                                <span class="px-3 py-1 bg-surface text-[10px] font-bold uppercase tracking-wider rounded-full border border-outline-variant text-secondary">{category}</span>
-                                <span class="px-3 py-1 bg-surface text-[10px] font-bold uppercase tracking-wider rounded-full border border-outline-variant text-secondary">{release}</span>
+                                {tags_html}
                             </div>
                             
                             <p class="font-body-md text-body-md text-secondary leading-relaxed mb-8 max-w-2xl">
@@ -149,4 +153,4 @@ final_html = html_template.replace("{projects_html}", projects_html)
 with open('project/index.html', 'w') as f:
     f.write(final_html)
 
-print("Generated project/index.html with correct paths")
+print("Regenerated project/index.html with fixed empty tags")
