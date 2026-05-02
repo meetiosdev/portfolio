@@ -1,4 +1,6 @@
 import json
+import re
+import html
 from datetime import datetime
 
 with open('data/app_data_maximum.json', 'r') as f:
@@ -25,6 +27,9 @@ html_template = """<!DOCTYPE html>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://itunes.apple.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: http:; connect-src 'self'; frame-src 'self'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
     
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -203,22 +208,26 @@ projects_html = ""
 app_ids = []
 
 for i, app in enumerate(apps):
-    name = app.get("name", "")
-    desc = app.get("description", "").replace("\n", "<br>")
-    icon = fix_path(app.get("icon", ""))
+    # Sanitize inputs (OWASP A03:2021)
+    name = html.escape(str(app.get("name", "")), quote=True)
+    desc = html.escape(str(app.get("description", "")), quote=True).replace("\n", "<br>")
+    icon = html.escape(fix_path(app.get("icon", "")), quote=True)
     
     screenshots = app.get("screenshots", [])
     screenshots_html = ""
     for s in screenshots[:4]:  
-        s_src = fix_path(s)
+        s_src = html.escape(fix_path(s), quote=True)
         screenshots_html += f'<img src="{s_src}" class="h-80 w-auto object-cover rounded-xl shadow-md border border-outline-variant" alt="{name} Screenshot"/>\n'
     
-    role = app.get("my_role", "iOS Developer")
-    url = app.get("url", "#")
-    category = app.get("category", "")
-    release = app.get("release_date_human", "")
-    version = app.get("version", "1.0")
-    app_id = app.get("app_store_id", "")
+    role = html.escape(str(app.get("my_role", "iOS Developer")), quote=True)
+    url = html.escape(str(app.get("url", "#")), quote=True)
+    category = html.escape(str(app.get("category", "")), quote=True)
+    release = html.escape(str(app.get("release_date_human", "")), quote=True)
+    version = html.escape(str(app.get("version", "1.0")), quote=True)
+    
+    # Strict validation for app_id (alphanumeric only)
+    raw_app_id = str(app.get("app_store_id", ""))
+    app_id = "".join(c for c in raw_app_id if c.isalnum())
     
     if app_id:
         app_ids.append(app_id)
@@ -255,7 +264,7 @@ for i, app in enumerate(apps):
                                 {desc}
                             </p>
                             
-                            <a href="{url}" target="_blank" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95">
+                            <a href="{url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95">
                                 <span class="material-symbols-outlined text-[18px]">download</span>
                                 View on App Store
                             </a>

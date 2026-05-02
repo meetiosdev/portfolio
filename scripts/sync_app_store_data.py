@@ -4,10 +4,8 @@ import os
 import ssl
 from datetime import datetime
 
-# Bypass SSL verification issues if any
+# Ensure strict SSL verification (OWASP A07:2021)
 ctx = ssl.create_default_context()
-ctx.check_hostname = False
-ctx.verify_mode = ssl.CERT_NONE
 
 with open('data/app_data_maximum.json', 'r') as f:
     apps = json.load(f)
@@ -75,7 +73,14 @@ for app in apps:
         if len(parts) > 1:
             safe_name = parts[1].split('/')[0]
             
-    img_dir = os.path.join('assets', 'images', safe_name)
+    # Secure Path Traversal Protection (OWASP A01:2021)
+    base_img_dir = os.path.abspath(os.path.join('assets', 'images'))
+    img_dir = os.path.abspath(os.path.join(base_img_dir, safe_name))
+    
+    if not img_dir.startswith(base_img_dir):
+        print(f"SECURITY ALERT: Path traversal attempt detected for {safe_name}. Skipping.")
+        continue
+        
     os.makedirs(img_dir, exist_ok=True)
     
     # Download Icon

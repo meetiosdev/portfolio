@@ -9,6 +9,9 @@
     <!-- iOS Glassy Status Bar -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://itunes.apple.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: http:; connect-src 'self'; frame-src 'self'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
     
     <!-- External Styles and Scripts -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -255,8 +258,8 @@
                             <span class="material-symbols-outlined" data-icon="description">description</span>
                             View Resume
                         </a>
-                        <a class="w-full md:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2" href="https://wa.me/919878568733" target="_blank">
-                            <span class="material-symbols-outlined" data-icon="chat">chat</span>
+                        <a class="w-full md:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2" href="https://wa.me/919878568733" target="_blank" rel="noopener noreferrer">
+                            <span class="material-symbols-outlined text-[20px]">chat</span>
                             WhatsApp
                         </a>
                         <a class="w-full md:w-auto px-8 py-4 bg-surface-container-high text-on-background rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2" href="tel:+919878568733">
@@ -274,13 +277,13 @@
         <div class="max-w-[1140px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8 font-['Inter'] text-xs uppercase tracking-widest">
             <p class="text-secondary">&copy; 2026 Swarajmeet. Built with Swift precision.</p>
             <div class="flex gap-4 flex-wrap justify-center">
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.linkedin.com/in/swarajmeet/" target="_blank">LinkedIn</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://github.com/meetiosdev" target="_blank">GitHub</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://stackoverflow.com/users/10851721/meet-ios-developer" target="_blank">StackOverflow</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://twitter.com/Swarajmeet" target="_blank">Twitter (X)</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://instagram.com/swarajmeet" target="_blank">Instagram</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://t.me/meetheiosdev" target="_blank">Telegram</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.buymeacoffee.com/meetiosdev" target="_blank">Coffee</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.linkedin.com/in/swarajmeet/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://github.com/meetiosdev" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://stackoverflow.com/users/10851721/meet-ios-developer" target="_blank" rel="noopener noreferrer">StackOverflow</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://twitter.com/Swarajmeet" target="_blank" rel="noopener noreferrer">Twitter (X)</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://instagram.com/swarajmeet" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://t.me/meetheiosdev" target="_blank" rel="noopener noreferrer">Telegram</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.buymeacoffee.com/meetiosdev" target="_blank" rel="noopener noreferrer">Coffee</a>
             </div>
         </div>
     </footer>
