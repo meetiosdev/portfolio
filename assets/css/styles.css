@@ -1,12 +1,55 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --on-background: #1b1b1b;
+    --surface-container-highest: #e2e2e2;
+    --surface-container-high: #e8e8e8;
+    --outline-variant: #cfc4c5;
+    --surface-container: #eeeeee;
+    --background: #f9f9f9;
+    --primary: #000000;
+    --on-primary: #ffffff;
+    --secondary: #5d5e63;
+    --surface: #ffffff;
+    --outline: #7e7576;
+    --surface-container-low: #f3f3f3;
+  }
+
+  .dark {
+    --on-background: #f5f5f7;
+    --surface-container-highest: #3a3a3c;
+    --surface-container-high: #2c2c2e;
+    --outline-variant: #38383a;
+    --surface-container: #1c1c1e;
+    --background: #000000;
+    --primary: #ffffff;
+    --on-primary: #000000;
+    --secondary: #86868b;
+    --surface: #000000;
+    --outline: #555555;
+    --surface-container-low: #1c1c1e;
+  }
+}
+
 .glass-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(209, 211, 214, 0.5);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
+
+.dark .glass-card {
+  background: rgba(28, 28, 30, 0.7);
+}
+
 .ios-shadow {
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
-body {
-    background-color: #f9f9f9;
-    color: #1b1b1b;
+
+.dark .ios-shadow {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
+

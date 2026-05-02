@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -15,20 +15,20 @@
     <!-- Load Custom CSS -->
     <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
-<body class="font-body-md text-body-md selection:bg-primary selection:text-on-primary">
+<body class="bg-background text-on-background transition-colors duration-300 font-body-md text-body-md selection:bg-primary selection:text-on-primary">
 
     <!-- TopNavBar -->
     <header>
-        <nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-slate-200/50 shadow-[0_4px_30px_rgba(0,0,0,0.05)] h-20">
+        <nav class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-outline-variant/50 shadow-[0_4px_30px_rgba(0,0,0,0.05)] h-20">
             <div class="max-w-[1140px] mx-auto px-8 flex items-center justify-between h-full font-['Inter'] antialiased tracking-tight text-sm font-medium">
-                <span class="text-xl font-bold tracking-tighter text-slate-900">Swaraj.</span>
+                <span class="text-xl font-bold tracking-tighter text-on-background">Swaraj.</span>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a class="text-slate-900 border-b-2 border-slate-900 pb-1" href="#home">Home</a>
-                    <a class="text-slate-500 hover:text-slate-900 transition-colors" href="#work">Work</a>
-                    <a class="text-slate-500 hover:text-slate-900 transition-colors" href="#experience">Experience</a>
-                    <a class="text-slate-500 hover:text-slate-900 transition-colors" href="#contact">Contact</a>
-                    <button class="active:scale-95 transition-transform duration-200 cursor-pointer" aria-label="Toggle Dark Mode">
-                        <span class="material-symbols-outlined text-slate-900" data-icon="dark_mode">dark_mode</span>
+                    <a class="text-on-background border-b-2 border-slate-900 pb-1" href="#home">Home</a>
+                    <a class="text-secondary hover:text-on-background transition-colors" href="#work">Work</a>
+                    <a class="text-secondary hover:text-on-background transition-colors" href="#experience">Experience</a>
+                    <a class="text-secondary hover:text-on-background transition-colors" href="#contact">Contact</a>
+                    <button id="theme-toggle" class="active:scale-95 transition-transform duration-200 cursor-pointer" aria-label="Toggle Dark Mode">
+                        <span id="theme-toggle-icon" class="material-symbols-outlined text-on-background" data-icon="dark_mode">dark_mode</span>
                     </button>
                 </div>
                 <!-- Mobile Menu Trigger -->
@@ -74,7 +74,7 @@
                     <article class="md:col-span-8 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer transition-transform duration-300 hover:-translate-y-1">
                         <div class="p-10 flex flex-col md:flex-row gap-10 items-center">
                             <div class="flex-1">
-                                <div class="w-16 h-16 rounded-2xl bg-black mb-6 overflow-hidden flex items-center justify-center border border-slate-200">
+                                <div class="w-16 h-16 rounded-2xl bg-primary mb-6 overflow-hidden flex items-center justify-center border border-outline-variant">
                                     <img alt="Melpot Icon" class="w-full h-full object-cover" src="./assets/images/melpot/appicon.png"/>
                                 </div>
                                 <span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">Lead iOS Developer</span>
@@ -91,13 +91,13 @@
                     <!-- Franck Muller Labs -->
                     <article class="md:col-span-4 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer transition-transform duration-300 hover:-translate-y-1">
                         <div class="p-8 h-full flex flex-col">
-                            <div class="w-16 h-16 rounded-2xl bg-white mb-6 border border-slate-200 overflow-hidden">
+                            <div class="w-16 h-16 rounded-2xl bg-surface mb-6 border border-outline-variant overflow-hidden">
                                 <img alt="Franck Muller Icon" class="w-full h-full object-cover" src="./assets/images/franck_muller/app_icon_1024.png"/>
                             </div>
                             <span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">iOS Developer</span>
                             <h3 class="font-h2 text-h2 mb-4">Franck Muller Labs</h3>
                             <p class="font-body-md text-body-md text-secondary mb-8">Created luxury lifestyle app with personalized horology recommendations and elite tracking features.</p>
-                            <div class="mt-auto overflow-hidden rounded-lg h-60 flex justify-center bg-slate-50">
+                            <div class="mt-auto overflow-hidden rounded-lg h-60 flex justify-center bg-surface-container">
                                 <img alt="Franck Muller UI Screenshot" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="./assets/images/franck_muller/0x0ss (6).png"/>
                             </div>
                         </div>
@@ -106,13 +106,13 @@
                     <!-- MO - mobyyou -->
                     <article class="md:col-span-4 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer transition-transform duration-300 hover:-translate-y-1">
                         <div class="p-8 h-full flex flex-col">
-                            <div class="w-16 h-16 rounded-2xl bg-white mb-6 overflow-hidden border border-slate-200">
+                            <div class="w-16 h-16 rounded-2xl bg-surface mb-6 overflow-hidden border border-outline-variant">
                                 <img alt="MO mobyyou Icon" class="w-full h-full object-cover" src="./assets/images/mo_mobyyou/app_icon_1024.png"/>
                             </div>
                             <span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">Lead Developer</span>
                             <h3 class="font-h2 text-h2 mb-4">MO - mobyyou</h3>
                             <p class="font-body-md text-body-md text-secondary mb-8">Built lifestyle platform with user preferences, seamless navigation, and engaging social sharing mechanics.</p>
-                            <div class="mt-auto overflow-hidden rounded-lg h-48 flex justify-center bg-slate-50">
+                            <div class="mt-auto overflow-hidden rounded-lg h-48 flex justify-center bg-surface-container">
                                 <img alt="MO mobyyou Screenshot" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="./assets/images/mo_mobyyou/0x0ss (6).png"/>
                             </div>
                         </div>
@@ -121,13 +121,13 @@
                     <!-- Droob -->
                     <article class="md:col-span-4 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer transition-transform duration-300 hover:-translate-y-1">
                         <div class="p-8 h-full flex flex-col">
-                            <div class="w-16 h-16 rounded-2xl bg-white mb-6 overflow-hidden border border-slate-200">
+                            <div class="w-16 h-16 rounded-2xl bg-surface mb-6 overflow-hidden border border-outline-variant">
                                 <img alt="Droob Icon" class="w-full h-full object-cover" src="./assets/images/droob/0x0ss (6).png"/>
                             </div>
                             <span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">Lead Developer</span>
                             <h3 class="font-h2 text-h2 mb-4">Droob</h3>
                             <p class="font-body-md text-body-md text-secondary mb-8">Built a comprehensive logistics and business app featuring user management, real-time tracking, and analytics dashboard.</p>
-                            <div class="mt-auto overflow-hidden rounded-lg h-48 flex justify-center bg-slate-50">
+                            <div class="mt-auto overflow-hidden rounded-lg h-48 flex justify-center bg-surface-container">
                                 <img alt="Droob Screenshot" class="h-full w-full object-cover object-top group-hover:scale-110 transition-transform duration-500" src="./assets/images/droob/0x0ss (7).png"/>
                             </div>
                         </div>
@@ -136,13 +136,13 @@
                     <!-- Cabau -->
                     <article class="md:col-span-4 group relative overflow-hidden rounded-xl glass-card ios-shadow cursor-pointer transition-transform duration-300 hover:-translate-y-1">
                         <div class="p-8 h-full flex flex-col">
-                            <div class="w-16 h-16 rounded-2xl bg-white mb-6 overflow-hidden border border-slate-200">
+                            <div class="w-16 h-16 rounded-2xl bg-surface mb-6 overflow-hidden border border-outline-variant">
                                 <img alt="Cabau Icon" class="w-full h-full object-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/36/e9/2c/36e92c40-c0eb-433f-db1d-a0ceab602119/AppIcon-0-0-1x_U007emarketing-0-5-0-85-220.png/512x512bb.jpg"/>
                             </div>
                             <span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">iOS Developer</span>
                             <h3 class="font-h2 text-h2 mb-4">Cabau</h3>
                             <p class="font-body-md text-body-md text-secondary mb-8">Developed immersive fitness tracking app with high-quality step-by-step video workouts and progress monitoring.</p>
-                            <div class="mt-auto overflow-hidden rounded-lg h-48 flex justify-center bg-slate-50">
+                            <div class="mt-auto overflow-hidden rounded-lg h-48 flex justify-center bg-surface-container">
                                 <img alt="Cabau Screenshot" class="h-full w-full object-cover object-top group-hover:scale-110 transition-transform duration-500" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource112/v4/bb/d8/cf/bbd8cf6e-a43c-127d-dfa8-38c6d9df36cd/abc1ab87-e36d-44a3-830b-0d185414054a_1.jpg/392x696bb.jpg"/>
                             </div>
                         </div>
@@ -153,7 +153,7 @@
         </section>
 
         <!-- Experience & Skills -->
-        <section class="py-[120px] px-8 bg-white" id="experience">
+        <section class="py-[120px] px-8 bg-surface" id="experience">
             <div class="max-w-[1140px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
                 <!-- Experience Timeline -->
                 <div>
@@ -253,20 +253,46 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full py-20 border-t border-slate-100 bg-white">
+    <footer class="w-full py-20 border-t border-outline-variant bg-surface">
         <div class="max-w-[1140px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8 font-['Inter'] text-xs uppercase tracking-widest">
-            <p class="text-slate-400">&copy; 2026 Swaraj. Built with Swift precision.</p>
+            <p class="text-secondary">&copy; 2026 Swaraj. Built with Swift precision.</p>
             <div class="flex gap-4 flex-wrap justify-center">
-                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://www.linkedin.com/in/swarajmeet/" target="_blank">LinkedIn</a>
-                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://github.com/meetiosdev" target="_blank">GitHub</a>
-                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://stackoverflow.com/users/10851721/meet-ios-developer" target="_blank">StackOverflow</a>
-                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://twitter.com/Swarajmeet" target="_blank">Twitter (X)</a>
-                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://instagram.com/swarajmeet" target="_blank">Instagram</a>
-                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://t.me/meetheiosdev" target="_blank">Telegram</a>
-                <a class="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" href="https://www.buymeacoffee.com/meetiosdev" target="_blank">Coffee</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.linkedin.com/in/swarajmeet/" target="_blank">LinkedIn</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://github.com/meetiosdev" target="_blank">GitHub</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://stackoverflow.com/users/10851721/meet-ios-developer" target="_blank">StackOverflow</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://twitter.com/Swarajmeet" target="_blank">Twitter (X)</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://instagram.com/swarajmeet" target="_blank">Instagram</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://t.me/meetheiosdev" target="_blank">Telegram</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.buymeacoffee.com/meetiosdev" target="_blank">Coffee</a>
             </div>
         </div>
     </footer>
 
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleIcon = document.getElementById('theme-toggle-icon');
+
+        // Check local storage or system preference on load
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleIcon.textContent = 'light_mode';
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleIcon.textContent = 'dark_mode';
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggleIcon.textContent = 'light_mode';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggleIcon.textContent = 'dark_mode';
+            }
+        });
+    </script>
 </body>
+
 </html>
