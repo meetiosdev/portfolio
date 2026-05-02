@@ -22,6 +22,9 @@ html_template = """<!DOCTYPE html>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>All Projects | Swaraj - iOS Developer</title>
     
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -53,7 +56,7 @@ html_template = """<!DOCTYPE html>
             </div>
             
             <!-- Mobile Menu Dropdown -->
-            <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-background border-b border-outline-variant/50 shadow-lg flex-col items-center py-6 space-y-6 md:hidden transition-all">
+            <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-background/80 backdrop-blur-xl border-b border-outline-variant/50 shadow-lg flex-col items-center py-6 space-y-6 md:hidden transition-all">
                 <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html">Home</a>
                 <a class="text-on-background font-medium" href="./index.html">Projects</a>
                 <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html#experience">Experience</a>
