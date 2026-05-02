@@ -40,13 +40,15 @@ html_template = """<!DOCTYPE html>
                     <a class="text-on-background border-b-2 border-on-background pb-1" href="./index.html">Projects</a>
                     <a class="text-secondary hover:text-on-background transition-colors" href="../index.html#experience">Experience</a>
                     <a class="text-secondary hover:text-on-background transition-colors" href="../index.html#contact">Contact</a>
+                </div>
+                <div class="flex items-center gap-6">
                     <button id="theme-toggle" class="active:scale-95 transition-transform duration-200 cursor-pointer" aria-label="Toggle Dark Mode">
                         <span id="theme-toggle-icon" class="material-symbols-outlined text-on-background" data-icon="dark_mode">dark_mode</span>
                     </button>
-                </div>
-                <!-- Mobile Menu Trigger -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-trigger" class="material-symbols-outlined text-on-background active:scale-95 transition-transform" data-icon="menu">menu</button>
+                    <!-- Mobile Menu Trigger -->
+                    <div class="md:hidden flex items-center">
+                        <button id="mobile-menu-trigger" class="material-symbols-outlined text-on-background active:scale-95 transition-transform" data-icon="menu">menu</button>
+                    </div>
                 </div>
             </div>
             
