@@ -9,7 +9,7 @@
     <!-- iOS Glassy Status Bar -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.google-analytics.com https://itunes.apple.com https://www.clarity.ms; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://googletagmanager.com https://*.clarity.ms; img-src 'self' data: https://www.google-analytics.com https: http: https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.google-analytics.com https://itunes.apple.com https://www.clarity.ms https://cdn.jsdelivr.net; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://googletagmanager.com https://*.clarity.ms https://liffowvslpcykrktlved.supabase.co; img-src 'self' data: https://www.google-analytics.com https: http: https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self';">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     
@@ -60,6 +60,10 @@
           event_category: category,
           event_label: label
         });
+
+        if (window.trackSupabaseEvent) {
+          window.trackSupabaseEvent(eventName);
+        }
       }
     </script>
     
@@ -72,6 +76,10 @@
     })(window, document, "clarity", "script", "wkw3du8lgn");
     </script>
     
+    <!-- Supabase Event Tracking -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./assets/js/supabase-tracking.js"></script>
+
     <!-- External Styles and Scripts -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
