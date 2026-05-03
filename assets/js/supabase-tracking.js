@@ -6,15 +6,30 @@ const supabaseKey = 'sb_publishable_YThhUQos4gfieXCElzggWA_ufrtqW7Y';
 let supabaseClient = null;
 
 if (window.supabase) {
-  supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+  // 1. Fix Supabase client initialization (CORS / credentials omit)
+  supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+      detectSessionInUrl: false
+    },
+    global: {
+      fetch: (url, options) => {
+        return fetch(url, {
+          ...options,
+          mode: 'cors',
+          credentials: 'omit'
+        });
+      }
+    }
+  });
 } else {
-  console.error("Supabase script not loaded. Tracking disabled.");
+  console.warn("Supabase script not loaded. Tracking disabled.");
 }
 
 // 1. Session Management
 let sessionId = localStorage.getItem('session_id');
 if (!sessionId) {
-  // Use crypto.randomUUID if available (requires HTTPS), fallback if not
   sessionId = (window.crypto && window.crypto.randomUUID) 
     ? window.crypto.randomUUID() 
     : 'sess_' + Math.random().toString(36).substring(2, 15);
@@ -58,56 +73,62 @@ function shouldTrack(eventName) {
   return false;
 }
 
-window.trackSupabaseEvent = async function(eventName, extraData = {}) {
-    if (!supabaseClient) return;
+window.trackSupabaseEvent = function(eventName, extraData = {}) {
+  // 6. Make tracking optional-safe (fail silently if not loaded)
+  if (!supabaseClient) return;
 
-    if (!shouldTrack(eventName)) {
-        return; // Skip duplicate event (debounced)
-    }
+  if (!shouldTrack(eventName)) {
+    return; // Skip duplicate event (debounced)
+  }
 
+  // 4. Add delay to avoid tracking blockers (500ms delay)
+  setTimeout(async () => {
+    // 3. Add try/catch wrapper
     try {
-        const timeOnPage = Math.floor((Date.now() - window.__pageStartTime) / 1000);
+      const timeOnPage = Math.floor((Date.now() - window.__pageStartTime) / 1000);
 
-        const payload = {
-            event_name: eventName,
-            page: window.location.pathname,
-            device: device,
-            browser: browser,
-            referrer: document.referrer || 'direct',
-            session_id: sessionId,
-            time_on_page: timeOnPage,
-            scroll_depth: window.__maxScroll || 0,
-            ...extraData
-        };
+      // 5. Improve payload safety (strict schema match)
+      const payload = {
+        event_name: eventName || 'unknown',
+        page: window.location.pathname || '/',
+        device: device || 'unknown',
+        browser: browser || 'unknown',
+        referrer: document.referrer || 'direct',
+        session_id: sessionId || 'unknown',
+        time_on_page: isNaN(timeOnPage) ? 0 : timeOnPage,
+        scroll_depth: isNaN(window.__maxScroll) ? 0 : window.__maxScroll
+      };
 
-        const { error } = await supabaseClient
-            .from('events')
-            .insert([payload]);
+      // 2. Improve insert logic (async/await and deep error logging)
+      const { error } = await supabaseClient
+        .from('events')
+        .insert([payload]);
 
-        if (error) {
-            console.error('Supabase insert error:', error);
-        }
+      if (error) {
+        console.warn('Supabase tracking warning:', JSON.stringify(error, null, 2));
+      }
     } catch (err) {
-        console.error('Unexpected error tracking event:', err);
+      console.warn('Unexpected error in tracking module (safely ignored):', err);
     }
+  }, 750); // 750ms delay for robustness
 };
 
 // 5. Initialize Listeners and Page View
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('[data-event]').forEach((el) => {
-        el.addEventListener('click', () => {
-            const eventName = el.getAttribute('data-event');
-            if (eventName) {
-                window.trackSupabaseEvent(eventName);
-            }
-        });
+  document.querySelectorAll('[data-event]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const eventName = el.getAttribute('data-event');
+      if (eventName) {
+        window.trackSupabaseEvent(eventName);
+      }
     });
+  });
 
-    // Automatically track page view
-    window.trackSupabaseEvent('page_view');
+  // Automatically track page view
+  window.trackSupabaseEvent('page_view');
 });
 
 // 6. Track Time Spent on Page Exit
 window.addEventListener('beforeunload', () => {
-    window.trackSupabaseEvent('page_exit');
+  window.trackSupabaseEvent('page_exit');
 });
