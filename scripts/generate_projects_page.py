@@ -27,106 +27,34 @@ html_template = """<!DOCTYPE html>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self';
-        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://www.clarity.ms https://scripts.clarity.ms https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://itunes.apple.com https://cdnjs.cloudflare.com;
-        connect-src 'self' https://www.clarity.ms https://c.clarity.ms https://s.clarity.ms https://*.supabase.co https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com;
-        img-src 'self' data: https://www.clarity.ms https://c.clarity.ms https://c.bing.com https://www.google-analytics.com https://is1-ssl.mzstatic.com;
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        font-src 'self' https://fonts.gstatic.com;
-        frame-src 'self';
-    ">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.clarity.ms https://scripts.clarity.ms https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://*.supabase.co https://www.clarity.ms https://c.clarity.ms https://s.clarity.ms https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self';">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LXSRQY10PK"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'G-LXSRQY10PK');
-
-      function trackClick(name) {
-        if (typeof gtag !== 'function') return;
-        
-        let eventName = 'click';
-        let category = 'portfolio';
-        let label = name;
-        
-        const n = name.toLowerCase();
-        if (n.includes('linkedin')) {
-          eventName = 'linkedin_click';
-          category = 'social';
-          label = 'LinkedIn Profile';
-        } else if (n.includes('github')) {
-          eventName = 'github_click';
-          category = 'social';
-          label = 'GitHub Profile';
-        } else if (n.includes('resume')) {
-          eventName = 'resume_click';
-          category = 'career';
-        } else if (n.includes('whatsapp')) {
-          eventName = 'whatsapp_click';
-          category = 'contact';
-          label = 'WhatsApp Chat';
-        } else if (n.includes('email') || n.includes('phone')) {
-          eventName = 'contact_click';
-          category = 'contact';
-        } else if (n.includes('app store')) {
-          eventName = 'app_store_click';
-          category = 'conversion';
-        } else {
-          eventName = n.replace(/[^a-z0-9]/g, '_') + '_click';
-          category = 'social';
-        }
-
-        gtag('event', eventName, {
-          event_category: category,
-          event_label: label
-        });
-
-        if (window.trackSupabaseEvent) {
-          window.trackSupabaseEvent(eventName);
-        }
-      }
-    </script>
-    
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "wkw3du8lgn");
-    </script>
-    
-    <!-- Supabase Event Tracking -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../assets/js/supabase-tracking.js"></script>
-
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Production CSS -->
+    <link rel="stylesheet" href="../dist/output.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    
-    <script src="../assets/js/tailwind.config.js"></script>
     <link rel="stylesheet" href="../assets/css/styles.css">
+
+    <!-- First-party tracking and UI scripts -->
+    <script src="../assets/js/supabase-tracking.js" defer></script>
+    <script src="../assets/js/analytics.js" defer></script>
 </head>
 <body class="bg-background text-on-background transition-colors duration-300 font-body-md text-body-md selection:bg-primary selection:text-on-primary">
 
     <header>
         <nav class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-outline-variant/50 shadow-[0_4px_30px_rgba(0,0,0,0.05)] h-20">
             <div class="max-w-[1140px] mx-auto px-8 flex items-center justify-between h-full font-['Inter'] antialiased tracking-tight text-sm font-medium">
-                <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                <a href="../" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
                     <img src="../assets/images/profile.jpeg" alt="Swarajmeet" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
                     <span class="text-xl font-bold tracking-tighter text-on-background">Swarajmeet</span>
                 </a>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a class="text-secondary hover:text-on-background transition-colors" href="/">Home</a>
-                    <a class="text-on-background border-b-2 border-on-background pb-1" href="/projects/">Projects</a>
-                    <a class="text-secondary hover:text-on-background transition-colors" href="/#experience">Experience</a>
-                    <a class="text-secondary hover:text-on-background transition-colors" href="/#contact">Contact</a>
+                    <a class="text-secondary hover:text-on-background transition-colors" href="../">Home</a>
+                    <a class="text-on-background border-b-2 border-on-background pb-1" href="./">Projects</a>
+                    <a class="text-secondary hover:text-on-background transition-colors" href="../#experience">Experience</a>
+                    <a class="text-secondary hover:text-on-background transition-colors" href="../#contact">Contact</a>
                 </div>
                 <div class="flex items-center gap-6">
                     <button id="theme-toggle" class="active:scale-95 transition-transform duration-200 cursor-pointer" aria-label="Toggle Dark Mode">
@@ -141,10 +69,10 @@ html_template = """<!DOCTYPE html>
             
             <!-- Mobile Menu Dropdown -->
             <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-background/80 backdrop-blur-xl border-b border-outline-variant/50 shadow-lg flex-col items-center py-6 space-y-6 md:hidden transition-all">
-                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="/">Home</a>
-                <a class="text-on-background font-medium" href="/projects/">Projects</a>
-                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="/#experience">Experience</a>
-                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="/#contact">Contact</a>
+                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../">Home</a>
+                <a class="text-on-background font-medium" href="./">Projects</a>
+                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../#experience">Experience</a>
+                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../#contact">Contact</a>
             </div>
         </nav>
     </header>
@@ -154,13 +82,13 @@ html_template = """<!DOCTYPE html>
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-4">
                 <h1 class="font-display text-display text-on-background m-0">Detailed Case Studies</h1>
                 
-                <!-- Live Sync Badge -->
+                <!-- App Store Badge -->
                 <div class="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/20 rounded-full mt-4 md:mt-0">
                     <span class="relative flex h-2.5 w-2.5">
                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                       <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
                     </span>
-                    <span class="text-xs font-bold text-green-600 dark:text-green-400 tracking-wider uppercase">Live synced with App Store</span>
+                    <span class="text-xs font-bold text-green-600 dark:text-green-400 tracking-wider uppercase">App Store portfolio</span>
                 </div>
             </div>
             
@@ -178,94 +106,17 @@ html_template = """<!DOCTYPE html>
         <div class="max-w-[1140px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8 font-['Inter'] text-xs uppercase tracking-widest">
             <p class="text-secondary">&copy; 2026 Swarajmeet. Built with Swift precision.</p>
             <div class="flex gap-4 flex-wrap justify-center">
-
-    <script>
-        // Mobile Menu Logic
-        const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        if (mobileMenuTrigger && mobileMenu) {
-            mobileMenuTrigger.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                mobileMenu.classList.toggle('flex');
-                mobileMenuTrigger.textContent = mobileMenu.classList.contains('flex') ? 'close' : 'menu';
-            });
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenu.classList.remove('flex');
-                    mobileMenuTrigger.textContent = 'menu';
-                });
-            });
-        }
-
-        // Dark Mode Logic
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleIcon = document.getElementById('theme-toggle-icon');
-
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            themeToggleIcon.textContent = 'light_mode';
-        } else {
-            document.documentElement.classList.remove('dark');
-            themeToggleIcon.textContent = 'dark_mode';
-        }
-
-        themeToggleBtn.addEventListener('click', function() {
-            themeToggleIcon.style.transform = 'rotate(90deg) scale(0.5)';
-            themeToggleIcon.style.opacity = '0';
-            
-            setTimeout(() => {
-                document.documentElement.classList.toggle('dark');
-                if (document.documentElement.classList.contains('dark')) {
-                    localStorage.setItem('theme', 'dark');
-                    themeToggleIcon.textContent = 'light_mode';
-                } else {
-                    localStorage.setItem('theme', 'light');
-                    themeToggleIcon.textContent = 'dark_mode';
-                }
-                
-                themeToggleIcon.style.transform = 'rotate(-90deg) scale(0.5)';
-                void themeToggleIcon.offsetWidth; // Force reflow
-                
-                themeToggleIcon.style.transform = 'rotate(0deg) scale(1)';
-                themeToggleIcon.style.opacity = '1';
-            }, 150);
-        });
-
-        // App Store Live Sync Logic
-        window.updateAppInfo = function(data) {
-            if (data && data.results && data.results.length > 0) {
-                const app = data.results[0];
-                const appId = app.trackId;
-                
-                // Update Version
-                const versionEl = document.getElementById('version-' + appId);
-                if (versionEl) {
-                    versionEl.textContent = 'v' + app.version;
-                    versionEl.classList.add('bg-green-500/10', 'text-green-600', 'dark:text-green-400', 'border-green-500/20');
-                    versionEl.classList.remove('text-secondary', 'border-outline-variant');
-                }
-                
-                // Update Rating
-                const ratingEl = document.getElementById('rating-' + appId);
-                if (ratingEl && app.averageUserRating) {
-                    ratingEl.textContent = '★ ' + parseFloat(app.averageUserRating).toFixed(1) + ' (' + app.userRatingCount + ')';
-                    ratingEl.classList.add('bg-yellow-500/10', 'text-yellow-600', 'dark:text-yellow-400', 'border-yellow-500/20');
-                    ratingEl.classList.remove('text-secondary', 'border-outline-variant');
-                }
-            }
-        };
-
-        const appIds = {app_ids_json};
-        
-        appIds.forEach(id => {
-            if (!id) return;
-            const script = document.createElement('script');
-            script.src = `https://itunes.apple.com/lookup?id=${id}&callback=updateAppInfo`;
-            document.body.appendChild(script);
-        });
-    </script>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.linkedin.com/in/swarajmeet/" target="_blank" rel="noopener noreferrer" data-track="LinkedIn">LinkedIn</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://github.com/meetiosdev" target="_blank" rel="noopener noreferrer" data-track="GitHub">GitHub</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://stackoverflow.com/users/10851721/meet-ios-developer" target="_blank" rel="noopener noreferrer" data-track="StackOverflow">StackOverflow</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://twitter.com/Swarajmeet" target="_blank" rel="noopener noreferrer" data-track="Twitter">Twitter (X)</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://instagram.com/swarajmeet" target="_blank" rel="noopener noreferrer" data-track="Instagram">Instagram</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://t.me/meetheiosdev" target="_blank" rel="noopener noreferrer" data-track="Telegram">Telegram</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.buymeacoffee.com/meetiosdev" target="_blank" rel="noopener noreferrer" data-track="Coffee">Coffee</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../assets/js/site.js" defer></script>
 </body>
 </html>"""
 
@@ -339,7 +190,7 @@ for i, app in enumerate(apps):
                                 {desc}
                             </p>
                             
-                            <a href="{url}" target="_blank" rel="noopener noreferrer" onclick="trackClick('App Store: {name}')" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95">
+                            <a href="{url}" target="_blank" rel="noopener noreferrer" data-track="App Store: {name}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95">
                                 <span class="material-symbols-outlined text-[18px]">download</span>
                                 View on App Store
                             </a>
@@ -356,9 +207,7 @@ for i, app in enumerate(apps):
     projects_html += project_html
 
 final_html = html_template.replace("{projects_html}", projects_html)
-final_html = final_html.replace("{app_ids_json}", json.dumps(app_ids))
-
 with open('projects/index.html', 'w') as f:
     f.write(final_html)
 
-print("Regenerated projects/index.html with LIVE Sync!")
+print("Regenerated projects/index.html")

@@ -9,94 +9,19 @@
     <!-- iOS Glassy Status Bar -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self';
-        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://www.clarity.ms https://scripts.clarity.ms https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://itunes.apple.com https://cdnjs.cloudflare.com;
-        connect-src 'self' https://www.clarity.ms https://c.clarity.ms https://s.clarity.ms https://*.supabase.co https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com;
-        img-src 'self' data: https://www.clarity.ms https://c.clarity.ms https://c.bing.com https://www.google-analytics.com https://is1-ssl.mzstatic.com;
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        font-src 'self' https://fonts.gstatic.com;
-        frame-src 'self';
-    ">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.clarity.ms https://scripts.clarity.ms https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://*.supabase.co https://www.clarity.ms https://c.clarity.ms https://s.clarity.ms https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self';">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LXSRQY10PK"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'G-LXSRQY10PK');
-
-      function trackClick(name) {
-        if (typeof gtag !== 'function') return;
-        
-        let eventName = 'click';
-        let category = 'portfolio';
-        let label = name;
-        
-        const n = name.toLowerCase();
-        if (n.includes('linkedin')) {
-          eventName = 'linkedin_click';
-          category = 'social';
-          label = 'LinkedIn Profile';
-        } else if (n.includes('github')) {
-          eventName = 'github_click';
-          category = 'social';
-          label = 'GitHub Profile';
-        } else if (n.includes('resume')) {
-          eventName = 'resume_click';
-          category = 'career';
-        } else if (n.includes('whatsapp')) {
-          eventName = 'whatsapp_click';
-          category = 'contact';
-          label = 'WhatsApp Chat';
-        } else if (n.includes('email') || n.includes('phone')) {
-          eventName = 'contact_click';
-          category = 'contact';
-        } else if (n.includes('app store')) {
-          eventName = 'app_store_click';
-          category = 'conversion';
-        } else {
-          eventName = n.replace(/[^a-z0-9]/g, '_') + '_click';
-          category = 'social';
-        }
-
-        gtag('event', eventName, {
-          event_category: category,
-          event_label: label
-        });
-
-        if (window.trackSupabaseEvent) {
-          window.trackSupabaseEvent(eventName);
-        }
-      }
-    </script>
-    
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "wkw3du8lgn");
-    </script>
-    
-    <!-- Supabase Event Tracking -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./assets/js/supabase-tracking.js"></script>
-
-    <!-- External Styles and Scripts -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Production CSS -->
+    <link rel="stylesheet" href="./dist/output.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    
-    <!-- Load Tailwind config from external file -->
-    <script src="./assets/js/tailwind.config.js"></script>
-    <!-- Load Custom CSS -->
     <link rel="stylesheet" href="./assets/css/styles.css">
+
+    <!-- First-party tracking and UI scripts -->
+    <script src="./assets/js/supabase-tracking.js" defer></script>
+    <script src="./assets/js/analytics.js" defer></script>
 </head>
 <body class="bg-background text-on-background transition-colors duration-300 font-body-md text-body-md selection:bg-primary selection:text-on-primary">
 
@@ -110,7 +35,7 @@
                 </a>
                 <div class="hidden md:flex items-center space-x-8">
                     <a class="text-on-background border-b-2 border-slate-900 pb-1" href="#home">Home</a>
-                    <a class="text-secondary hover:text-on-background transition-colors" href="/projects/">Projects</a>
+                    <a class="text-secondary hover:text-on-background transition-colors" href="./projects/">Projects</a>
                     <a class="text-secondary hover:text-on-background transition-colors" href="#experience">Experience</a>
                     <a class="text-secondary hover:text-on-background transition-colors" href="#contact">Contact</a>
                 </div>
@@ -128,7 +53,7 @@
             <!-- Mobile Menu Dropdown -->
             <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-background/80 backdrop-blur-xl border-b border-outline-variant/50 shadow-lg flex-col items-center py-6 space-y-6 md:hidden transition-all">
                 <a class="text-on-background font-medium" href="#home">Home</a>
-                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="/projects/">Projects</a>
+                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="./projects/">Projects</a>
                 <a class="text-secondary hover:text-on-background transition-colors font-medium" href="#experience">Experience</a>
                 <a class="text-secondary hover:text-on-background transition-colors font-medium" href="#contact">Contact</a>
             </div>
@@ -210,7 +135,7 @@
                                 <span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">Lead iOS Developer</span>
                                 <h3 class="font-h2 text-h2 mb-4">Melpot</h3>
                                 <p class="font-body-md text-body-md text-secondary mb-8">Melpot is a community-driven social platform where creators and groups come together to build, manage, and monetize their content, all in one place. Unlike traditional social networks, Melpot is built around communities, not feeds. Whether you’re a creator, educator, or niche group leader, Melpot gives you the tools to grow an audience, engage deeply, and generate revenue.</p>
-                                <a href="/projects/" class="inline-block px-6 py-2 border border-outline rounded-full text-label-caps font-label-caps uppercase hover:bg-on-background hover:text-white transition-all">View Details</a>
+                                <a href="./projects/" class="inline-block px-6 py-2 border border-outline rounded-full text-label-caps font-label-caps uppercase hover:bg-on-background hover:text-white transition-all">View Details</a>
                             </div>
                             <div class="flex-1 h-[400px] rounded-xl overflow-hidden flex items-center justify-center p-4">
                                 <img alt="Melpot UI Screenshot" class="h-full w-auto object-contain rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-500" src="./assets/images/melpot/0x0ss (6).png"/>
@@ -227,7 +152,7 @@
                             <span class="text-label-caps font-label-caps text-secondary uppercase mb-2 block">iOS Developer</span>
                             <h3 class="font-h2 text-h2 mb-4">Franck Muller Labs</h3>
                             <p class="font-body-md text-body-md text-secondary mb-8">Created luxury lifestyle app with personalized horology recommendations and elite tracking features.</p>
-                            <a href="/projects/" class="inline-block px-6 py-2 border border-outline rounded-full text-label-caps font-label-caps uppercase hover:bg-on-background hover:text-white transition-all text-center">View Details</a>
+                            <a href="./projects/" class="inline-block px-6 py-2 border border-outline rounded-full text-label-caps font-label-caps uppercase hover:bg-on-background hover:text-white transition-all text-center">View Details</a>
                             <div class="mt-auto overflow-hidden rounded-lg h-60 flex justify-center bg-surface-container">
                                 <img alt="Franck Muller UI Screenshot" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="./assets/images/franck_muller/0x0ss (6).png"/>
                             </div>
@@ -237,7 +162,7 @@
                     
                     <!-- View All Projects Button -->
                     <div class="md:col-span-12 mt-8 text-center">
-                        <a href="/projects/" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95">
+                        <a href="./projects/" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95">
                             Explore All Projects
                             <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
                         </a>
@@ -325,19 +250,19 @@
                         Currently open to discussing new opportunities, collaborations, or just talking shop about the latest in mobile tech.
                     </p>
                     <div class="flex flex-col md:flex-row items-center justify-center gap-4 flex-wrap">
-                        <a class="w-full md:w-auto px-8 py-4 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-opacity active:scale-95 flex items-center justify-center gap-2" href="mailto:hello@meetiosdev.com" onclick="trackClick('Email')">
+                        <a class="w-full md:w-auto px-8 py-4 bg-primary text-on-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-opacity active:scale-95 flex items-center justify-center gap-2" href="mailto:hello@meetiosdev.com" data-track="Email">
                             <span class="material-symbols-outlined" data-icon="mail">mail</span>
                             Email Me
                         </a>
-                        <a class="w-full md:w-auto px-8 py-4 border-2 border-primary text-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all active:scale-95 flex items-center justify-center gap-2" href="./resume/" onclick="trackClick('Resume')">
+                        <a class="w-full md:w-auto px-8 py-4 border-2 border-primary text-primary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all active:scale-95 flex items-center justify-center gap-2" href="./resume/" data-track="Resume">
                             <span class="material-symbols-outlined" data-icon="description">description</span>
                             View Resume
                         </a>
-                        <a class="w-full md:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2" href="https://wa.me/919878568733" target="_blank" rel="noopener noreferrer" onclick="trackClick('WhatsApp')">
+                        <a class="w-full md:w-auto px-8 py-4 bg-[#25D366] text-white rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2" href="https://wa.me/919878568733" target="_blank" rel="noopener noreferrer" data-track="WhatsApp">
                             <span class="material-symbols-outlined text-[20px]">chat</span>
                             WhatsApp
                         </a>
-                        <a class="w-full md:w-auto px-8 py-4 bg-surface-container-high text-on-background rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2" href="tel:+919878568733" onclick="trackClick('Phone')">
+                        <a class="w-full md:w-auto px-8 py-4 bg-surface-container-high text-on-background rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2" href="tel:+919878568733" data-track="Phone">
                             <span class="material-symbols-outlined" data-icon="call">call</span>
                             Call Me
                         </a>
@@ -352,72 +277,18 @@
         <div class="max-w-[1140px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8 font-['Inter'] text-xs uppercase tracking-widest">
             <p class="text-secondary">&copy; 2026 Swarajmeet. Built with Swift precision.</p>
             <div class="flex gap-4 flex-wrap justify-center">
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.linkedin.com/in/swarajmeet/" target="_blank" rel="noopener noreferrer" onclick="trackClick('LinkedIn')">LinkedIn</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://github.com/meetiosdev" target="_blank" rel="noopener noreferrer" onclick="trackClick('GitHub')">GitHub</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://stackoverflow.com/users/10851721/meet-ios-developer" target="_blank" rel="noopener noreferrer" onclick="trackClick('StackOverflow')">StackOverflow</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://twitter.com/Swarajmeet" target="_blank" rel="noopener noreferrer" onclick="trackClick('Twitter')">Twitter (X)</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://instagram.com/swarajmeet" target="_blank" rel="noopener noreferrer" onclick="trackClick('Instagram')">Instagram</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://t.me/meetheiosdev" target="_blank" rel="noopener noreferrer" onclick="trackClick('Telegram')">Telegram</a>
-                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.buymeacoffee.com/meetiosdev" target="_blank" rel="noopener noreferrer" onclick="trackClick('Coffee')">Coffee</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.linkedin.com/in/swarajmeet/" target="_blank" rel="noopener noreferrer" data-track="LinkedIn">LinkedIn</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://github.com/meetiosdev" target="_blank" rel="noopener noreferrer" data-track="GitHub">GitHub</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://stackoverflow.com/users/10851721/meet-ios-developer" target="_blank" rel="noopener noreferrer" data-track="StackOverflow">StackOverflow</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://twitter.com/Swarajmeet" target="_blank" rel="noopener noreferrer" data-track="Twitter">Twitter (X)</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://instagram.com/swarajmeet" target="_blank" rel="noopener noreferrer" data-track="Instagram">Instagram</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://t.me/meetheiosdev" target="_blank" rel="noopener noreferrer" data-track="Telegram">Telegram</a>
+                <a class="text-secondary hover:text-on-background transition-colors cursor-pointer" href="https://www.buymeacoffee.com/meetiosdev" target="_blank" rel="noopener noreferrer" data-track="Coffee">Coffee</a>
             </div>
         </div>
     </footer>
 
-
-    <script>
-        // Mobile Menu Logic
-        const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        if (mobileMenuTrigger && mobileMenu) {
-            mobileMenuTrigger.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                mobileMenu.classList.toggle('flex');
-                mobileMenuTrigger.textContent = mobileMenu.classList.contains('flex') ? 'close' : 'menu';
-            });
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenu.classList.remove('flex');
-                    mobileMenuTrigger.textContent = 'menu';
-                });
-            });
-        }
-
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleIcon = document.getElementById('theme-toggle-icon');
-
-        // Check local storage or system preference on load
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            themeToggleIcon.textContent = 'light_mode';
-        } else {
-            document.documentElement.classList.remove('dark');
-            themeToggleIcon.textContent = 'dark_mode';
-        }
-
-        themeToggleBtn.addEventListener('click', function() {
-            themeToggleIcon.style.transform = 'rotate(90deg) scale(0.5)';
-            themeToggleIcon.style.opacity = '0';
-            
-            setTimeout(() => {
-                document.documentElement.classList.toggle('dark');
-                if (document.documentElement.classList.contains('dark')) {
-                    localStorage.setItem('theme', 'dark');
-                    themeToggleIcon.textContent = 'light_mode';
-                } else {
-                    localStorage.setItem('theme', 'light');
-                    themeToggleIcon.textContent = 'dark_mode';
-                }
-                
-                themeToggleIcon.style.transform = 'rotate(-90deg) scale(0.5)';
-                void themeToggleIcon.offsetWidth; // Force reflow
-                
-                themeToggleIcon.style.transform = 'rotate(0deg) scale(1)';
-                themeToggleIcon.style.opacity = '1';
-            }, 150);
-        });
-    </script>
+    <script src="./assets/js/site.js" defer></script>
 </body>
 
 </html>
