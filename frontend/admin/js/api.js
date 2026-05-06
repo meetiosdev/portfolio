@@ -1,0 +1,70 @@
+const API_BASE_URL = '/api';
+
+class Api {
+  constructor() {
+    this.token = localStorage.getItem('saas_token');
+  }
+
+  setToken(token) {
+    this.token = token;
+    localStorage.setItem('saas_token', token);
+  }
+
+  clearToken() {
+    this.token = null;
+    localStorage.removeItem('saas_token');
+  }
+
+  async request(endpoint, options = {}) {
+    const headers = {
+      'Content-Type': 'application/json',
+      ...options.headers
+    };
+
+    if (this.token) {
+      headers['Authorization'] = `Bearer ${this.token}`;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        ...options,
+        headers
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (response.status === 401 || response.status === 403) {
+          // Token expired or invalid
+          this.clearToken();
+          window.dispatchEvent(new Event('auth:unauthorized'));
+        }
+        throw new Error(data.error || 'API Request Failed');
+      }
+
+      return data;
+    } catch (error) {
+      console.error(`API Error on ${endpoint}:`, error);
+      throw error;
+    }
+  }
+
+  async login(username, password) {
+    const data = await this.request('/login', {
+      method: 'POST',
+      body: JSON.stringify({ username, password })
+    });
+    
+    if (data.token) {
+      this.setToken(data.token);
+    }
+    return data;
+  }
+
+  async getDashboard() {
+    return this.request('/dashboard');
+  }
+}
+
+// Global API instance
+window.api = new Api();

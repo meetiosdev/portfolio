@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "YOUR_CLARITY_PROJECT_ID");
+  </script>
+</head>
+<body>
+
+  <!-- Login Overlay -->
+  <div id="login-overlay" class="overlay">
+    <div class="login-card glass-card">
+      <h2>Admin Login</h2>
+      <form id="login-form">
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" required>
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required>
+        </div>
+        <button type="submit" class="btn primary">Login</button>
+        <div id="login-error" class="error-msg"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard Container -->
+  <div id="dashboard-container" class="dashboard hidden">
+    <header class="glass-header">
+      <h1>Dashboard</h1>
+      <div class="header-actions">
+        <!-- Optional Iframe / link for Clarity -->
+        <a href="https://clarity.microsoft.com/" target="_blank" class="btn secondary">Open Clarity</a>
+        <button id="logout-btn" class="btn outline">Logout</button>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- Stats -->
+      <section class="stats-grid">
+        <div class="stat-card glass-card">
+          <h3>Total Users (GA)</h3>
+          <p id="stat-users" class="stat-value">--</p>
+        </div>
+        <div class="stat-card glass-card">
+          <h3>Total Sessions (GA)</h3>
+          <p id="stat-sessions" class="stat-value">--</p>
+        </div>
+        <div class="stat-card glass-card">
+          <h3>Total Events (Supabase)</h3>
+          <p id="stat-events" class="stat-value">--</p>
+        </div>
+      </section>
+
+      <!-- Charts -->
+      <section class="charts-grid">
+        <div class="chart-card glass-card">
+          <h3>Daily Activity</h3>
+          <canvas id="lineChart"></canvas>
+        </div>
+        <div class="chart-card glass-card">
+          <h3>Device Breakdown</h3>
+          <canvas id="pieChart"></canvas>
+        </div>
+        <div class="chart-card glass-card">
+          <h3>Top Events</h3>
+          <canvas id="barChart"></canvas>
+        </div>
+        <div class="chart-card glass-card">
+          <h3>User Location</h3>
+          <canvas id="locationChart"></canvas>
+        </div>
+      </section>
+
+      <!-- Events Table -->
+      <section class="table-section glass-card">
+        <h3>Recent Events Log</h3>
+        <div class="table-responsive">
+          <table id="events-table">
+            <thead>
+              <tr>
+                <th>Event Name</th>
+                <th>Page</th>
+                <th>Device</th>
+                <th>Time on Page (s)</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="events-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- JS Modules -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard | Swarajmeet</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://*.supabase.co; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self';">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <link rel="icon" href="../assets/images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js" defer></script>
+    <script src="../assets/js/admin.js" defer></script>
+</head>
+<body>
+    <main class="app-shell">
+        <section id="login-screen" class="login-screen" aria-labelledby="login-title">
+            <div class="login-card glass-card">
+                <div class="brand-mark" aria-hidden="true">A</div>
+                <p class="eyebrow">Private access</p>
+                <h1 id="login-title">Analytics Dashboard</h1>
+                <p class="login-copy">Sign in to view portfolio activity and engagement metrics.</p>
+
+                <form id="login-form" class="login-form" novalidate>
+                    <label for="username">Username</label>
+                    <input id="username" name="username" type="text" autocomplete="username" placeholder="admin" required>
+
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Password" required>
+
+                    <p id="login-error" class="form-error" role="status" aria-live="polite"></p>
+                    <button type="submit" class="primary-button">Sign In</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="dashboard-screen" class="dashboard-screen hidden" aria-labelledby="dashboard-title">
+            <nav class="topbar glass-card">
+                <div>
+                    <p class="eyebrow">Portfolio Admin</p>
+                    <h1 id="dashboard-title">Analytics Dashboard</h1>
+                </div>
+                <button id="logout-button" type="button" class="ghost-button">Logout</button>
+            </nav>
+
+            <section class="toolbar glass-card" aria-label="Dashboard controls">
+                <div>
+                    <p class="toolbar-label">Time Range</p>
+                    <div class="segmented-control" role="group" aria-label="Filter event date range">
+                        <button type="button" class="range-button active" data-range="7">7 Days</button>
+                        <button type="button" class="range-button" data-range="30">30 Days</button>
+                        <button type="button" class="range-button" data-range="all">All</button>
+                    </div>
+                </div>
+                <label class="search-field">
+                    <span>Search Events</span>
+                    <input id="table-search" type="search" placeholder="Search name, page, device...">
+                </label>
+            </section>
+
+            <section id="loading-state" class="loading-state glass-card" aria-live="polite">
+                <div class="spinner" aria-hidden="true"></div>
+                <p>Loading analytics...</p>
+            </section>
+
+            <section id="error-state" class="empty-state glass-card hidden" aria-live="polite">
+                <h2>Analytics unavailable</h2>
+                <p>Unable to load events right now. The dashboard will recover automatically on refresh.</p>
+            </section>
+
+            <section id="empty-state" class="empty-state glass-card hidden">
+                <h2>No analytics yet</h2>
+                <p>Events will appear here after visitors interact with the portfolio.</p>
+            </section>
+
+            <section id="dashboard-content" class="dashboard-content hidden">
+                <div class="stats-grid" aria-label="Key metrics">
+                    <article class="stat-card glass-card">
+                        <span>Total Events</span>
+                        <strong id="stat-total">0</strong>
+                    </article>
+                    <article class="stat-card glass-card">
+                        <span>Page Views</span>
+                        <strong id="stat-page-views">0</strong>
+                    </article>
+                    <article class="stat-card glass-card">
+                        <span>Click Events</span>
+                        <strong id="stat-clicks">0</strong>
+                    </article>
+                    <article class="stat-card glass-card">
+                        <span>Unique Sessions</span>
+                        <strong id="stat-sessions">0</strong>
+                    </article>
+                </div>
+
+                <section class="charts-grid" aria-label="Analytics charts">
+                    <article class="chart-card glass-card">
+                        <div class="card-header">
+                            <h2>Event Distribution</h2>
+                            <p>Counts by event type</p>
+                        </div>
+                        <canvas id="event-chart"></canvas>
+                    </article>
+                    <article class="chart-card glass-card">
+                        <div class="card-header">
+                            <h2>Daily Activity</h2>
+                            <p>Events over time</p>
+                        </div>
+                        <canvas id="daily-chart"></canvas>
+                    </article>
+                    <article class="chart-card glass-card">
+                        <div class="card-header">
+                            <h2>Device Breakdown</h2>
+                            <p>Desktop vs mobile</p>
+                        </div>
+                        <canvas id="device-chart"></canvas>
+                    </article>
+                </section>
+
+                <section class="table-card glass-card">
+                    <div class="card-header">
+                        <h2>Recent Events</h2>
+                        <p>Last 20 matching rows</p>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Page</th>
+                                    <th>Device</th>
+                                    <th>Browser</th>
+                                    <th>Session</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody id="events-table"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </main>
+</body>
+</html>
