@@ -89,7 +89,27 @@
                         window.location.pathname.includes('meetiosdev')) && 
                        !window.location.pathname.includes('projects');
 
-    // 1. Dynamic scroll tracking: update active input as user scrolls (home page ONLY)
+    // 1. Initial Hash check on page load to prevent pill from jumping/sliding from Home
+    if (window.location.hash) {
+      const hash = window.location.hash.substring(1);
+      const targetInput = document.getElementById('nav-' + hash);
+      if (targetInput) {
+        const pill = control.querySelector('.selection-pill');
+        if (pill) {
+          const originalTransition = pill.style.transition;
+          pill.style.transition = 'none';
+          targetInput.checked = true;
+          void control.offsetHeight; // Force reflow
+          setTimeout(() => {
+            pill.style.transition = originalTransition;
+          }, 50);
+        } else {
+          targetInput.checked = true;
+        }
+      }
+    }
+
+    // 2. Dynamic scroll tracking: update active input as user scrolls (home page ONLY)
     if (isHomePage) {
       const sections = ['home', 'experience', 'contact'];
       
