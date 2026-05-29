@@ -1,4 +1,32 @@
 (function () {
+  // Safe storage wrappers to prevent DOM Exception security errors on local file:// previews or in Private mode
+  const safeStorage = {
+    getItem: function (key, type = 'session') {
+      try {
+        const storage = type === 'local' ? localStorage : sessionStorage;
+        return storage.getItem(key);
+      } catch (e) {
+        return null;
+      }
+    },
+    setItem: function (key, value, type = 'session') {
+      try {
+        const storage = type === 'local' ? localStorage : sessionStorage;
+        storage.setItem(key, value);
+      } catch (e) {
+        // ignore security exceptions
+      }
+    },
+    removeItem: function (key, type = 'session') {
+      try {
+        const storage = type === 'local' ? localStorage : sessionStorage;
+        storage.removeItem(key);
+      } catch (e) {
+        // ignore security exceptions
+      }
+    }
+  };
+
   function initMobileMenu() {
     const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -25,7 +53,7 @@
     if (!themeToggleBtn || !themeToggleIcon) return;
 
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const storedTheme = localStorage.getItem('theme');
+    const storedTheme = safeStorage.getItem('theme', 'local');
     const shouldUseDark = storedTheme === 'dark' || (!storedTheme && prefersDark);
 
     document.documentElement.classList.toggle('dark', shouldUseDark);
@@ -38,7 +66,7 @@
       window.setTimeout(function () {
         document.documentElement.classList.toggle('dark');
         const isDark = document.documentElement.classList.contains('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        safeStorage.setItem('theme', isDark ? 'dark' : 'light', 'local');
         themeToggleIcon.textContent = isDark ? 'light_mode' : 'dark_mode';
         themeToggleIcon.style.transform = 'rotate(-90deg) scale(0.5)';
         void themeToggleIcon.offsetWidth;
@@ -55,27 +83,29 @@
     const labels = control.querySelectorAll('label');
     const inputs = Array.from(control.querySelectorAll('input[type="radio"]'));
 
-    const isHomePage = window.location.pathname.endsWith('index.html') || 
-                       window.location.pathname === '/' || 
-                       (window.location.pathname.includes('portfolio') && !window.location.pathname.includes('projects'));
+    const isHomePage = (window.location.pathname.endsWith('index.html') || 
+                        window.location.pathname === '/' || 
+                        window.location.pathname.includes('portfolio') || 
+                        window.location.pathname.includes('meetiosdev')) && 
+                       !window.location.pathname.includes('projects');
 
     // Helper to store the current active tab index
     function updateStoredIndex(indexToStore) {
       if (typeof indexToStore === 'number') {
-        sessionStorage.setItem('prevTabIndex', indexToStore);
+        safeStorage.setItem('prevTabIndex', indexToStore);
         return;
       }
       const checkedInput = control.querySelector('input[type="radio"]:checked');
       if (checkedInput) {
         const index = inputs.indexOf(checkedInput);
         if (index !== -1) {
-          sessionStorage.setItem('prevTabIndex', index);
+          safeStorage.setItem('prevTabIndex', index);
         }
       }
     }
 
     // 1. Smooth slide-in animation on page load from previous page index
-    const prevIndexStr = sessionStorage.getItem('prevTabIndex');
+    const prevIndexStr = safeStorage.getItem('prevTabIndex');
     const currentIndex = inputs.indexOf(control.querySelector('input[type="radio"]:checked'));
     
     if (prevIndexStr !== null && currentIndex !== -1) {
@@ -151,7 +181,7 @@
         const activeInput = control.querySelector('input[type="radio"]:checked');
         const prevIdx = activeInput ? inputs.indexOf(activeInput) : -1;
         if (prevIdx !== -1) {
-          sessionStorage.setItem('prevTabIndex', prevIdx);
+          safeStorage.setItem('prevTabIndex', prevIdx);
         }
 
         // Check if it's an anchor scroll on the same page
