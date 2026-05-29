@@ -89,58 +89,7 @@
                         window.location.pathname.includes('meetiosdev')) && 
                        !window.location.pathname.includes('projects');
 
-    // Helper to store the current active tab index
-    function updateStoredIndex(indexToStore) {
-      if (typeof indexToStore === 'number') {
-        safeStorage.setItem('prevTabIndex', indexToStore);
-        return;
-      }
-      const checkedInput = control.querySelector('input[type="radio"]:checked');
-      if (checkedInput) {
-        const index = inputs.indexOf(checkedInput);
-        if (index !== -1) {
-          safeStorage.setItem('prevTabIndex', index);
-        }
-      }
-    }
-
-    // 1. Smooth slide-in animation on page load from previous page index
-    const prevIndexStr = safeStorage.getItem('prevTabIndex');
-    const currentIndex = inputs.indexOf(control.querySelector('input[type="radio"]:checked'));
-    
-    if (prevIndexStr !== null && currentIndex !== -1) {
-      const prevIndex = parseInt(prevIndexStr, 10);
-      if (prevIndex !== -1 && prevIndex !== currentIndex && prevIndex < inputs.length) {
-        // Temporarily select the previous tab to starting position
-        inputs[prevIndex].checked = true;
-        
-        const pill = control.querySelector('.selection-pill');
-        if (pill) {
-          // Disable transition temporarily to avoid an unwanted fast back-slide on DOM init
-          const originalTransition = pill.style.transition;
-          pill.style.transition = 'none';
-          
-          // Force layout reflow
-          void control.offsetHeight;
-          
-          // Re-enable transition and smoothly slide to the current target page tab
-          setTimeout(() => {
-            pill.style.transition = originalTransition;
-            inputs[currentIndex].checked = true;
-            updateStoredIndex(currentIndex);
-          }, 30);
-        } else {
-          inputs[currentIndex].checked = true;
-          updateStoredIndex(currentIndex);
-        }
-      } else {
-        updateStoredIndex(currentIndex);
-      }
-    } else {
-      updateStoredIndex(currentIndex);
-    }
-
-    // 2. Dynamic scroll tracking: update active input as user scrolls (home page ONLY)
+    // 1. Dynamic scroll tracking: update active input as user scrolls (home page ONLY)
     if (isHomePage) {
       const sections = ['home', 'experience', 'contact'];
       
@@ -163,12 +112,11 @@
         const targetInput = document.getElementById('nav-' + currentSection);
         if (targetInput && !targetInput.checked) {
           targetInput.checked = true;
-          updateStoredIndex(inputs.indexOf(targetInput));
         }
       }, { passive: true });
     }
 
-    // 3. Click navigation routing handler on labels
+    // 2. Click navigation routing handler on labels
     labels.forEach(function (label) {
       label.addEventListener('click', function (e) {
         const href = label.getAttribute('data-href');
@@ -177,19 +125,11 @@
         const inputId = label.getAttribute('for');
         const input = document.getElementById(inputId);
 
-        // Capture previous active index before we transition checked states
-        const activeInput = control.querySelector('input[type="radio"]:checked');
-        const prevIdx = activeInput ? inputs.indexOf(activeInput) : -1;
-        if (prevIdx !== -1) {
-          safeStorage.setItem('prevTabIndex', prevIdx);
-        }
-
         // Check if it's an anchor scroll on the same page
         if (href.startsWith('#')) {
           e.preventDefault();
           if (input) {
             input.checked = true;
-            updateStoredIndex(inputs.indexOf(input));
           }
 
           const hash = href.substring(1);
