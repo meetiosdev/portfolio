@@ -184,6 +184,7 @@
 
           // 7. Slide segmented navigation pill seamlessly to new active state position
           updateNavStateForUrl(resolvedFetchUrl, hashToScroll);
+          syncAppStoreDataLive(); // Trigger client-side live App Store metadata sync!
 
           // 8. Trigger exiting transition cleanup and fade-in
           setTimeout(() => {
@@ -382,9 +383,88 @@
     }
   });
 
+  // 3. Real-time dynamic App Store lookup client-side sync engine
+  function syncAppStoreDataLive() {
+    const versionSpans = document.querySelectorAll('span[id^="version-"]');
+    versionSpans.forEach(span => {
+      const appStoreId = span.id.replace('version-', '');
+      if (!appStoreId) return;
+
+      const ratingSpan = document.getElementById('rating-' + appStoreId);
+      
+      // Attempt to extract the dynamic release date tag sibling safely
+      let dateSpan = null;
+      let sibling = span.previousElementSibling;
+      while (sibling) {
+        const text = sibling.textContent.trim();
+        if (text && (text.includes(' ') && !text.toLowerCase().includes('lifestyle') && !text.toLowerCase().includes('business') && !text.toLowerCase().includes('social') && !text.toLowerCase().includes('entertainment') && !text.toLowerCase().includes('news') && !text.toLowerCase().includes('travel') && !text.toLowerCase().includes('finance') && !text.toLowerCase().includes('health'))) {
+          dateSpan = sibling;
+          break;
+        }
+        sibling = sibling.previousElementSibling;
+      }
+
+      // Live CORS iTunes lookup query direct to Apple database
+      fetch(`https://itunes.apple.com/lookup?id=${appStoreId}&country=us`)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.resultCount > 0) {
+            const info = data.results[0];
+            const liveVersion = info.version;
+            const liveRatingRaw = info.averageUserRating;
+
+            // Stars formatting
+            let liveRating = 'Unrated';
+            if (typeof liveRatingRaw === 'number' && liveRatingRaw > 0) {
+              liveRating = liveRatingRaw.toFixed(1) + '★';
+            }
+
+            // Date formatting
+            const rawDate = info.currentVersionReleaseDate || info.releaseDate;
+            let formattedDate = null;
+            if (rawDate) {
+              const dt = new Date(rawDate);
+              const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+              const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+              formattedDate = `${days[dt.getUTCDay()]} ${String(dt.getUTCDate()).padStart(2, '0')} ${months[dt.getUTCMonth()]} ${dt.getUTCFullYear()}`;
+            }
+
+            // Dynamically update DOM badges in high fidelity smooth transitions
+            if (liveVersion && span.textContent !== 'v' + liveVersion) {
+              span.style.opacity = '0';
+              setTimeout(() => {
+                span.textContent = 'v' + liveVersion;
+                span.style.opacity = '1';
+              }, 300);
+            }
+
+            if (liveRating && ratingSpan && ratingSpan.textContent !== liveRating) {
+              ratingSpan.style.opacity = '0';
+              setTimeout(() => {
+                ratingSpan.textContent = liveRating;
+                ratingSpan.style.opacity = '1';
+              }, 300);
+            }
+
+            if (formattedDate && dateSpan && dateSpan.textContent !== formattedDate) {
+              dateSpan.style.opacity = '0';
+              setTimeout(() => {
+                dateSpan.textContent = formattedDate;
+                dateSpan.style.opacity = '1';
+              }, 300);
+            }
+          }
+        })
+        .catch(err => {
+          console.warn('Dynamic live App Store sync failed, using static cache:', err);
+        });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initMobileMenu();
     initThemeToggle();
     initSegmentedControl();
+    syncAppStoreDataLive();
   });
 })();
