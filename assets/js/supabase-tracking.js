@@ -82,16 +82,18 @@ window.trackSupabaseEvent = function (eventName, extraData = {}) {
   }, 750);
 };
 
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('[data-event]').forEach(function (el) {
-    el.addEventListener('click', function () {
-      const eventName = el.getAttribute('data-event');
-      if (eventName) {
-        window.trackSupabaseEvent(eventName);
-      }
-    });
-  });
+// Delegate data-event click tracking globally to handle SPA injected elements
+document.addEventListener('click', function (event) {
+  const el = event.target.closest('[data-event]');
+  if (el) {
+    const eventName = el.getAttribute('data-event');
+    if (eventName) {
+      window.trackSupabaseEvent(eventName);
+    }
+  }
+});
 
+document.addEventListener('DOMContentLoaded', function () {
   window.trackSupabaseEvent('page_view');
 });
 

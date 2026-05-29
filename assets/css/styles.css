@@ -204,3 +204,15 @@
 #nav-projects:checked ~ .selection-pill { transform: translateX(calc(100% + 4px)); }
 #nav-experience:checked ~ .selection-pill { transform: translateX(calc(200% + 8px)); }
 #nav-contact:checked ~ .selection-pill { transform: translateX(calc(300% + 12px)); }
+
+/* SPA Content Area Fade Transition */
+#content-area {
+  transition: opacity 0.2s ease-in-out;
+  opacity: 1;
+}
+#content-area.page-exit {
+  opacity: 0;
+}
+#content-area.page-enter {
+  opacity: 0;
+}
