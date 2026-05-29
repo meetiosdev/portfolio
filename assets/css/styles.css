@@ -81,12 +81,33 @@
   padding: 3px;
   gap: 2px;
   border: 1px solid rgba(0, 0, 0, 0.02);
-  transition: background 0.3s;
+  position: relative; /* essential for absolute indicator positioning */
+  z-index: 1;
 }
 
 .dark .segmented-control-nav {
   background: rgba(255, 255, 255, 0.08); /* dark theme track */
   border-color: rgba(255, 255, 255, 0.02);
+}
+
+/* The Sliding Pill Indicator */
+.segmented-indicator {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  background: #ffffff;
+  border-radius: 9px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.dark .segmented-indicator {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .segment-item {
@@ -95,12 +116,14 @@
   font-weight: 500;
   color: #5d5e63 !important; /* Neutral grey secondary color */
   border-radius: 9px;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: color 0.25s ease, transform 0.1s ease;
   min-width: 96px;
   text-align: center;
   border: 1px solid transparent;
   cursor: pointer;
   display: inline-block;
+  position: relative;
+  z-index: 2; /* Keeps text above the sliding indicator background */
 }
 
 .dark .segment-item {
@@ -109,12 +132,10 @@
 
 .segment-item:not(.active):hover {
   color: #000000 !important;
-  background: rgba(0, 0, 0, 0.03);
 }
 
 .dark .segment-item:not(.active):hover {
   color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.05);
 }
 
 .segment-item:active {
@@ -122,27 +143,10 @@
 }
 
 .segment-item.active {
-  background: #ffffff;
   color: #000000 !important;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-  animation: active-tab-mount 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .dark .segment-item.active {
-  background: rgba(255, 255, 255, 0.15);
   color: #ffffff !important;
-  border-color: rgba(255, 255, 255, 0.04);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  animation: active-tab-mount-dark 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes active-tab-mount {
-  from { transform: scale(0.96); opacity: 0.9; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-@keyframes active-tab-mount-dark {
-  from { transform: scale(0.96); opacity: 0.9; }
-  to { transform: scale(1); opacity: 1; }
 }
