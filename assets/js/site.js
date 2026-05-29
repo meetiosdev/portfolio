@@ -27,6 +27,39 @@
     }
   };
 
+  // 1. Calculate dynamic root base directory of the site to support both http:// and file:// protocols
+  const siteBase = (function () {
+    const currentLoc = window.location.href;
+    if (currentLoc.includes('/projects/')) {
+      return currentLoc.split('/projects/')[0] + '/';
+    }
+    if (currentLoc.endsWith('/index.html')) {
+      return currentLoc.split('/index.html')[0] + '/';
+    }
+    // Default fallback to base domain/directory path
+    return window.location.protocol + '//' + window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+  })();
+
+  // 2. Helper to resolve any relative path correctly relative to site base URL
+  function resolveUrl(path) {
+    if (!path) return '';
+    if (path.startsWith('#') || path.startsWith('http') || path.startsWith('file')) {
+      return path;
+    }
+    // Normalize relative prefix dots
+    let cleanPath = path;
+    if (cleanPath.startsWith('./')) {
+      cleanPath = cleanPath.substring(2);
+    } else if (cleanPath.startsWith('../')) {
+      cleanPath = cleanPath.substring(3);
+    }
+    try {
+      return new URL(cleanPath, siteBase).href;
+    } catch (e) {
+      return path;
+    }
+  }
+
   // Helper to dynamically check if current route is the homepage
   function checkIsHomePage() {
     return (window.location.pathname.endsWith('index.html') || 
@@ -102,11 +135,13 @@
     const contentArea = document.getElementById('content-area');
     if (!contentArea) return;
 
+    const resolvedFetchUrl = resolveUrl(url);
+
     // 1. Add exiting fade out transition class
     contentArea.classList.add('page-exit');
 
     // 2. Fetch page HTML on the fly
-    fetch(url)
+    fetch(resolvedFetchUrl)
       .then(response => {
         if (!response.ok) throw new Error('SPA: Page fetch failure');
         return response.text();
@@ -125,9 +160,9 @@
           contentArea.className = targetContent.className;
 
           // 5. Update browser history state
-          let newUrl = url;
+          let newUrl = resolvedFetchUrl;
           if (hashToScroll) {
-            newUrl = url.split('#')[0] + '#' + hashToScroll;
+            newUrl = resolvedFetchUrl.split('#')[0] + '#' + hashToScroll;
           }
           if (shouldPushState) {
             window.history.pushState(null, '', newUrl);
@@ -148,7 +183,7 @@
           }
 
           // 7. Slide segmented navigation pill seamlessly to new active state position
-          updateNavStateForUrl(url, hashToScroll);
+          updateNavStateForUrl(resolvedFetchUrl, hashToScroll);
 
           // 8. Trigger exiting transition cleanup and fade-in
           setTimeout(() => {
@@ -176,7 +211,7 @@
       })
       .catch(error => {
         console.error('SPA routing error:', error);
-        window.location.href = url; // Safe fallback to standard browser redirect
+        window.location.href = resolvedFetchUrl; // Safe fallback to standard browser redirect
       });
   }
 
@@ -291,7 +326,7 @@
           } else {
             // From projects page to home page anchor
             e.preventDefault();
-            loadPage('../index.html', href.substring(1));
+            loadPage(resolveUrl('index.html'), href.substring(1));
           }
         } else if (href.includes('#')) {
           // Cross-page anchor scroll
@@ -336,7 +371,7 @@
         }
       } else {
         // Intercept logo / Home clicks inside subfolders going back
-        const targetUrl = window.location.pathname.includes('projects') ? '../index.html' : './index.html';
+        const targetUrl = resolveUrl('index.html');
         loadPage(targetUrl, hash);
       }
     } else if (href.includes('#')) {
