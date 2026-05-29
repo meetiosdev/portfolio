@@ -222,12 +222,14 @@
 
     let targetId = 'nav-home';
 
-    if (url.includes('projects')) {
+    if (hash === 'work') {
       targetId = 'nav-projects';
     } else if (hash === 'experience') {
       targetId = 'nav-experience';
     } else if (hash === 'contact') {
       targetId = 'nav-contact';
+    } else if (url.includes('projects')) {
+      targetId = 'nav-projects';
     }
 
     const input = document.getElementById(targetId);
@@ -253,7 +255,8 @@
     // 1. Initial Hash check on page load to prevent pill from jumping/sliding from Home
     if (window.location.hash) {
       const hash = window.location.hash.substring(1);
-      const targetInput = document.getElementById('nav-' + hash);
+      const inputId = hash === 'work' ? 'nav-projects' : 'nav-' + hash;
+      const targetInput = document.getElementById(inputId);
       if (targetInput) {
         const pill = control.querySelector('.selection-pill');
         if (pill) {
@@ -274,7 +277,7 @@
     window.addEventListener('scroll', function () {
       if (!checkIsHomePage()) return;
 
-      const sections = ['home', 'experience', 'contact'];
+      const sections = ['home', 'work', 'experience', 'contact'];
       let currentSection = 'home';
       const scrollPos = window.scrollY + 140; // navigation offset bar
 
@@ -290,7 +293,8 @@
       });
 
       // Set checked state on the corresponding radio button
-      const targetInput = document.getElementById('nav-' + currentSection);
+      const inputId = currentSection === 'work' ? 'nav-projects' : 'nav-' + currentSection;
+      const targetInput = document.getElementById(inputId);
       if (targetInput && !targetInput.checked) {
         targetInput.checked = true;
       }

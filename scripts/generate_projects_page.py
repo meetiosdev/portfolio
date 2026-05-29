@@ -55,7 +55,7 @@ html_template = """<!DOCTYPE html>
                     <label for="nav-home" data-href="../index.html">Home</label>
 
                     <input type="radio" name="options" id="nav-projects" checked>
-                    <label for="nav-projects" data-href="./index.html">Projects</label>
+                    <label for="nav-projects" data-href="../index.html#work">Projects</label>
 
                     <input type="radio" name="options" id="nav-experience">
                     <label for="nav-experience" data-href="../index.html#experience">Experience</label>
@@ -79,7 +79,7 @@ html_template = """<!DOCTYPE html>
             <!-- Mobile Menu Dropdown -->
             <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-background/80 backdrop-blur-xl border-b border-outline-variant/50 shadow-lg flex-col items-center py-6 space-y-6 md:hidden transition-all">
                 <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html">Home</a>
-                <a class="text-on-background font-medium" href="./index.html">Projects</a>
+                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html#work">Projects</a>
                 <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html#experience">Experience</a>
                 <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html#contact">Contact</a>
             </div>
