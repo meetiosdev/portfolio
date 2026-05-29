@@ -13,6 +13,7 @@ class Api {
   clearToken() {
     this.token = null;
     localStorage.removeItem('saas_token');
+    localStorage.removeItem('saas_dashboard_cache'); // Clear cached metrics on logout
   }
 
   async request(endpoint, options = {}) {
@@ -63,6 +64,26 @@ class Api {
 
   async getDashboard() {
     return this.request('/dashboard');
+  }
+
+  // SWR Helpers
+  getCachedDashboard() {
+    const cached = localStorage.getItem('saas_dashboard_cache');
+    if (!cached) return null;
+    try {
+      return JSON.parse(cached);
+    } catch (e) {
+      console.error('Failed to read cached dashboard metrics:', e);
+      return null;
+    }
+  }
+
+  setCachedDashboard(data) {
+    try {
+      localStorage.setItem('saas_dashboard_cache', JSON.stringify(data));
+    } catch (e) {
+      console.error('Failed to cache dashboard metrics:', e);
+    }
   }
 }
 

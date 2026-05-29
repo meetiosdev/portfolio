@@ -3,35 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Analytics Dashboard</title>
+  <title>SaaS Analytics Dashboard</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Microsoft Clarity -->
-  <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "YOUR_CLARITY_PROJECT_ID");
-  </script>
 </head>
 <body>
 
   <!-- Login Overlay -->
   <div id="login-overlay" class="overlay">
     <div class="login-card glass-card">
+      <div class="login-header">
+        <span class="live-indicator"></span>
+        <span class="eyebrow">Enterprise Access</span>
+      </div>
       <h2>Admin Login</h2>
       <form id="login-form">
         <div class="input-group">
           <label for="username">Username</label>
-          <input type="text" id="username" required>
+          <input type="text" id="username" placeholder="admin" required autocomplete="username">
         </div>
         <div class="input-group">
           <label for="password">Password</label>
-          <input type="password" id="password" required>
+          <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
         </div>
-        <button type="submit" class="btn primary">Login</button>
+        <button type="submit" class="btn primary">Sign In</button>
         <div id="login-error" class="error-msg"></div>
       </form>
     </div>
@@ -40,63 +39,184 @@
   <!-- Dashboard Container -->
   <div id="dashboard-container" class="dashboard hidden">
     <header class="glass-header">
-      <h1>Dashboard</h1>
+      <div class="brand-group">
+        <span class="live-dot"></span>
+        <h1>Analytics Dashboard</h1>
+        <span class="badge">SaaS-Grade v2.0</span>
+      </div>
       <div class="header-actions">
-        <!-- Optional Iframe / link for Clarity -->
-        <a href="https://clarity.microsoft.com/" target="_blank" class="btn secondary">Open Clarity</a>
+        <button id="refresh-btn" class="btn secondary flex-center gap-2">
+          <span class="icon">↻</span> Sync GA4
+        </button>
         <button id="logout-btn" class="btn outline">Logout</button>
       </div>
     </header>
 
     <main class="content">
-      <!-- Stats -->
+      <!-- 1. Top Row: 4 KPI Cards (Bento style) -->
       <section class="stats-grid">
-        <div class="stat-card glass-card">
-          <h3>Total Users (GA)</h3>
-          <p id="stat-users" class="stat-value">--</p>
+        <!-- KPI 1: Active Users -->
+        <div class="stat-card glass-card relative">
+          <div class="card-header">
+            <h3>Active Users (GA4)</h3>
+            <span id="trend-users" class="trend-badge positive">--</span>
+          </div>
+          <div class="kpi-body">
+            <p id="stat-users" class="stat-value">--</p>
+            <div class="sparkline-container">
+              <canvas id="sparkline-users"></canvas>
+            </div>
+          </div>
+          <p class="kpi-footer">vs. previous 30 days</p>
         </div>
-        <div class="stat-card glass-card">
-          <h3>Total Sessions (GA)</h3>
-          <p id="stat-sessions" class="stat-value">--</p>
+
+        <!-- KPI 2: Sessions -->
+        <div class="stat-card glass-card relative">
+          <div class="card-header">
+            <h3>Sessions (GA4)</h3>
+            <span id="trend-sessions" class="trend-badge positive">--</span>
+          </div>
+          <div class="kpi-body">
+            <p id="stat-sessions" class="stat-value">--</p>
+            <div class="sparkline-container">
+              <canvas id="sparkline-sessions"></canvas>
+            </div>
+          </div>
+          <p class="kpi-footer">vs. previous 30 days</p>
         </div>
-        <div class="stat-card glass-card">
-          <h3>Total Events (Supabase)</h3>
-          <p id="stat-events" class="stat-value">--</p>
+
+        <!-- KPI 3: Engagement Rate -->
+        <div class="stat-card glass-card relative">
+          <div class="card-header">
+            <h3>Engagement Rate</h3>
+            <span id="trend-engagement" class="trend-badge positive">--</span>
+          </div>
+          <div class="kpi-body">
+            <p id="stat-engagement" class="stat-value">--</p>
+            <div class="sparkline-container">
+              <canvas id="sparkline-engagement"></canvas>
+            </div>
+          </div>
+          <p class="kpi-footer">vs. previous 30 days</p>
+        </div>
+
+        <!-- KPI 4: Conversions -->
+        <div class="stat-card glass-card relative">
+          <div class="card-header">
+            <h3>Conversions</h3>
+            <span id="trend-conversions" class="trend-badge positive">--</span>
+          </div>
+          <div class="kpi-body">
+            <p id="stat-conversions" class="stat-value">--</p>
+            <div class="sparkline-container">
+              <canvas id="sparkline-conversions"></canvas>
+            </div>
+          </div>
+          <p class="kpi-footer">vs. previous 30 days</p>
         </div>
       </section>
 
-      <!-- Charts -->
-      <section class="charts-grid">
-        <div class="chart-card glass-card">
-          <h3>Daily Activity</h3>
-          <canvas id="lineChart"></canvas>
+      <!-- 2. Middle Row: Bento Box Scatter Plot & Cohort Retention -->
+      <section class="bento-middle-grid">
+        <!-- Scatter Plot: Page Speed vs Bounce Rate -->
+        <div class="chart-card glass-card col-span-2">
+          <div class="chart-header">
+            <div>
+              <h2>UX Friction Matrix</h2>
+              <p class="chart-subtitle">Page Load Time (s) vs. Bounce Rate (%) to isolate UX bottlenecks</p>
+            </div>
+            <span class="tag warning">Performance Bottlenecks</span>
+          </div>
+          <div class="canvas-wrap scatter-wrap">
+            <canvas id="frictionChart"></canvas>
+          </div>
         </div>
-        <div class="chart-card glass-card">
-          <h3>Device Breakdown</h3>
-          <canvas id="pieChart"></canvas>
-        </div>
-        <div class="chart-card glass-card">
-          <h3>Top Events</h3>
-          <canvas id="barChart"></canvas>
-        </div>
-        <div class="chart-card glass-card">
-          <h3>User Location</h3>
-          <canvas id="locationChart"></canvas>
+
+        <!-- Cohort Retention Box -->
+        <div class="chart-card glass-card flex-col">
+          <div class="chart-header">
+            <h2>User Retention Cohorts</h2>
+            <p class="chart-subtitle">Active retention rate over 4 weeks</p>
+          </div>
+          <div class="cohort-container">
+            <div class="cohort-row">
+              <span class="cohort-label">Week 1</span>
+              <div class="cohort-bar-bg"><div id="cohort-w1" class="cohort-bar-fill" style="width: 0%"></div></div>
+              <span id="cohort-val-w1" class="cohort-val">--</span>
+            </div>
+            <div class="cohort-row">
+              <span class="cohort-label">Week 2</span>
+              <div class="cohort-bar-bg"><div id="cohort-w2" class="cohort-bar-fill" style="width: 0%"></div></div>
+              <span id="cohort-val-w2" class="cohort-val">--</span>
+            </div>
+            <div class="cohort-row">
+              <span class="cohort-label">Week 3</span>
+              <div class="cohort-bar-bg"><div id="cohort-w3" class="cohort-bar-fill" style="width: 0%"></div></div>
+              <span id="cohort-val-w3" class="cohort-val">--</span>
+            </div>
+            <div class="cohort-row">
+              <span class="cohort-label">Week 4</span>
+              <div class="cohort-bar-bg"><div id="cohort-w4" class="cohort-bar-fill" style="width: 0%"></div></div>
+              <span id="cohort-val-w4" class="cohort-val">--</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- Events Table -->
+      <!-- 3. Bottom Row: Funnel, Hot Paths & Basic Dimensions -->
+      <section class="bento-bottom-grid">
+        <!-- Conversion Funnel Chart -->
+        <div class="chart-card glass-card">
+          <div class="chart-header">
+            <h2>Conversion Funnel</h2>
+            <p class="chart-subtitle">Traversals across core funnel steps</p>
+          </div>
+          <div class="canvas-wrap funnel-wrap">
+            <canvas id="funnelChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Hot Paths Journey Lists -->
+        <div class="chart-card glass-card">
+          <div class="chart-header">
+            <h2>High-Converting Hot Paths</h2>
+            <p class="chart-subtitle">Most optimized traversal routes</p>
+          </div>
+          <div id="hot-paths-list" class="hot-paths-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Device & Location Split -->
+        <div class="chart-card glass-card flex-col">
+          <div class="chart-header">
+            <h2>Device Breakdown</h2>
+            <p class="chart-subtitle">Users by device category</p>
+          </div>
+          <div class="canvas-wrap doughnut-wrap">
+            <canvas id="deviceChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Tabular Events Section -->
       <section class="table-section glass-card">
-        <h3>Recent Events Log</h3>
+        <div class="table-header">
+          <div>
+            <h2>Recent Events Log</h2>
+            <p class="table-subtitle">Supabase client-side interaction events stream</p>
+          </div>
+          <div id="connection-status" class="status-badge error">Supabase Offline</div>
+        </div>
         <div class="table-responsive">
           <table id="events-table">
             <thead>
               <tr>
                 <th>Event Name</th>
-                <th>Page</th>
+                <th>Page Path</th>
                 <th>Device</th>
                 <th>Time on Page (s)</th>
-                <th>Date</th>
+                <th>Date & Time</th>
               </tr>
             </thead>
             <tbody id="events-tbody">
