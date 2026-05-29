@@ -49,45 +49,68 @@
   }
 
   function initSegmentedControl() {
-    const nav = document.querySelector('.segmented-control-nav');
-    if (!nav) return;
+    const control = document.querySelector('.segmented-control');
+    if (!control) return;
 
-    // Create the sliding indicator background element dynamically
-    let indicator = nav.querySelector('.segmented-indicator');
-    if (!indicator) {
-      indicator = document.createElement('div');
-      indicator.className = 'segmented-indicator';
-      nav.appendChild(indicator);
-    }
+    const labels = control.querySelectorAll('label');
+    const inputs = Array.from(control.querySelectorAll('input[type="radio"]'));
 
-    const items = nav.querySelectorAll('.segment-item');
-    
-    function updateIndicator(activeItem) {
-      if (!activeItem) return;
-      const navRect = nav.getBoundingClientRect();
-      const itemRect = activeItem.getBoundingClientRect();
-      
-      const left = itemRect.left - navRect.left;
-      const width = itemRect.width;
-      
-      indicator.style.left = left + 'px';
-      indicator.style.width = width + 'px';
-    }
-
-    // Set initial position
-    const activeItem = nav.querySelector('.segment-item.active') || items[0];
-    if (activeItem) {
-      window.setTimeout(function () {
-        updateIndicator(activeItem);
-      }, 80);
-    }
-
-    // Dynamic scroll tracking: update active section as user scrolls (home page ONLY)
     const isHomePage = window.location.pathname.endsWith('index.html') || 
                        window.location.pathname === '/' || 
-                       window.location.pathname.endsWith('portfolio') || 
-                       window.location.pathname.endsWith('portfolio/');
-                       
+                       (window.location.pathname.includes('portfolio') && !window.location.pathname.includes('projects'));
+
+    // Helper to store the current active tab index
+    function updateStoredIndex(indexToStore) {
+      if (typeof indexToStore === 'number') {
+        sessionStorage.setItem('prevTabIndex', indexToStore);
+        return;
+      }
+      const checkedInput = control.querySelector('input[type="radio"]:checked');
+      if (checkedInput) {
+        const index = inputs.indexOf(checkedInput);
+        if (index !== -1) {
+          sessionStorage.setItem('prevTabIndex', index);
+        }
+      }
+    }
+
+    // 1. Smooth slide-in animation on page load from previous page index
+    const prevIndexStr = sessionStorage.getItem('prevTabIndex');
+    const currentIndex = inputs.indexOf(control.querySelector('input[type="radio"]:checked'));
+    
+    if (prevIndexStr !== null && currentIndex !== -1) {
+      const prevIndex = parseInt(prevIndexStr, 10);
+      if (prevIndex !== -1 && prevIndex !== currentIndex && prevIndex < inputs.length) {
+        // Temporarily select the previous tab to starting position
+        inputs[prevIndex].checked = true;
+        
+        const pill = control.querySelector('.selection-pill');
+        if (pill) {
+          // Disable transition temporarily to avoid an unwanted fast back-slide on DOM init
+          const originalTransition = pill.style.transition;
+          pill.style.transition = 'none';
+          
+          // Force layout reflow
+          void control.offsetHeight;
+          
+          // Re-enable transition and smoothly slide to the current target page tab
+          setTimeout(() => {
+            pill.style.transition = originalTransition;
+            inputs[currentIndex].checked = true;
+            updateStoredIndex(currentIndex);
+          }, 30);
+        } else {
+          inputs[currentIndex].checked = true;
+          updateStoredIndex(currentIndex);
+        }
+      } else {
+        updateStoredIndex(currentIndex);
+      }
+    } else {
+      updateStoredIndex(currentIndex);
+    }
+
+    // 2. Dynamic scroll tracking: update active input as user scrolls (home page ONLY)
     if (isHomePage) {
       const sections = ['home', 'experience', 'contact'];
       
@@ -106,51 +129,67 @@
           }
         });
 
-        // Sync active class on navigation items
-        items.forEach(function (item) {
-          const href = item.getAttribute('href');
-          if (href) {
-            const hash = href.split('#')[1] || 'home';
-            if (hash === currentSection) {
-              items.forEach(i => i.classList.remove('active'));
-              item.classList.add('active');
-              updateIndicator(item);
-            }
-          }
-        });
+        // Set checked state on the corresponding radio button
+        const targetInput = document.getElementById('nav-' + currentSection);
+        if (targetInput && !targetInput.checked) {
+          targetInput.checked = true;
+          updateStoredIndex(inputs.indexOf(targetInput));
+        }
       }, { passive: true });
     }
 
-    // Tap support: Slide dynamically on hash navigation click before transition
-    items.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        const href = item.getAttribute('href');
-        
-        if (href.startsWith('#') || href.startsWith('index.html#') || href.includes('#')) {
-          const hash = href.split('#')[1];
+    // 3. Click navigation routing handler on labels
+    labels.forEach(function (label) {
+      label.addEventListener('click', function (e) {
+        const href = label.getAttribute('data-href');
+        if (!href) return;
+
+        const inputId = label.getAttribute('for');
+        const input = document.getElementById(inputId);
+
+        // Capture previous active index before we transition checked states
+        const activeInput = control.querySelector('input[type="radio"]:checked');
+        const prevIdx = activeInput ? inputs.indexOf(activeInput) : -1;
+        if (prevIdx !== -1) {
+          sessionStorage.setItem('prevTabIndex', prevIdx);
+        }
+
+        // Check if it's an anchor scroll on the same page
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          if (input) {
+            input.checked = true;
+            updateStoredIndex(inputs.indexOf(input));
+          }
+
+          const hash = href.substring(1);
           const targetEl = document.getElementById(hash);
           if (targetEl) {
-            e.preventDefault();
-            items.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
-            updateIndicator(item);
-
             window.scrollTo({
               top: targetEl.offsetTop - 80,
               behavior: 'smooth'
             });
-            // Update URL hash without reload
             window.history.pushState(null, null, '#' + hash);
           }
+        } else if (href.includes('#')) {
+          // Navigating back to home page hash from projects
+          e.preventDefault();
+          if (input) input.checked = true; // Slide the pill first!
+          
+          setTimeout(() => {
+            window.location.href = href;
+          }, 280); // Let the slide animation complete beautifully!
+        } else {
+          // Normal external page transition (e.g. going to Projects or Home)
+          e.preventDefault();
+          if (input) input.checked = true; // Slide the pill first!
+
+          setTimeout(() => {
+            window.location.href = href;
+          }, 280); // Let the slide animation complete beautifully!
         }
       });
     });
-
-    // Make sure indicator recalculates on window resize
-    window.addEventListener('resize', function () {
-      const currentActive = nav.querySelector('.segment-item.active');
-      if (currentActive) updateIndicator(currentActive);
-    }, { passive: true });
   }
 
   document.addEventListener('DOMContentLoaded', function () {

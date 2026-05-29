@@ -74,79 +74,133 @@
 /* ==========================================
    Apple-Style Segmented Control Navigation
    ========================================== */
-.segmented-control-nav {
-  display: inline-flex;
-  background: rgba(120, 120, 128, 0.08); /* light theme track */
-  border-radius: 12px;
-  padding: 3px;
-  gap: 2px;
-  border: 1px solid rgba(0, 0, 0, 0.02);
-  position: relative; /* essential for absolute indicator positioning */
+:root {
+  /* Exact iOS 17/18 Colors */
+  --bg-track: rgba(118, 118, 128, 0.12);
+  --pill-color: #ffffff;
+  --divider-color: rgba(0, 0, 0, 0.15);
+}
+
+.dark {
+  --bg-track: rgba(118, 118, 128, 0.24);
+  --pill-color: rgba(255, 255, 255, 0.22);
+  --divider-color: rgba(255, 255, 255, 0.15);
+}
+
+.segmented-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 400px; /* Perfect width for 4 items */
+  background: var(--bg-track);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 2px;
+  border-radius: 9px;
+  user-select: none;
+  border: 0.5px solid rgba(0, 0, 0, 0.04);
+  transition: all 0.3s;
   z-index: 1;
 }
 
-.dark .segmented-control-nav {
-  background: rgba(255, 255, 255, 0.08); /* dark theme track */
-  border-color: rgba(255, 255, 255, 0.02);
+.dark .segmented-control {
+  border-color: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* The Sliding Pill Indicator */
-.segmented-indicator {
+/* Hide the radio dots */
+.segmented-control input[type="radio"] {
+  display: none !important;
+}
+
+.segmented-control label {
+  position: relative;
+  flex: 1;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #000000;
+  z-index: 2;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.1s ease;
+}
+
+.dark .segmented-control label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.segmented-control label:hover {
+  color: #000000;
+}
+
+.dark .segmented-control label:hover {
+  color: #ffffff;
+}
+
+.segmented-control label:active {
+  transform: scale(0.97);
+}
+
+/* Selected text styling */
+.segmented-control input:checked + label {
+  font-weight: 600;
+  color: #000000;
+}
+
+.dark .segmented-control input:checked + label {
+  color: #ffffff;
+}
+
+/* Creating the thin dividers between items */
+.segmented-control label:not(:last-of-type)::after {
+  content: "";
   position: absolute;
-  top: 3px;
-  bottom: 3px;
-  left: 3px;
-  background: #ffffff;
-  border-radius: 9px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 0;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background-color: var(--divider-color);
+  transition: opacity 0.2s;
+}
+
+/* Hide divider to the right of the active tab */
+#nav-home:checked + label::after,
+#nav-projects:checked + label::after,
+#nav-experience:checked + label::after {
+  opacity: 0;
+}
+
+/* Hide divider to the left of the active tab using :has() */
+.segmented-control:has(#nav-projects:checked) label[for="nav-home"]::after,
+.segmented-control:has(#nav-experience:checked) label[for="nav-projects"]::after,
+.segmented-control:has(#nav-contact:checked) label[for="nav-experience"]::after {
+  opacity: 0;
+}
+
+/* The sliding white pill */
+.selection-pill {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  width: calc(25% - 4px); /* Perfect mathematical inset for 4 items */
+  background: var(--pill-color);
+  border-radius: 7px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 3px 1px rgba(0, 0, 0, 0.04);
+  z-index: 1;
+  /* iOS Snappy "Spring" Animation Curve */
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   pointer-events: none;
 }
 
-.dark .segmented-indicator {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+.dark .selection-pill {
+  border: 0.5px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.segment-item {
-  padding: 6px 18px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #5d5e63 !important; /* Neutral grey secondary color */
-  border-radius: 9px;
-  transition: color 0.25s ease, transform 0.1s ease;
-  min-width: 96px;
-  text-align: center;
-  border: 1px solid transparent;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  z-index: 2; /* Keeps text above the sliding indicator background */
-}
-
-.dark .segment-item {
-  color: #86868b !important;
-}
-
-.segment-item:not(.active):hover {
-  color: #000000 !important;
-}
-
-.dark .segment-item:not(.active):hover {
-  color: #ffffff !important;
-}
-
-.segment-item:active {
-  transform: scale(0.96);
-}
-
-.segment-item.active {
-  color: #000000 !important;
-  font-weight: 600;
-}
-
-.dark .segment-item.active {
-  color: #ffffff !important;
-}
+/* Animation Logic: Moving the selection-pill perfectly centered with 2px padding inset gaps */
+#nav-home:checked ~ .selection-pill { transform: translateX(0); }
+#nav-projects:checked ~ .selection-pill { transform: translateX(calc(100% + 4px)); }
+#nav-experience:checked ~ .selection-pill { transform: translateX(calc(200% + 8px)); }
+#nav-contact:checked ~ .selection-pill { transform: translateX(calc(300% + 12px)); }

@@ -33,11 +33,20 @@
                     <img src="./assets/images/profile.jpeg" alt="Swarajmeet" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
                     <span class="text-xl font-bold tracking-tighter text-on-background">Swarajmeet</span>
                 </a>
-                <div class="segmented-control-nav hidden md:flex">
-                    <a class="segment-item active" href="#home">Home</a>
-                    <a class="segment-item" href="./projects/index.html">Projects</a>
-                    <a class="segment-item" href="#experience">Experience</a>
-                    <a class="segment-item" href="#contact">Contact</a>
+                <div class="segmented-control hidden md:flex">
+                    <input type="radio" name="options" id="nav-home" checked>
+                    <label for="nav-home" data-href="#home">Home</label>
+
+                    <input type="radio" name="options" id="nav-projects">
+                    <label for="nav-projects" data-href="./projects/index.html">Projects</label>
+
+                    <input type="radio" name="options" id="nav-experience">
+                    <label for="nav-experience" data-href="#experience">Experience</label>
+
+                    <input type="radio" name="options" id="nav-contact">
+                    <label for="nav-contact" data-href="#contact">Contact</label>
+
+                    <div class="selection-pill"></div>
                 </div>
                 <div class="flex items-center gap-6">
                     <button id="theme-toggle" class="active:scale-95 transition-transform duration-200 cursor-pointer" aria-label="Toggle Dark Mode">
