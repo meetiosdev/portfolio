@@ -70,3 +70,61 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--outline);
 }
+
+/* ==========================================
+   Apple-Style Segmented Control Navigation
+   ========================================== */
+.segmented-control-nav {
+  display: inline-flex;
+  background: rgba(120, 120, 128, 0.08); /* light theme track */
+  border-radius: 12px;
+  padding: 3px;
+  gap: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  transition: background 0.3s;
+}
+
+.dark .segmented-control-nav {
+  background: rgba(255, 255, 255, 0.08); /* dark theme track */
+  border-color: rgba(255, 255, 255, 0.02);
+}
+
+.segment-item {
+  padding: 6px 18px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #5d5e63 !important; /* Neutral grey secondary color */
+  border-radius: 9px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  min-width: 96px;
+  text-align: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.dark .segment-item {
+  color: #86868b !important;
+}
+
+.segment-item:hover {
+  color: #000000 !important;
+}
+
+.dark .segment-item:hover {
+  color: #ffffff !important;
+}
+
+.segment-item.active {
+  background: #ffffff;
+  color: #000000 !important;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.dark .segment-item.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
