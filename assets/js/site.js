@@ -40,6 +40,9 @@
     return window.location.protocol + '//' + window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
   })();
 
+  let isScrollingFromNav = false;
+  let scrollTimeout = null;
+
   // 2. Helper to resolve any relative path correctly relative to site base URL
   function resolveUrl(path) {
     if (!path) return '';
@@ -195,10 +198,15 @@
             if (hashToScroll) {
               const targetEl = document.getElementById(hashToScroll);
               if (targetEl) {
+                isScrollingFromNav = true;
+                if (scrollTimeout) clearTimeout(scrollTimeout);
                 window.scrollTo({
                   top: targetEl.offsetTop - 80,
                   behavior: 'smooth'
                 });
+                scrollTimeout = setTimeout(function () {
+                  isScrollingFromNav = false;
+                }, 800);
               }
             } else {
               window.scrollTo({ top: 0, behavior: 'instant' });
@@ -276,6 +284,7 @@
     // 2. Dynamic scroll tracking: update active input as user scrolls (home page ONLY)
     window.addEventListener('scroll', function () {
       if (!checkIsHomePage()) return;
+      if (isScrollingFromNav) return; // Bypass scroll-spy during navigation scroll animations
 
       const sections = ['home', 'work', 'experience', 'contact'];
       let currentSection = 'home';
@@ -291,6 +300,11 @@
           }
         }
       });
+
+      // Special bottom-of-page check to make Contact highlight flawlessly
+      if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 50)) {
+        currentSection = 'contact';
+      }
 
       // Set checked state on the corresponding radio button
       const inputId = currentSection === 'work' ? 'nav-projects' : 'nav-' + currentSection;
@@ -322,11 +336,18 @@
             const hash = href.substring(1);
             const targetEl = document.getElementById(hash);
             if (targetEl) {
+              isScrollingFromNav = true;
+              if (scrollTimeout) clearTimeout(scrollTimeout);
+
               window.scrollTo({
                 top: targetEl.offsetTop - 80,
                 behavior: 'smooth'
               });
               window.history.pushState(null, null, '#' + hash);
+
+              scrollTimeout = setTimeout(function () {
+                isScrollingFromNav = false;
+              }, 800);
             }
           } else {
             // From projects page to home page anchor
@@ -367,12 +388,19 @@
       if (checkIsHomePage()) {
         const targetEl = document.getElementById(hash);
         if (targetEl) {
+          isScrollingFromNav = true;
+          if (scrollTimeout) clearTimeout(scrollTimeout);
+
           window.scrollTo({
             top: targetEl.offsetTop - 80,
             behavior: 'smooth'
           });
           window.history.pushState(null, null, '#' + hash);
           updateNavStateForUrl(window.location.pathname, hash);
+
+          scrollTimeout = setTimeout(function () {
+            isScrollingFromNav = false;
+          }, 800);
         }
       } else {
         // Intercept logo / Home clicks inside subfolders going back
