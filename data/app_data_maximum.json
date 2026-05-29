@@ -9,7 +9,7 @@
       "./assets/images/melpot/screenshot_4.png"
     ],
     "icon": "./assets/images/melpot/appicon_official.png",
-    "version": "1.0.0.8",
+    "version": "26.04.15",
     "category": "Lifestyle",
     "ratings": "5",
     "developer": "SUHUB ARMAA COMPANY FOR INFORMATION TECHNOLOGY",
@@ -43,7 +43,7 @@
     "user_rating_count_for_current_version": "0",
     "app_status": "Active",
     "my_role": "Lead iOS Developer - Built core social features, real-time messaging, and user authentication system",
-    "release_date_human": "Wednesday 15 April 2026"
+    "release_date_human": "Friday 29 May 2026"
   },
   {
     "name": "MO - mobyyou",
@@ -582,7 +582,7 @@
       "./assets/images/tabler/screenshot_4.png"
     ],
     "icon": "./assets/images/tabler/appicon_official.png",
-    "version": "2.3.4",
+    "version": "2.4.1",
     "category": "Social Networking",
     "ratings": "4.5823",
     "developer": "Tabler Inc.",
@@ -614,7 +614,7 @@
     "is_vpp_device_based_licensing_enabled": true,
     "average_user_rating_for_current_version": 4.5823,
     "user_rating_count_for_current_version": 1063,
-    "release_date_human": "Tuesday 24 February 2026",
+    "release_date_human": "Wednesday 27 May 2026",
     "last_updated_human": "Friday 04 September 2020",
     "current_version_release_date_human": "Tuesday 19 August 2025",
     "my_role": "Mobile Developer - Created social networking app with real-time chat and community features"

@@ -50,11 +50,20 @@ html_template = """<!DOCTYPE html>
                     <img src="../assets/images/profile.jpeg" alt="Swarajmeet" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
                     <span class="text-xl font-bold tracking-tighter text-on-background">Swarajmeet</span>
                 </a>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a class="text-secondary hover:text-on-background transition-colors" href="../">Home</a>
-                    <a class="text-on-background border-b-2 border-on-background pb-1" href="./">Projects</a>
-                    <a class="text-secondary hover:text-on-background transition-colors" href="../#experience">Experience</a>
-                    <a class="text-secondary hover:text-on-background transition-colors" href="../#contact">Contact</a>
+                <div class="segmented-control hidden md:flex">
+                    <input type="radio" name="options" id="nav-home">
+                    <label for="nav-home" data-href="../index.html">Home</label>
+
+                    <input type="radio" name="options" id="nav-projects" checked>
+                    <label for="nav-projects" data-href="./index.html">Projects</label>
+
+                    <input type="radio" name="options" id="nav-experience">
+                    <label for="nav-experience" data-href="../index.html#experience">Experience</label>
+
+                    <input type="radio" name="options" id="nav-contact">
+                    <label for="nav-contact" data-href="../index.html#contact">Contact</label>
+
+                    <div class="selection-pill"></div>
                 </div>
                 <div class="flex items-center gap-6">
                     <button id="theme-toggle" class="active:scale-95 transition-transform duration-200 cursor-pointer" aria-label="Toggle Dark Mode">
@@ -69,15 +78,15 @@ html_template = """<!DOCTYPE html>
             
             <!-- Mobile Menu Dropdown -->
             <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-background/80 backdrop-blur-xl border-b border-outline-variant/50 shadow-lg flex-col items-center py-6 space-y-6 md:hidden transition-all">
-                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../">Home</a>
-                <a class="text-on-background font-medium" href="./">Projects</a>
-                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../#experience">Experience</a>
-                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../#contact">Contact</a>
+                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html">Home</a>
+                <a class="text-on-background font-medium" href="./index.html">Projects</a>
+                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html#experience">Experience</a>
+                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html#contact">Contact</a>
             </div>
         </nav>
     </header>
 
-    <main class="pt-[140px] pb-[120px] px-8">
+    <main id="content-area" class="pt-[140px] pb-[120px] px-8">
         <div class="max-w-[1140px] mx-auto">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-4">
                 <h1 class="font-display text-display text-on-background m-0">Detailed Case Studies</h1>
