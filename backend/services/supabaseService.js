@@ -20,7 +20,7 @@ const getEvents = async () => {
   // Fetch events from the 'events' table
   const { data, error } = await supabase
     .from('events')
-    .select('event_name, page, device, time_on_page, created_at')
+    .select('event_name, page, device, time_on_page, created_at, session_id, browser, referrer')
     .order('created_at', { ascending: false });
 
   if (error) {
