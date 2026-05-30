@@ -288,7 +288,7 @@
       if (!checkIsHomePage()) return;
       if (isScrollingFromNav) return; // Bypass scroll-spy during navigation scroll animations
 
-      const sections = ['home', 'work', 'experience', 'contact'];
+      const sections = ['home', 'work', 'experience'];
       let currentSection = 'home';
       const scrollPos = window.scrollY + 140; // navigation offset bar
 
@@ -302,11 +302,6 @@
           }
         }
       });
-
-      // Special bottom-of-page check to make Contact highlight flawlessly
-      if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 50)) {
-        currentSection = 'contact';
-      }
 
       // Set checked state on the corresponding radio button
       const inputId = currentSection === 'work' ? 'nav-projects' : 'nav-' + currentSection;
@@ -325,10 +320,16 @@
         const inputId = label.getAttribute('for');
         const input = document.getElementById(inputId);
 
-        // Special handling for Resume to open natively in a new tab/page directly
+        // Special handling for Resume and Contact to open natively in a new tab/page directly
         if (inputId === 'nav-resume') {
           e.preventDefault();
           window.open('./resume/', '_blank');
+          return;
+        }
+
+        if (inputId === 'nav-contact') {
+          e.preventDefault();
+          window.open('./contact/', '_blank');
           return;
         }
 
