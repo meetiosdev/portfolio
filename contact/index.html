@@ -573,6 +573,50 @@
                 font-size: 0.9rem;
             }
         }
+
+        /* --- MESSAGE BOX FORM SYSTEM --- */
+        .message-form input:focus,
+        .message-form textarea:focus {
+            border-color: var(--on-background) !important;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+        .dark .message-form input:focus,
+        .dark .message-form textarea:focus {
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+        }
+        .message-form input:disabled,
+        .message-form textarea:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: var(--outline-variant) !important;
+        }
+        .message-form button:disabled {
+            cursor: not-allowed;
+        }
+        .message-form button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        .dark .message-form button:hover:not(:disabled) {
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.06);
+        }
+        .message-form button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        
+        @keyframes form-spin {
+            to { transform: rotate(360deg); }
+        }
+        .animate-form-spin {
+            animation: form-spin 1s infinite linear;
+        }
+
+        @media (max-width: 600px) {
+            .form-inputs-row {
+                grid-template-columns: 1fr !important;
+                gap: 1.25rem !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -722,9 +766,7 @@
                     <span class="link-btn-text">Call</span>
                 </div>
                 <span class="material-symbols-outlined link-btn-arrow">arrow_forward</span>
-            </a>
-
-            <!-- WhatsApp -->
+            </a>            <!-- WhatsApp -->
             <a href="https://wa.me/919878568733" target="_blank" rel="noopener noreferrer" class="link-item-btn" data-track="Contact WhatsApp Button">
                 <div class="link-btn-content">
                     <div class="link-btn-icon">
@@ -734,7 +776,7 @@
                 </div>
                 <span class="material-symbols-outlined link-btn-arrow">arrow_forward</span>
             </a>
-
+ 
             <!-- Telegram -->
             <a href="https://t.me/meetheiosdev" target="_blank" rel="noopener noreferrer" class="link-item-btn" data-track="Contact Telegram Button">
                 <div class="link-btn-content">
@@ -747,6 +789,36 @@
             </a>
 
         </div>
+
+        <!-- MESSAGE BOX SEPARATOR -->
+        <div class="message-separator" style="width: 100%; border-top: 1px solid var(--outline); margin: 1.5rem 0 0.5rem 0;"></div>
+
+        <!-- MESSAGE BOX FORM -->
+        <form id="contact-message-form" class="message-form" style="width: 100%; display: flex; flex-direction: column; gap: 1.25rem; text-align: left;">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--on-background); margin-bottom: 0.1rem; letter-spacing: -0.02em;">Or Send a Message</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%;" class="form-inputs-row">
+                <div style="display: flex; flex-direction: column; gap: 0.45rem;">
+                    <label for="form-name" style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--secondary); letter-spacing: 0.05em;">Your Name</label>
+                    <input type="text" id="form-name" placeholder="John Doe" required style="width: 100%; padding: 0.85rem 1rem; border-radius: 14px; border: 1px solid var(--outline); background: var(--surface); color: var(--on-background); outline: none; font-size: 0.88rem; transition: border-color 0.25s, box-shadow 0.25s;">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.45rem;">
+                    <label for="form-email" style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--secondary); letter-spacing: 0.05em;">Your Email</label>
+                    <input type="email" id="form-email" placeholder="john@example.com" required style="width: 100%; padding: 0.85rem 1rem; border-radius: 14px; border: 1px solid var(--outline); background: var(--surface); color: var(--on-background); outline: none; font-size: 0.88rem; transition: border-color 0.25s, box-shadow 0.25s;">
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.45rem; width: 100%;">
+                <label for="form-message" style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--secondary); letter-spacing: 0.05em;">Message</label>
+                <textarea id="form-message" rows="4" placeholder="Hey Swarajmeet, let's build something great together..." required style="width: 100%; padding: 0.85rem 1rem; border-radius: 14px; border: 1px solid var(--outline); background: var(--surface); color: var(--on-background); outline: none; font-size: 0.88rem; resize: none; transition: border-color 0.25s, box-shadow 0.25s; font-family: inherit;"></textarea>
+            </div>
+
+            <button type="submit" id="form-submit-btn" style="width: 100%; padding: 0.95rem; border-radius: 16px; border: none; background: var(--on-background); color: var(--background); font-weight: 700; font-size: 0.92rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);">
+                <span id="btn-text">Send Message</span>
+                <span id="btn-icon" class="material-symbols-outlined" style="font-size: 18px; transition: transform 0.25s;">send</span>
+            </button>
+            <div id="form-status-msg" style="font-size: 0.82rem; font-weight: 600; text-align: center; min-height: 20px; transition: opacity 0.2s;"></div>
+        </form>
 
     </div>
 
@@ -831,6 +903,140 @@
                 qrModal.addEventListener('click', (e) => {
                     if (e.target === qrModal) {
                         qrModal.classList.remove('active');
+                    }
+                });
+            }
+
+            // --- Contact Message Form Submission ---
+            const messageForm = document.getElementById('contact-message-form');
+            if (messageForm) {
+                const nameInput = document.getElementById('form-name');
+                const emailInput = document.getElementById('form-email');
+                const messageInput = document.getElementById('form-message');
+                const submitBtn = document.getElementById('form-submit-btn');
+                const btnText = document.getElementById('btn-text');
+                const btnIcon = document.getElementById('btn-icon');
+                const statusMsg = document.getElementById('form-status-msg');
+
+                // Keep original values for restoration
+                const originalBtnText = btnText.textContent;
+                const originalBtnIcon = btnIcon.textContent;
+                const originalBtnBg = submitBtn.style.background;
+                const originalBtnColor = submitBtn.style.color;
+
+                messageForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    // Disable inputs and button
+                    nameInput.disabled = true;
+                    emailInput.disabled = true;
+                    messageInput.disabled = true;
+                    submitBtn.disabled = true;
+
+                    // Transition to loading state
+                    btnText.textContent = 'Sending...';
+                    btnIcon.textContent = 'autorenew';
+                    btnIcon.classList.add('animate-form-spin');
+                    statusMsg.style.opacity = '0';
+                    statusMsg.textContent = '';
+
+                    const nameVal = nameInput.value.trim();
+                    const emailVal = emailInput.value.trim();
+                    const messageVal = messageInput.value.trim();
+
+                    // Fetch session information
+                    const sessionId = localStorage.getItem('session_id') || 'sess_unknown';
+                    const userAgent = navigator.userAgent;
+                    const device = /mobile/i.test(userAgent) ? 'mobile' : 'desktop';
+                    const browser = userAgent.includes('Chrome')
+                        ? 'Chrome'
+                        : userAgent.includes('Safari') && !userAgent.includes('Chrome')
+                        ? 'Safari'
+                        : userAgent.includes('Firefox')
+                        ? 'Firefox'
+                        : 'Other';
+                    const timeOnPage = Math.floor((Date.now() - (window.__pageStartTime || Date.now())) / 1000);
+                    const scrollDepth = window.__maxScroll || 0;
+
+                    const supabaseUrl = 'https://liffowvslpcykrktlved.supabase.co';
+                    const supabaseKey = 'sb_publishable_YThhUQos4gfieXCElzggWA_ufrtqW7Y';
+                    const supabaseEventsUrl = supabaseUrl + '/rest/v1/events';
+
+                    const payload = {
+                        event_name: 'user_message',
+                        page: window.location.pathname || '/contact/',
+                        device: device,
+                        browser: browser,
+                        referrer: JSON.stringify({
+                            name: nameVal,
+                            email: emailVal,
+                            message: messageVal
+                        }),
+                        session_id: sessionId,
+                        time_on_page: Number.isNaN(timeOnPage) ? 0 : timeOnPage,
+                        scroll_depth: Number.isNaN(scrollDepth) ? 0 : scrollDepth
+                    };
+
+                    try {
+                        const response = await fetch(supabaseEventsUrl, {
+                            method: 'POST',
+                            mode: 'cors',
+                            credentials: 'omit',
+                            headers: {
+                                apikey: supabaseKey,
+                                Authorization: 'Bearer ' + supabaseKey,
+                                'Content-Type': 'application/json',
+                                Prefer: 'return=minimal'
+                            },
+                            body: JSON.stringify(payload)
+                        });
+
+                        btnIcon.classList.remove('animate-form-spin');
+
+                        if (response.ok) {
+                            // Success state
+                            btnText.textContent = 'Message Sent!';
+                            btnIcon.textContent = 'check_circle';
+                            submitBtn.style.background = '#10b981';
+                            submitBtn.style.color = '#ffffff';
+
+                            statusMsg.textContent = 'Thank you! Your message has been sent successfully.';
+                            statusMsg.style.color = '#10b981';
+                            statusMsg.style.opacity = '1';
+
+                            // Reset form fields
+                            messageForm.reset();
+                        } else {
+                            throw new Error('Failed to send');
+                        }
+                    } catch (error) {
+                        console.error('Error submitting message:', error);
+                        btnIcon.classList.remove('animate-form-spin');
+
+                        // Error state
+                        btnText.textContent = 'Failed to Send';
+                        btnIcon.textContent = 'error';
+                        submitBtn.style.background = '#ef4444';
+                        submitBtn.style.color = '#ffffff';
+
+                        statusMsg.textContent = 'Unable to send message. Please try again later.';
+                        statusMsg.style.color = '#ef4444';
+                        statusMsg.style.opacity = '1';
+                    } finally {
+                        // Re-enable form fields
+                        nameInput.disabled = false;
+                        emailInput.disabled = false;
+                        messageInput.disabled = false;
+
+                        // Restore button state after delay
+                        setTimeout(() => {
+                            submitBtn.disabled = false;
+                            btnText.textContent = originalBtnText;
+                            btnIcon.textContent = originalBtnIcon;
+                            submitBtn.style.background = originalBtnBg;
+                            submitBtn.style.color = originalBtnColor;
+                            statusMsg.style.opacity = '0';
+                        }, 4000);
                     }
                 });
             }

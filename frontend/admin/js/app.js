@@ -216,8 +216,27 @@ function renderDashboard(data) {
         recentEvents.forEach(event => {
           const tr = document.createElement('tr');
           const time = new Date(event.created_at).toLocaleString();
+          
+          let eventNameContent = `<span class="badge">${event.event_name || '-'}</span>`;
+          if (event.event_name === 'user_message' && event.referrer) {
+            try {
+              const msgData = JSON.parse(event.referrer);
+              eventNameContent = `
+                <div style="display: flex; flex-direction: column; gap: 4px; text-align: left;">
+                  <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981; align-self: flex-start;">user_message</span>
+                  <div style="font-size: 0.8rem; background: rgba(255, 255, 255, 0.03); border-left: 2px solid #10b981; padding: 6px 10px; border-radius: 4px; color: var(--text-secondary); margin-top: 4px; max-width: 320px; line-height: 1.4; white-space: normal; word-break: break-word;">
+                    <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 2px;">${msgData.name} &lt;${msgData.email}&gt;</div>
+                    <div style="font-style: italic; opacity: 0.9;">"${msgData.message}"</div>
+                  </div>
+                </div>
+              `;
+            } catch (e) {
+              eventNameContent = `<span class="badge">${event.event_name || '-'}</span>`;
+            }
+          }
+
           tr.innerHTML = `
-            <td><span class="badge">${event.event_name || '-'}</span></td>
+            <td>${eventNameContent}</td>
             <td><code>${event.page || '-'}</code></td>
             <td>${event.device || '-'}</td>
             <td>${event.time_on_page || '0'}s</td>
