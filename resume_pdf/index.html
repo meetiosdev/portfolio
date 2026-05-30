@@ -2,70 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Redirecting to Swarajmeet's Resume PDF...</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>Swarajmeet — Senior iOS Engineer Resume</title>
     
-    <!-- Meta Refresh for Instant Redirection -->
-    <meta http-equiv="refresh" content="0; url=../assets/docs/ios_developer_swarajmeet_resume.pdf">
+    <link rel="icon" href="../assets/images/favicon.png" type="image/png">
     
-    <script type="text/javascript">
-        // Safe JavaScript Redirection
-        window.location.replace("../assets/docs/ios_developer_swarajmeet_resume.pdf");
-    </script>
-    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#323639">
+
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #000000;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        html, body {
             margin: 0;
-            text-align: center;
-            -webkit-font-smoothing: antialiased;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #323639; /* Standard sleek PDF viewer charcoal background */
         }
-        .container {
-            max-width: 400px;
-            padding: 2rem;
-        }
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            border-top-color: #ffffff;
-            animation: spin 1s ease-in-out infinite;
-            margin: 0 auto 1.5rem auto;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        h2 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.01em;
-        }
-        p {
-            font-size: 0.88rem;
-            color: #86868b;
-            margin-bottom: 1.5rem;
-        }
-        a {
-            color: #ffffff;
-            text-decoration: underline;
-            font-weight: 500;
+        object, embed, iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="spinner"></div>
-        <h2>Opening Resume PDF</h2>
-        <p>Directly redirecting you to Swarajmeet's authentic compiled iOS Developer Resume...</p>
-        <p>If you are not redirected automatically, <a href="../assets/docs/ios_developer_swarajmeet_resume.pdf">click here to open the PDF</a>.</p>
-    </div>
+    <!-- Renders natively inside the container page keeping URL as meetiosdev.com/resume_pdf -->
+    <object data="../assets/docs/ios_developer_swarajmeet_resume.pdf" type="application/pdf" width="100%" height="100%">
+        <iframe src="../assets/docs/ios_developer_swarajmeet_resume.pdf" width="100%" height="100%">
+            <p>Your web browser does not support displaying inline PDFs. Please download the PDF to view it: 
+            <a href="../assets/docs/ios_developer_swarajmeet_resume.pdf">Download Resume PDF</a>.</p>
+        </iframe>
+    </object>
 </body>
 </html>
