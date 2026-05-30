@@ -2,7 +2,6 @@
   function shareResume() {
     const shareText = "Swarajmeet — Senior iOS Engineer\nWebsite: https://meetiosdev.com/\nResume: https://meetiosdev.com/resume/";
     const shareData = {
-      title: 'Swarajmeet — Senior iOS Engineer',
       text: shareText
     };
 
