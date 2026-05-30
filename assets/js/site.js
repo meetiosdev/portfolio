@@ -436,60 +436,85 @@
         sibling = sibling.previousElementSibling;
       }
 
-      // Live CORS iTunes lookup query direct to Apple database
-      fetch(`https://itunes.apple.com/lookup?id=${appStoreId}&country=us`)
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.resultCount > 0) {
-            const info = data.results[0];
-            const liveVersion = info.version;
-            const liveRatingRaw = info.averageUserRating;
+      // Create a unique callback name for JSONP to resolve localhost/CORS blocks
+      const callbackName = 'appStoreCallback_' + appStoreId;
 
-            // Stars formatting
-            let liveRating = 'Unrated';
-            if (typeof liveRatingRaw === 'number' && liveRatingRaw > 0) {
-              liveRating = liveRatingRaw.toFixed(1) + '★';
-            }
+      // Define global callback handler
+      window[callbackName] = function (data) {
+        // Clean up the script element and global namespace safely
+        try {
+          delete window[callbackName];
+        } catch (e) {
+          window[callbackName] = undefined;
+        }
+        const scriptElement = document.getElementById('jsonp-' + appStoreId);
+        if (scriptElement) {
+          scriptElement.remove();
+        }
 
-            // Date formatting
-            const rawDate = info.currentVersionReleaseDate || info.releaseDate;
-            let formattedDate = null;
-            if (rawDate) {
-              const dt = new Date(rawDate);
-              const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-              const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-              formattedDate = `${days[dt.getUTCDay()]} ${String(dt.getUTCDate()).padStart(2, '0')} ${months[dt.getUTCMonth()]} ${dt.getUTCFullYear()}`;
-            }
+        if (data && data.resultCount > 0) {
+          const info = data.results[0];
+          const liveVersion = info.version;
+          const liveRatingRaw = info.averageUserRating;
 
-            // Dynamically update DOM badges in high fidelity smooth transitions
-            if (liveVersion && span.textContent !== 'v' + liveVersion) {
-              span.style.opacity = '0';
-              setTimeout(() => {
-                span.textContent = 'v' + liveVersion;
-                span.style.opacity = '1';
-              }, 300);
-            }
-
-            if (liveRating && ratingSpan && ratingSpan.textContent !== liveRating) {
-              ratingSpan.style.opacity = '0';
-              setTimeout(() => {
-                ratingSpan.textContent = liveRating;
-                ratingSpan.style.opacity = '1';
-              }, 300);
-            }
-
-            if (formattedDate && dateSpan && dateSpan.textContent !== formattedDate) {
-              dateSpan.style.opacity = '0';
-              setTimeout(() => {
-                dateSpan.textContent = formattedDate;
-                dateSpan.style.opacity = '1';
-              }, 300);
-            }
+          // Stars formatting
+          let liveRating = 'Unrated';
+          if (typeof liveRatingRaw === 'number' && liveRatingRaw > 0) {
+            liveRating = liveRatingRaw.toFixed(1) + '★';
           }
-        })
-        .catch(err => {
-          console.warn('Dynamic live App Store sync failed, using static cache:', err);
-        });
+
+          // Date formatting
+          const rawDate = info.currentVersionReleaseDate || info.releaseDate;
+          let formattedDate = null;
+          if (rawDate) {
+            const dt = new Date(rawDate);
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            formattedDate = `${days[dt.getUTCDay()]} ${String(dt.getUTCDate()).padStart(2, '0')} ${months[dt.getUTCMonth()]} ${dt.getUTCFullYear()}`;
+          }
+
+          // Dynamically update DOM badges in high fidelity smooth transitions
+          if (liveVersion && span.textContent !== 'v' + liveVersion) {
+            span.style.opacity = '0';
+            setTimeout(() => {
+              span.textContent = 'v' + liveVersion;
+              span.style.opacity = '1';
+            }, 300);
+          }
+
+          if (liveRating && ratingSpan && ratingSpan.textContent !== liveRating) {
+            ratingSpan.style.opacity = '0';
+            setTimeout(() => {
+              ratingSpan.textContent = liveRating;
+              ratingSpan.style.opacity = '1';
+            }, 300);
+          }
+
+          if (formattedDate && dateSpan && dateSpan.textContent !== formattedDate) {
+            dateSpan.style.opacity = '0';
+            setTimeout(() => {
+              dateSpan.textContent = formattedDate;
+              dateSpan.style.opacity = '1';
+            }, 300);
+          }
+        }
+      };
+
+      // Load external JSONP script (eliminates CORS issues on local development completely)
+      const script = document.createElement('script');
+      script.id = 'jsonp-' + appStoreId;
+      script.src = `https://itunes.apple.com/lookup?id=${appStoreId}&country=us&callback=${callbackName}`;
+      script.async = true;
+      script.onerror = function () {
+        console.warn(`Dynamic dynamic app lookup failed for app ID: ${appStoreId}`);
+        try {
+          delete window[callbackName];
+        } catch (e) {
+          window[callbackName] = undefined;
+        }
+        script.remove();
+      };
+      document.body.appendChild(script);
     });
   }
 
