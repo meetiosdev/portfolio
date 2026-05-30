@@ -46,18 +46,7 @@ function bindStaticHandlers() {
     });
   }
 
-  // Intercept clicks on Errors Logged card to filter down table
-  const errorsCard = document.getElementById('errors-card');
-  if (errorsCard) {
-    errorsCard.addEventListener('click', function () {
-      if (searchInput) {
-        searchInput.value = 'error';
-        currentSearch = 'error';
-        renderTable(filterEvents(allEvents));
-        searchInput.focus();
-      }
-    });
-  }
+
 
   // Bind close timeline modal handlers
   const closeModalBtn = document.getElementById('close-modal-btn');
@@ -213,7 +202,6 @@ function renderStats(data) {
   document.getElementById('stat-page-views').textContent = formatNumber(data.metrics.pageViews);
   document.getElementById('stat-clicks').textContent = formatNumber(data.metrics.clickEvents);
   document.getElementById('stat-sessions').textContent = formatNumber(data.metrics.uniqueSessions);
-  document.getElementById('stat-errors').textContent = formatNumber(data.metrics.errorsLogged);
 }
 
 function renderCharts(data) {

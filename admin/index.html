@@ -43,7 +43,12 @@
                     <p class="eyebrow">Portfolio Admin</p>
                     <h1 id="dashboard-title">Analytics Dashboard</h1>
                 </div>
-                <button id="logout-button" type="button" class="ghost-button">Logout</button>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <a href="./errors/" class="ghost-button" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px;">
+                        <span class="icon">⚠️</span> Errors
+                    </a>
+                    <button id="logout-button" type="button" class="ghost-button">Logout</button>
+                </div>
             </nav>
 
             <section class="toolbar glass-card" aria-label="Dashboard controls">
@@ -93,10 +98,6 @@
                     <article class="stat-card glass-card">
                         <span>Unique Sessions</span>
                         <strong id="stat-sessions">0</strong>
-                    </article>
-                    <article id="errors-card" class="stat-card glass-card clickable-card">
-                        <span>Errors Logged</span>
-                        <strong id="stat-errors" class="error-text">0</strong>
                     </article>
                 </div>
 

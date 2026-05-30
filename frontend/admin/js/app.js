@@ -191,24 +191,6 @@ function renderDashboard(data) {
   
   // Save events globally for user journey query tracer
   window.allEvents = (supabase && supabase.raw) ? supabase.raw : [];
-
-  // Update Errors Logged KPI card
-  const errorsCount = window.allEvents.filter(e => e.event_name === 'error').length;
-  const statErrors = document.getElementById('stat-errors');
-  if (statErrors) {
-    statErrors.textContent = errorsCount;
-  }
-
-  // Intercept click on Errors Card to filter the recent events log table
-  const errorsCard = document.getElementById('errors-card');
-  if (errorsCard && !errorsCard.dataset.listenerBound) {
-    errorsCard.dataset.listenerBound = 'true';
-    errorsCard.addEventListener('click', function () {
-      window.errorsFilterActive = !window.errorsFilterActive;
-      errorsCard.classList.toggle('active-filter', window.errorsFilterActive);
-      populateEventsTable(window.allEvents);
-    });
-  }
   
   if (!supabase || supabase.error) {
     console.warn('Supabase event streams are currently disabled.');
