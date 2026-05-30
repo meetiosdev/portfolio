@@ -221,12 +221,23 @@ function renderDashboard(data) {
           if (event.event_name === 'user_message' && event.referrer) {
             try {
               const msgData = JSON.parse(event.referrer);
+              let metaString = '';
+              if (msgData.os || msgData.browser) {
+                metaString = `
+                  <div style="font-size: 0.72rem; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.06); margin-top: 6px; padding-top: 4px; display: flex; gap: 6px; align-items: center; opacity: 0.8;">
+                    <span>💻 ${msgData.os || ''}</span>
+                    <span>•</span>
+                    <span>🌐 ${msgData.browser || ''}</span>
+                  </div>
+                `;
+              }
               eventNameContent = `
                 <div style="display: flex; flex-direction: column; gap: 4px; text-align: left;">
                   <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981; align-self: flex-start;">user_message</span>
                   <div style="font-size: 0.8rem; background: rgba(255, 255, 255, 0.03); border-left: 2px solid #10b981; padding: 6px 10px; border-radius: 4px; color: var(--text-secondary); margin-top: 4px; max-width: 320px; line-height: 1.4; white-space: normal; word-break: break-word;">
                     <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 2px;">${msgData.name} &lt;${msgData.email}&gt;</div>
                     <div style="font-style: italic; opacity: 0.9;">"${msgData.message}"</div>
+                    ${metaString}
                   </div>
                 </div>
               `;

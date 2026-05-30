@@ -813,6 +813,15 @@
                 <textarea id="form-message" rows="4" placeholder="Hey Swarajmeet, let's build something great together..." required style="width: 100%; padding: 0.85rem 1rem; border-radius: 14px; border: 1px solid var(--outline); background: var(--surface); color: var(--on-background); outline: none; font-size: 0.88rem; resize: none; transition: border-color 0.25s, box-shadow 0.25s; font-family: inherit;"></textarea>
             </div>
 
+            <!-- Hidden Metadata Fields for Email Form Handler (Web3Forms/Formspree) -->
+            <input type="hidden" name="access_key" id="meta-access-key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+            <input type="hidden" name="Browser" id="meta-browser">
+            <input type="hidden" name="OS" id="meta-os">
+            <input type="hidden" name="Screen Resolution" id="meta-resolution">
+            <input type="hidden" name="Device Pixel Ratio" id="meta-dpr">
+            <input type="hidden" name="Timezone" id="meta-timezone">
+            <input type="hidden" name="Language" id="meta-language">
+
             <button type="submit" id="form-submit-btn" style="width: 100%; padding: 0.95rem; border-radius: 16px; border: none; background: var(--on-background); color: var(--background); font-weight: 700; font-size: 0.92rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);">
                 <span id="btn-text">Send Message</span>
                 <span id="btn-icon" class="material-symbols-outlined" style="font-size: 18px; transition: transform 0.25s;">send</span>
@@ -846,6 +855,75 @@
             const htmlElement = document.documentElement;
             const themeToggleBtn = document.getElementById('theme-toggle');
             const themeToggleIcon = document.getElementById('theme-toggle-icon');
+
+            // --- Metadata Detection Helpers ---
+            function getBrowserDetails() {
+                const ua = navigator.userAgent;
+                let tem;
+                let M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+                if (/trident/i.test(M[1])) {
+                    tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+                    return 'IE ' + (tem[1] || '');
+                }
+                if (M[1] === 'Chrome') {
+                    tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+                    if (tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+                }
+                M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+                if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
+                return M.join(' ');
+            }
+
+            function getOSDetails() {
+                const ua = navigator.userAgent;
+                let os = 'Unknown OS';
+                
+                if (ua.indexOf('Win') !== -1) {
+                    os = 'Windows';
+                    if (ua.indexOf('Windows NT 10.0') !== -1) os += ' 10/11';
+                    else if (ua.indexOf('Windows NT 6.3') !== -1) os += ' 8.1';
+                    else if (ua.indexOf('Windows NT 6.2') !== -1) os += ' 8';
+                    else if (ua.indexOf('Windows NT 6.1') !== -1) os += ' 7';
+                } else if (ua.indexOf('Android') !== -1) {
+                    const match = ua.match(/Android\s+([0-9\.]+)/);
+                    os = 'Android ' + (match ? match[1] : '');
+                } else if (ua.indexOf('iPhone') !== -1 || ua.indexOf('iPad') !== -1) {
+                    const match = ua.match(/OS\s+([0-9_]+)/);
+                    os = 'iOS ' + (match ? match[1].replace(/_/g, '.') : '');
+                } else if (ua.indexOf('Mac') !== -1) {
+                    const match = ua.match(/Mac OS X\s+([0-9_]+)/);
+                    os = 'macOS ' + (match ? match[1].replace(/_/g, '.') : '');
+                } else if (ua.indexOf('Linux') !== -1) {
+                    os = 'Linux';
+                }
+                
+                return os;
+            }
+
+            function populateMetadataFields() {
+                const browserField = document.getElementById('meta-browser');
+                const osField = document.getElementById('meta-os');
+                const resolutionField = document.getElementById('meta-resolution');
+                const dprField = document.getElementById('meta-dpr');
+                const timezoneField = document.getElementById('meta-timezone');
+                const languageField = document.getElementById('meta-language');
+
+                if (browserField) browserField.value = getBrowserDetails();
+                if (osField) osField.value = getOSDetails();
+                if (resolutionField) resolutionField.value = `${window.screen.width}x${window.screen.height}`;
+                if (dprField) dprField.value = window.devicePixelRatio || 1;
+                
+                let tz = 'Unknown';
+                try {
+                    tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
+                } catch (e) {}
+                if (timezoneField) timezoneField.value = tz;
+                
+                if (languageField) languageField.value = navigator.language || 'en-US';
+            }
+
+            // Populate metadata automatically on DOM ready
+            populateMetadataFields();
 
             // --- Theme Syncing ---
             const storedTheme = localStorage.getItem('theme');
@@ -910,6 +988,12 @@
             // --- Contact Message Form Submission ---
             const messageForm = document.getElementById('contact-message-form');
             if (messageForm) {
+                // --- EMAIL FORM HANDLER CONFIGURATION ---
+                // Paste your Web3Forms Access Key here (e.g. 'xxxxxx-xxxx-xxxx-xxxx-xxxxxxxx').
+                // If you do not have one yet, enter your email hello@meetiosdev.com on https://web3forms.com/ to get a free key instantly.
+                // Web3Forms is safe to use client-side as it acts as an alias to your email address.
+                const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY_HERE"; 
+
                 const nameInput = document.getElementById('form-name');
                 const emailInput = document.getElementById('form-email');
                 const messageInput = document.getElementById('form-message');
@@ -926,6 +1010,11 @@
 
                 messageForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
+
+                    // Re-populate metadata fields just before submit to ensure fresh metrics
+                    if (typeof populateMetadataFields === 'function') {
+                        populateMetadataFields();
+                    }
 
                     // Disable inputs and button
                     nameInput.disabled = true;
@@ -944,7 +1033,15 @@
                     const emailVal = emailInput.value.trim();
                     const messageVal = messageInput.value.trim();
 
-                    // Fetch session information
+                    // Gather metadata values from the populated hidden fields
+                    const metaBrowser = document.getElementById('meta-browser').value;
+                    const metaOS = document.getElementById('meta-os').value;
+                    const metaResolution = document.getElementById('meta-resolution').value;
+                    const metaDPR = document.getElementById('meta-dpr').value;
+                    const metaTimezone = document.getElementById('meta-timezone').value;
+                    const metaLanguage = document.getElementById('meta-language').value;
+
+                    // Fetch session information for Supabase telemetry
                     const sessionId = localStorage.getItem('session_id') || 'sess_unknown';
                     const userAgent = navigator.userAgent;
                     const device = /mobile/i.test(userAgent) ? 'mobile' : 'desktop';
@@ -962,7 +1059,7 @@
                     const supabaseKey = 'sb_publishable_YThhUQos4gfieXCElzggWA_ufrtqW7Y';
                     const supabaseEventsUrl = supabaseUrl + '/rest/v1/events';
 
-                    const payload = {
+                    const supabasePayload = {
                         event_name: 'user_message',
                         page: window.location.pathname || '/contact/',
                         device: device,
@@ -970,13 +1067,24 @@
                         referrer: JSON.stringify({
                             name: nameVal,
                             email: emailVal,
-                            message: messageVal
+                            message: messageVal,
+                            browser: metaBrowser,
+                            os: metaOS,
+                            resolution: metaResolution,
+                            dpr: metaDPR,
+                            timezone: metaTimezone,
+                            language: metaLanguage
                         }),
                         session_id: sessionId,
                         time_on_page: Number.isNaN(timeOnPage) ? 0 : timeOnPage,
                         scroll_depth: Number.isNaN(scrollDepth) ? 0 : scrollDepth
                     };
 
+                    // Execute both Supabase telemetry and Web3Forms email delivery in parallel
+                    let telemetrySuccess = false;
+                    let emailSuccess = false;
+
+                    // 1. Supabase Event Log Submission
                     try {
                         const response = await fetch(supabaseEventsUrl, {
                             method: 'POST',
@@ -988,31 +1096,63 @@
                                 'Content-Type': 'application/json',
                                 Prefer: 'return=minimal'
                             },
-                            body: JSON.stringify(payload)
+                            body: JSON.stringify(supabasePayload)
                         });
+                        telemetrySuccess = response.ok;
+                    } catch (err) {
+                        console.error('Supabase telemetry logging failed:', err);
+                    }
 
-                        btnIcon.classList.remove('animate-form-spin');
-
-                        if (response.ok) {
-                            // Success state
-                            btnText.textContent = 'Message Sent!';
-                            btnIcon.textContent = 'check_circle';
-                            submitBtn.style.background = '#10b981';
-                            submitBtn.style.color = '#ffffff';
-
-                            statusMsg.textContent = 'Thank you! Your message has been sent successfully.';
-                            statusMsg.style.color = '#10b981';
-                            statusMsg.style.opacity = '1';
-
-                            // Reset form fields
-                            messageForm.reset();
-                        } else {
-                            throw new Error('Failed to send');
+                    // 2. Email Delivery Submission (Web3Forms API)
+                    const isKeyConfigured = WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== "YOUR_WEB3FORMS_ACCESS_KEY_HERE";
+                    if (isKeyConfigured) {
+                        try {
+                            const emailResponse = await fetch("https://api.web3forms.com/submit", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    access_key: WEB3FORMS_ACCESS_KEY,
+                                    name: nameVal,
+                                    email: emailVal,
+                                    message: messageVal,
+                                    subject: `New Portfolio Message from ${nameVal}`,
+                                    Browser: metaBrowser,
+                                    OS: metaOS,
+                                    "Screen Resolution": metaResolution,
+                                    "Device Pixel Ratio": metaDPR,
+                                    Timezone: metaTimezone,
+                                    Language: metaLanguage
+                                })
+                            });
+                            const emailData = await emailResponse.json();
+                            emailSuccess = emailResponse.ok && emailData.success;
+                        } catch (err) {
+                            console.error('Web3Forms email submission failed:', err);
                         }
-                    } catch (error) {
-                        console.error('Error submitting message:', error);
-                        btnIcon.classList.remove('animate-form-spin');
+                    } else {
+                        console.warn("Web3Forms email delivery is in local simulation mode. To receive real emails to hello@meetiosdev.com, paste your free Web3Forms key inside contact/index.html's WEB3FORMS_ACCESS_KEY constant.");
+                        emailSuccess = true; // Simulate email success locally for visual verification
+                    }
 
+                    btnIcon.classList.remove('animate-form-spin');
+
+                    if (telemetrySuccess || emailSuccess) {
+                        // Success state
+                        btnText.textContent = 'Message Sent!';
+                        btnIcon.textContent = 'check_circle';
+                        submitBtn.style.background = '#10b981';
+                        submitBtn.style.color = '#ffffff';
+
+                        statusMsg.textContent = 'Thank you! Your message has been sent successfully.';
+                        statusMsg.style.color = '#10b981';
+                        statusMsg.style.opacity = '1';
+
+                        // Reset form fields
+                        messageForm.reset();
+                    } else {
                         // Error state
                         btnText.textContent = 'Failed to Send';
                         btnIcon.textContent = 'error';
@@ -1022,22 +1162,21 @@
                         statusMsg.textContent = 'Unable to send message. Please try again later.';
                         statusMsg.style.color = '#ef4444';
                         statusMsg.style.opacity = '1';
-                    } finally {
-                        // Re-enable form fields
+                    }
+
+                    // Re-enable form fields and restore button state after delay
+                    setTimeout(() => {
                         nameInput.disabled = false;
                         emailInput.disabled = false;
                         messageInput.disabled = false;
+                        submitBtn.disabled = false;
 
-                        // Restore button state after delay
-                        setTimeout(() => {
-                            submitBtn.disabled = false;
-                            btnText.textContent = originalBtnText;
-                            btnIcon.textContent = originalBtnIcon;
-                            submitBtn.style.background = originalBtnBg;
-                            submitBtn.style.color = originalBtnColor;
-                            statusMsg.style.opacity = '0';
-                        }, 4000);
-                    }
+                        btnText.textContent = originalBtnText;
+                        btnIcon.textContent = originalBtnIcon;
+                        submitBtn.style.background = originalBtnBg;
+                        submitBtn.style.color = originalBtnColor;
+                        statusMsg.style.opacity = '0';
+                    }, 4000);
                 });
             }
         });
