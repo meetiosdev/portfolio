@@ -238,6 +238,8 @@
       targetId = 'nav-contact';
     } else if (url.includes('projects')) {
       targetId = 'nav-projects';
+    } else if (url.includes('resume')) {
+      targetId = 'nav-resume';
     }
 
     const input = document.getElementById(targetId);
@@ -322,6 +324,13 @@
 
         const inputId = label.getAttribute('for');
         const input = document.getElementById(inputId);
+
+        // Special handling for Resume to open natively in a new tab/page directly
+        if (inputId === 'nav-resume') {
+          e.preventDefault();
+          window.open('./resume/', '_blank');
+          return;
+        }
 
         // Slide the pill immediately for visual feedback
         if (input) {

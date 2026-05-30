@@ -1,60 +1,1433 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Resume | Swarajmeet - iOS Developer</title>
+    <title>Resume | Swarajmeet — Senior iOS Engineer</title>
+    
     <link rel="icon" href="../assets/images/favicon.png" type="image/png">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.clarity.ms https://scripts.clarity.ms https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://*.supabase.co https://www.clarity.ms https://c.clarity.ms https://s.clarity.ms https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://itunes.apple.com https://www.clarity.ms https://scripts.clarity.ms https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://*.supabase.co https://itunes.apple.com https://www.clarity.ms https://c.clarity.ms https://s.clarity.ms https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self';">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta name="theme-color" content="#1a1b1e">
+    <meta name="theme-color" content="#000000">
 
-    <!-- Production CSS -->
-    <link rel="stylesheet" href="../dist/output.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <!-- Google Fonts Integration -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="../assets/css/styles.css">
 
     <!-- First-party tracking and UI scripts -->
     <script src="../assets/js/supabase-tracking.js" defer></script>
     <script src="../assets/js/analytics.js" defer></script>
+
+    <style>
+        /* --- EXACT PORTFOLIO DESIGN TOKENS & VARIABLES --- */
+        :root {
+            --background: #f9f9f9;
+            --surface: #ffffff;
+            --on-background: #1b1b1b;
+            --secondary: #5d5e63;
+            --primary: #000000;
+            --on-primary: #ffffff;
+            
+            --outline: #7e7576;
+            --outline-variant: #cfc4c5;
+            
+            --surface-container: #eeeeee;
+            --surface-container-high: #e8e8e8;
+            --surface-container-highest: #e2e2e2;
+            --surface-container-low: #f3f3f3;
+
+            --dot-color: #10B981;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.06);
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(207, 196, 197, 0.5);
+        }
+
+        .dark {
+            --background: #000000;
+            --surface: #000000;
+            --on-background: #f5f5f7;
+            --secondary: #86868b;
+            --primary: #ffffff;
+            --on-primary: #000000;
+            
+            --outline: #555555;
+            --outline-variant: #38383a;
+            
+            --surface-container: #1c1c1e;
+            --surface-container-high: #2c2c2e;
+            --surface-container-highest: #3a3a3c;
+            --surface-container-low: #1c1c1e;
+
+            --dot-color: #34D399;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --glass-bg: rgba(0, 0, 0, 0.8);
+            --glass-border: rgba(56, 56, 58, 0.5);
+        }
+
+        /* --- BASE STYLES --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background);
+            color: var(--on-background);
+            line-height: 1.5;
+            padding: 8rem 1.5rem 4rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- SCROLLBAR --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--background);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--outline-variant);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--outline);
+        }
+
+        /* --- STICKY NAV-BAR (EXACT MATCH TO PORTFOLIO HEADER) --- */
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: var(--glass-bg);
+            border-b: 1px solid var(--outline-variant);
+            border-bottom: 0.5px solid var(--outline-variant);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .navbar-container {
+            width: 100%;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--on-background);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-brand:hover {
+            opacity: 0.8;
+        }
+
+        .nav-brand .material-symbols-outlined {
+            transition: transform 0.2s ease;
+        }
+
+        .nav-brand:hover .material-symbols-outlined {
+            transform: translateX(-4px);
+        }
+
+        .nav-brand img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-cover: cover;
+            border: 1px solid var(--outline-variant);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--outline);
+            color: var(--on-background);
+            padding: 0.5rem 1.25rem;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            border-radius: 9999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        .nav-btn:hover {
+            background: var(--on-background);
+            color: var(--background);
+            border-color: var(--on-background);
+        }
+
+        .nav-btn.primary {
+            background: var(--primary);
+            color: var(--on-primary);
+            border-color: var(--primary);
+        }
+
+        .nav-btn.primary:hover {
+            opacity: 0.9;
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: none;
+            color: var(--on-background);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .theme-toggle-btn:active {
+            transform: scale(0.95);
+        }
+
+        .theme-toggle-btn span {
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        /* --- CANVAS --- */
+        .resume-canvas {
+            max-width: 1140px;
+            width: 100%;
+            background-color: var(--surface);
+            border-radius: 24px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--outline-variant);
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: introFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        @media (min-width: 868px) {
+            .resume-canvas {
+                grid-template-columns: 340px 1fr;
+            }
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            background-color: var(--surface-container-low);
+            padding: 4rem 2.5rem;
+            border-right: 1px solid var(--outline-variant);
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.25rem;
+        }
+
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--outline-variant);
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--on-background);
+        }
+
+        .profile-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--secondary);
+            margin-top: 0.25rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--surface);
+            border: 1px solid var(--outline-variant);
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--secondary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--dot-color);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .status-dot::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--dot-color);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: pulse-ring 1.5s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--secondary);
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--outline-variant);
+            padding-bottom: 0.5rem;
+        }
+
+        /* CONTACT CARDS */
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .contact-card {
+            background-color: var(--surface);
+            border: 1px solid var(--outline-variant);
+            border-radius: 16px;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-1px);
+            border-color: var(--outline);
+        }
+
+        .contact-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--surface-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--on-background);
+        }
+
+        .contact-card svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--secondary);
+        }
+
+        .contact-value {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--on-background);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* SKILLS MATRIX */
+        .skills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .skill-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .skill-group-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .skill-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .skill-chip {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--on-background);
+            background: var(--surface);
+            border: 1px solid var(--outline-variant);
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            transition: all 0.2s ease;
+        }
+
+        .skill-chip:hover {
+            border-color: var(--outline);
+        }
+
+        .skill-chip.spotlight {
+            background: var(--on-background);
+            color: var(--background);
+            border-color: var(--on-background);
+            font-weight: 700;
+        }
+
+        /* --- MAIN PANEL --- */
+        .main-panel {
+            padding: 4rem 3.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 3.5rem;
+            background-color: var(--surface);
+            transition: background-color 0.3s ease;
+        }
+
+        section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--on-background);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            height: 1px;
+            flex-grow: 1;
+            background: var(--outline-variant);
+            margin-left: 1rem;
+            display: block;
+            width: 100px;
+        }
+
+        /* SUMMARY */
+        .summary-wrapper {
+            background: var(--surface-container-low);
+            border: 1px solid var(--outline-variant);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .summary-text {
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        .summary-text strong {
+            color: var(--on-background);
+            font-weight: 700;
+        }
+
+        /* EXPERIENCE TIMELINE */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 2px;
+            bottom: 0;
+            width: 2px;
+            background: var(--outline-variant);
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -23.5px;
+            top: 7px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 2px solid var(--on-background);
+            transition: transform 0.2s ease;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.2);
+        }
+
+        .experience-card {
+            background: var(--surface);
+            border: 1px solid var(--outline-variant);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            transition: border-color 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .experience-card:hover {
+            border-color: var(--outline);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .job-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--on-background);
+            letter-spacing: -0.01em;
+        }
+
+        .company-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .company-name {
+            color: var(--on-background);
+            font-weight: 700;
+        }
+
+        .tenure-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--secondary);
+            background: var(--surface-container-low);
+            padding: 0.4rem 0.9rem;
+            border-radius: 9999px;
+            border: 1px solid var(--outline-variant);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .job-bullets {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            list-style: none;
+        }
+
+        .job-bullets li {
+            position: relative;
+            padding-left: 1.25rem;
+            font-size: 0.92rem;
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        .job-bullets li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--outline);
+        }
+
+        .job-bullets strong {
+            color: var(--on-background);
+            font-weight: 600;
+        }
+
+        /* PROJECTS GRID */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 600px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--outline-variant);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .project-card:hover {
+            border-color: var(--outline);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--on-background);
+            letter-spacing: -0.01em;
+        }
+
+        .project-icon-link {
+            color: var(--secondary);
+        }
+
+        .project-card:hover .project-icon-link {
+            color: var(--on-background);
+        }
+
+        .project-tech {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .project-description {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        /* EDUCATION */
+        .edu-card {
+            background: var(--surface);
+            border: 1px solid var(--outline-variant);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .edu-degree {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--on-background);
+            letter-spacing: -0.01em;
+        }
+
+        .edu-school {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--on-background);
+        }
+
+        .edu-desc {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        /* AUTOMATION PROFILE CONTAINER */
+        .ai-spotlight-card {
+            background: var(--surface-container-low);
+            border: 1px solid var(--outline-variant);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            gap: 1.25rem;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .ai-spotlight-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--outline-variant);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--on-background);
+            flex-shrink: 0;
+        }
+
+        .ai-spotlight-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .ai-spotlight-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--on-background);
+        }
+
+        .ai-spotlight-desc {
+            font-size: 0.88rem;
+            color: var(--secondary);
+            line-height: 1.5;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes introFade {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.33); opacity: 1; }
+            80%, 100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 868px) {
+            body {
+                padding: 6.5rem 1rem 2rem 1rem;
+            }
+            .sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--outline-variant);
+                padding: 3rem 2rem;
+            }
+            .main-panel {
+                padding: 3rem 2rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.4rem;
+            }
+            .tenure-badge {
+                align-self: flex-start;
+            }
+            .nav-btn span {
+                display: none;
+            }
+            .navbar-container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* --- PRINT CRITICAL STYLES --- */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                display: block !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .top-navbar, .status-dot::after {
+                display: none !important;
+            }
+
+            .resume-canvas {
+                box-shadow: none !important;
+                border: none !important;
+                border-radius: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                display: block !important;
+                transform: none !important;
+                opacity: 1 !important;
+                animation: none !important;
+            }
+
+            .sidebar {
+                background: transparent !important;
+                border-right: none !important;
+                border-bottom: 2px solid #e0e0e0 !important;
+                padding: 0 0 1.5rem 0 !important;
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 1.5rem !important;
+            }
+
+            .profile-container {
+                grid-column: span 2 !important;
+            }
+
+            .profile-avatar {
+                width: 70px;
+                height: 70px;
+            }
+
+            .contact-list {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 0.5rem !important;
+            }
+
+            .contact-card {
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+
+            .contact-icon {
+                display: none !important;
+            }
+
+            .skills-container {
+                grid-column: span 2 !important;
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 1rem !important;
+            }
+
+            .skill-chip {
+                background: transparent !important;
+                border: none !important;
+                padding: 0.1rem 0 !important;
+                font-size: 0.8rem !important;
+                color: #000000 !important;
+            }
+
+            .skill-chip::after {
+                content: ', ';
+            }
+            .skill-chip:last-child::after {
+                content: '';
+            }
+
+            .main-panel {
+                padding: 1.5rem 0 0 0 !important;
+                background: transparent !important;
+                gap: 2rem !important;
+            }
+
+            .summary-wrapper {
+                background: transparent !important;
+                border: 1px solid #000000 !important;
+                border-left: 4px solid #000000 !important;
+                padding: 1rem !important;
+                box-shadow: none !important;
+            }
+
+            .summary-text {
+                color: #000000 !important;
+            }
+
+            .experience-card, .project-card, .edu-card, .ai-spotlight-card {
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+
+            .experience-card:hover, .project-card:hover, .edu-card:hover {
+                transform: none !important;
+            }
+
+            .timeline::before {
+                display: none !important;
+            }
+
+            .timeline-dot {
+                display: none !important;
+            }
+
+            .timeline {
+                padding-left: 0 !important;
+                gap: 1.5rem !important;
+            }
+
+            .job-bullets li {
+                color: #000000 !important;
+                padding-left: 1rem !important;
+            }
+
+            .job-bullets li::before {
+                color: #000000 !important;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+
+            .project-card {
+                border-bottom: 1px dashed #cccccc !important;
+                padding-bottom: 1rem !important;
+            }
+
+            .project-icon-link {
+                display: none !important;
+            }
+
+            .ai-spotlight-card {
+                border: 1px solid #000000 !important;
+            }
+
+            .ai-spotlight-icon {
+                border-color: #000000 !important;
+            }
+
+            section {
+                page-break-inside: avoid !important;
+            }
+        }
+    </style>
 </head>
-<body class="bg-[#1a1b1e] h-[100dvh] flex flex-col m-0 overflow-hidden">
-    
-    <!-- Custom Top Bar -->
-    <header class="h-16 bg-[#1a1b1e] border-b border-white/10 flex items-center justify-between px-4 md:px-8 shrink-0 relative z-10 shadow-md">
-        <a href="../" class="text-white flex items-center gap-2 hover:opacity-80 transition-opacity" data-track="Resume Back">
-            <span class="material-symbols-outlined text-[20px]">arrow_back</span>
-            <span class="font-bold tracking-tight hidden sm:block">Back to Portfolio</span>
-        </a>
-        
-        <div class="text-white/80 font-medium text-sm hidden md:block">
-            Swarajmeet Singh - iOS Developer Resume
-        </div>
-        
-        <div class="flex items-center gap-3">
-            <button data-track="Resume Share" data-share-resume class="flex items-center justify-center gap-2 px-4 py-2 bg-white/10 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-white/20 transition-colors active:scale-95">
-                <span class="material-symbols-outlined text-[18px]">share</span>
-                <span class="hidden sm:inline">Share</span>
-            </button>
-            <a href="../assets/docs/ios_developer_swarajmeet_resume.pdf" download="Swarajmeet_Singh_iOS_Resume.pdf" class="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-blue-500 transition-colors active:scale-95 shadow-lg shadow-blue-900/50" data-track="Resume Download">
-                <span class="material-symbols-outlined text-[18px]">download</span>
-                <span class="hidden sm:inline">Download</span>
+<body>
+
+    <!-- TOP FLOATING NAVBAR (MATCHES CHROME OF MEETIOSDEV.COM) -->
+    <nav class="top-navbar">
+        <div class="navbar-container">
+            <a href="../" class="nav-brand" data-track="Resume Back">
+                <span class="material-symbols-outlined">arrow_back</span>
+                <img src="../assets/images/profile.jpeg" alt="Swarajmeet">
+                <span>Swarajmeet</span>
             </a>
+
+            <div class="nav-actions">
+                <!-- Theme Toggle Icon Button -->
+                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark Mode">
+                    <span id="theme-toggle-icon" class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
+                </button>
+
+                <!-- Share Action Trigger -->
+                <button class="nav-btn" data-share-resume data-track="Resume Share">
+                    <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                    <span>Share</span>
+                </button>
+
+                <!-- Print Action: Opens actual PDF in a new tab for high-fidelity viewing/printing -->
+                <a href="../assets/docs/ios_developer_swarajmeet_resume.pdf" target="_blank" class="nav-btn" data-track="Resume Print">
+                    <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    <span>Print</span>
+                </a>
+
+                <!-- Download PDF: Downloads the actual generic_resume.pdf -->
+                <a href="../assets/docs/ios_developer_swarajmeet_resume.pdf" download="Swarajmeet_Singh_iOS_Resume.pdf" class="nav-btn primary" data-track="Resume Download">
+                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <span>Download PDF</span>
+                </a>
+            </div>
         </div>
-    </header>
-    
-    <!-- PDF Viewer -->
-    <main class="flex-1 w-full relative bg-[#121212]">
-        <!-- PDF embed fallback to iframe for widest compatibility -->
-        <iframe src="../assets/docs/ios_developer_swarajmeet_resume.pdf" class="absolute inset-0 w-full h-full border-0" title="Resume">
-            <p>Your browser does not support PDFs. <a href="../assets/docs/ios_developer_swarajmeet_resume.pdf">Download the PDF</a>.</p>
-        </iframe>
-    </main>
+    </nav>
+
+    <!-- RESUME CANVAS -->
+    <div class="resume-canvas">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="profile-container">
+                <img src="../assets/images/profile.jpeg" alt="Swarajmeet" class="profile-avatar">
+                <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <h1 class="profile-name">Swarajmeet</h1>
+                    <div class="profile-title">Senior iOS Engineer</div>
+                </div>
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    <span>Available for high-impact projects</span>
+                </div>
+            </div>
+
+            <!-- CONTACT -->
+            <div>
+                <h3 class="sidebar-section-title">Contact</h3>
+                <div class="contact-list">
+                    <a href="mailto:meetheiosdeveloper@gmail.com" class="contact-card">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        </div>
+                        <div class="contact-details">
+                            <span class="contact-label">Email</span>
+                            <span class="contact-value">meetheiosdeveloper@gmail.com</span>
+                        </div>
+                    </a>
+                    
+                    <a href="tel:+919878568733" class="contact-card">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        </div>
+                        <div class="contact-details">
+                            <span class="contact-label">Phone</span>
+                            <span class="contact-value">+91 98785 68733</span>
+                        </div>
+                    </a>
+                    
+                    <a href="https://meetiosdev.com/" target="_blank" class="contact-card">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        </div>
+                        <div class="contact-details">
+                            <span class="contact-label">Website</span>
+                            <span class="contact-value">meetiosdev.com</span>
+                        </div>
+                    </a>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </div>
+                        <div class="contact-details">
+                            <span class="contact-label">Location</span>
+                            <span class="contact-value">Jalandhar, Punjab, India</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SKILLS MATRIX -->
+            <div class="skills-container">
+                <h3 class="sidebar-section-title">Technical Skills</h3>
+                
+                <div class="skill-group">
+                    <div class="skill-group-title">Languages</div>
+                    <div class="skill-chips">
+                        <span class="skill-chip spotlight">Swift 6.2</span>
+                        <span class="skill-chip">SwiftUI</span>
+                        <span class="skill-chip">Objective-C</span>
+                        <span class="skill-chip">C++</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-group-title">Core Frameworks</div>
+                    <div class="skill-chips">
+                        <span class="skill-chip">UIKit</span>
+                        <span class="skill-chip">Combine</span>
+                        <span class="skill-chip">Async/Await</span>
+                        <span class="skill-chip">Actors</span>
+                        <span class="skill-chip">Core Data</span>
+                        <span class="skill-chip">AVFoundation</span>
+                        <span class="skill-chip">Core Location</span>
+                        <span class="skill-chip">MapKit</span>
+                        <span class="skill-chip">Core Bluetooth</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-group-title">Architecture</div>
+                    <div class="skill-chips">
+                        <span class="skill-chip">MVVM-C</span>
+                        <span class="skill-chip">Clean (VIPER)</span>
+                        <span class="skill-chip">DI</span>
+                        <span class="skill-chip">Modular (SPM)</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-group-title">DevOps & Tools</div>
+                    <div class="skill-chips">
+                        <span class="skill-chip">Fastlane</span>
+                        <span class="skill-chip">Xcode Cloud</span>
+                        <span class="skill-chip">CircleCI</span>
+                        <span class="skill-chip">GitHub Actions</span>
+                        <span class="skill-chip">Instruments</span>
+                        <span class="skill-chip">Firebase</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN PANEL -->
+        <main class="main-panel">
+            
+            <!-- SUMMARY -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Professional Summary</h2>
+                </div>
+                <div class="summary-wrapper">
+                    <p class="summary-text">
+                        Performance-driven <strong>Senior Software Development Engineer (iOS)</strong> with 7+ years of specialized expertise engineering native mobile systems. Proven pioneer in leveraging <strong>AI-assisted coding agents (Cursor, Antigravity)</strong> to optimize local workflows, accelerate development velocity by <strong>40%</strong>, and automate test-suite generation. Expert in establishing clean architectural strategies, modularizing complex systems via <strong>Swift Package Manager (SPM)</strong>, and reducing app launch times by <strong>30%</strong> and slashing CI/CD build times by <strong>50%</strong> while maintaining a <strong>99.9% crash-free rate</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <!-- AI WORKFLOW SPOTLIGHT -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">AI Automation</h2>
+                </div>
+                <div class="ai-spotlight-card">
+                    <div class="ai-spotlight-icon">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="ai-spotlight-content">
+                        <h4 class="ai-spotlight-title">AI-Augmented Productivity Integration</h4>
+                        <p class="ai-spotlight-desc">Pioneered advanced integration of LLM coding environments (such as <strong>Cursor</strong> and <strong>Antigravity</strong>) into the core workflow, driving rapid high-fidelity feature prototyping, structural test-suite generation, and codebase refactoring.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EXPERIENCE -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Experience</h2>
+                </div>
+                
+                <div class="timeline">
+                    <!-- Position 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="experience-card">
+                            <div class="experience-header">
+                                <div>
+                                    <h3 class="job-title">Senior Software Development Engineer (iOS)</h3>
+                                    <div class="company-meta">
+                                        <span class="company-name">Crebos Online Solutions Pvt. Ltd.</span>
+                                        <span>&bull;</span>
+                                        <span>Remote</span>
+                                    </div>
+                                </div>
+                                <span class="tenure-badge">April 2021 — Present</span>
+                            </div>
+                            <ul class="job-bullets">
+                                <li>Spearheaded the migration of legacy asynchronous code to <strong>Swift Concurrency</strong>, reducing main-thread blocking by <strong>30%</strong> and completely eliminating complex race conditions.</li>
+                                <li>Leveraged advanced AI coding environments (<strong>Cursor</strong> & <strong>Antigravity</strong>) to accelerate development cycles, achieving a <strong>40% reduction</strong> in feature prototyping time.</li>
+                                <li>Architected a highly scalable reusable <strong>SwiftUI Design System</strong>, accelerating UI delivery across flagship mobile consumer properties by <strong>25%</strong>.</li>
+                                <li>Engineered automated CI/CD pipelines using <strong>Fastlane and CircleCI</strong>, cutting release delivery overhead and cycles by <strong>50%</strong>.</li>
+                                <li>Modularized high-density monolithic structures using <strong>Swift Package Manager (SPM)</strong>, enhancing unit encapsulation and easing dependency updates.</li>
+                                <li>Mentored developers and improved coding practices; increased overall structural code coverage to <strong>85%</strong> through automated unit test structures.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Position 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="experience-card">
+                            <div class="experience-header">
+                                <div>
+                                    <h3 class="job-title">Software Development Engineer II (iOS)</h3>
+                                    <div class="company-meta">
+                                        <span class="company-name">WorksDelight</span>
+                                        <span>&bull;</span>
+                                        <span>Chandigarh, India</span>
+                                    </div>
+                                </div>
+                                <span class="tenure-badge">Oct 2019 — Apr 2021</span>
+                            </div>
+                            <ul class="job-bullets">
+                                <li>Optimized underlying memory allocations and heavy UI view rendering, netting a <strong>15% increase</strong> in user retention due to massive application stability improvements.</li>
+                                <li>Integrated end-to-end automated UI test suites, resulting in a <strong>20% reduction</strong> in production bug reports in the first quarter of delivery.</li>
+                                <li>Established a consistent bi-weekly release lifecycle by streamlining deployment pipelines and automated build checks.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Position 3 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="experience-card">
+                            <div class="experience-header">
+                                <div>
+                                    <h3 class="job-title">Software Development Engineer I (iOS)</h3>
+                                    <div class="company-meta">
+                                        <span class="company-name">Appolar Technologies</span>
+                                        <span>&bull;</span>
+                                        <span>Chandigarh, India</span>
+                                    </div>
+                                </div>
+                                <span class="tenure-badge">Sept 2018 — Oct 2019</span>
+                            </div>
+                            <ul class="job-bullets">
+                                <li>Delivered 2 complete end-to-end native applications to the iOS App Store, managing the full SDLC loop from gathering system requirements to final store delivery.</li>
+                                <li>Implemented responsive social graph integrations and custom endpoints, driving an organic user engagement growth rate of <strong>10%</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROJECTS -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Key Projects</h2>
+                </div>
+                
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <a href="https://apps.apple.com/us/app/mo-mobyyou/id6502833919" target="_blank" class="project-card">
+                        <div class="project-header">
+                            <span class="project-tech">SwiftUI, Combine, CoreLocation</span>
+                            <div class="project-icon-link">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Mobbyou</h3>
+                        <p class="project-description">A high-traffic utility platform designed around dynamic, real-time geofenced notifications and highly reactive state bindings, maintaining a <strong>99.9% crash-free rate</strong>.</p>
+                    </a>
+
+                    <!-- Project 2 -->
+                    <a href="https://apps.apple.com/us/app/melpot/id1483470338" target="_blank" class="project-card">
+                        <div class="project-header">
+                            <span class="project-tech">UIKit, MVVM, AVFoundation</span>
+                            <div class="project-icon-link">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Melpot</h3>
+                        <p class="project-description">A media-rich streaming application featuring optimized API payloads and localized caches that reduced cellular data usage by <strong>40%</strong> while handling high-definition video feeds.</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- EDUCATION -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Education</h2>
+                </div>
+                
+                <div class="edu-card">
+                    <div class="edu-header">
+                        <div>
+                            <h3 class="edu-degree">Bachelor of Technology (B.Tech)</h3>
+                            <div class="edu-school">ECE — Lovely Professional University</div>
+                        </div>
+                        <span class="tenure-badge">Graduated May 2015</span>
+                    </div>
+                    <p class="edu-desc">Jalandhar, Punjab, India. Studied core hardware integrations, signal processing algorithms, and low-level micro-controller systems.</p>
+                </div>
+            </section>
+
+            <!-- ATTRIBUTES & HOBBIES -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Attributes & Hobbies</h2>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                    <div class="skills-container" style="flex-direction: row; gap: 2rem; flex-wrap: wrap;">
+                        <div class="skill-group" style="flex: 1; min-width: 200px;">
+                            <div class="skill-group-title" style="margin-bottom: 0.5rem;">Attributes</div>
+                            <div class="skill-chips">
+                                <span class="skill-chip">Innovative Problem Solver</span>
+                                <span class="skill-chip">AI-Augmented Developer</span>
+                                <span class="skill-chip">Detail-Oriented</span>
+                                <span class="skill-chip">Effective Communicator</span>
+                                <span class="skill-chip">Strong Analytical Skills</span>
+                                <span class="skill-chip">Technical Storyteller</span>
+                            </div>
+                        </div>
+                        <div class="skill-group" style="flex: 1; min-width: 200px;">
+                            <div class="skill-group-title" style="margin-bottom: 0.5rem;">Hobbies</div>
+                            <div class="skill-chips">
+                                <span class="skill-chip">Skilled Photographer</span>
+                                <span class="skill-chip">Avid Traveler</span>
+                                <span class="skill-chip">Music Enthusiast</span>
+                                <span class="skill-chip">Passionate Reader</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MAIN NAV FUNCTIONALITY & THEME TOGGLE -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const htmlElement = document.documentElement;
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleIcon = document.getElementById('theme-toggle-icon');
+
+            // --- Theme Toggler & Sync with Portfolio Landing Page ---
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const storedTheme = localStorage.getItem('theme');
+            const shouldUseDark = storedTheme === 'dark' || (!storedTheme && prefersDark);
+            
+            htmlElement.classList.toggle('dark', shouldUseDark);
+            if (themeToggleIcon) {
+                themeToggleIcon.textContent = shouldUseDark ? 'light_mode' : 'dark_mode';
+            }
+            updateMetaTheme(shouldUseDark);
+
+            if (themeToggleBtn && themeToggleIcon) {
+                themeToggleBtn.addEventListener('click', () => {
+                    themeToggleIcon.style.transform = 'rotate(90deg) scale(0.5)';
+                    themeToggleIcon.style.opacity = '0';
+
+                    window.setTimeout(() => {
+                        const isDark = htmlElement.classList.toggle('dark');
+                        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                        themeToggleIcon.textContent = isDark ? 'light_mode' : 'dark_mode';
+                        
+                        themeToggleIcon.style.transform = 'rotate(-90deg) scale(0.5)';
+                        void themeToggleIcon.offsetWidth; // force reflow
+                        themeToggleIcon.style.transform = 'rotate(0deg) scale(1)';
+                        themeToggleIcon.style.opacity = '1';
+                        
+                        updateMetaTheme(isDark);
+                    }, 150);
+                });
+            }
+
+            function updateMetaTheme(isDark) {
+                const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+                if (metaThemeColor) {
+                    metaThemeColor.setAttribute('content', isDark ? '#000000' : '#f9f9f9');
+                }
+            }
+        });
+    </script>
     <script src="../assets/js/resume.js" defer></script>
 </body>
 </html>
