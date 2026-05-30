@@ -94,6 +94,10 @@
                         <span>Unique Sessions</span>
                         <strong id="stat-sessions">0</strong>
                     </article>
+                    <article id="errors-card" class="stat-card glass-card clickable-card">
+                        <span>Errors Logged</span>
+                        <strong id="stat-errors" class="error-text">0</strong>
+                    </article>
                 </div>
 
                 <section class="charts-grid" aria-label="Analytics charts">
@@ -135,6 +139,7 @@
                                     <th>Browser</th>
                                     <th>Session</th>
                                     <th>Time</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="events-table"></tbody>
@@ -144,5 +149,42 @@
             </section>
         </section>
     </main>
+
+    <!-- User Journey Timeline Modal -->
+    <section id="journey-modal" class="journey-modal hidden" aria-modal="true" role="dialog" aria-labelledby="modal-title">
+        <div class="modal-backdrop" id="modal-backdrop"></div>
+        <div class="journey-card glass-card">
+            <header class="modal-header">
+                <div>
+                    <span class="eyebrow" id="modal-session-tag">Session Journey</span>
+                    <h2 id="modal-title" style="margin-bottom: 0;">User Flow Timeline</h2>
+                </div>
+                <button id="close-modal-btn" type="button" class="close-button" aria-label="Close modal">&times;</button>
+            </header>
+            <div class="modal-summary-bar">
+                <div class="summary-item">
+                    <span class="summary-label">Device</span>
+                    <span id="journey-device" class="summary-value">-</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Browser</span>
+                    <span id="journey-browser" class="summary-value">-</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Total Steps</span>
+                    <span id="journey-steps" class="summary-value">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Session ID</span>
+                    <span id="journey-session-id" class="summary-value" style="font-family: monospace; font-size: 11px;">-</span>
+                </div>
+            </div>
+            <div class="modal-body-scroll">
+                <div id="journey-timeline" class="journey-timeline">
+                    <!-- Timeline items injected dynamically -->
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

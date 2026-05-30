@@ -45,6 +45,37 @@ function bindStaticHandlers() {
       renderTable(filterEvents(allEvents));
     });
   }
+
+  // Intercept clicks on Errors Logged card to filter down table
+  const errorsCard = document.getElementById('errors-card');
+  if (errorsCard) {
+    errorsCard.addEventListener('click', function () {
+      if (searchInput) {
+        searchInput.value = 'error';
+        currentSearch = 'error';
+        renderTable(filterEvents(allEvents));
+        searchInput.focus();
+      }
+    });
+  }
+
+  // Bind close timeline modal handlers
+  const closeModalBtn = document.getElementById('close-modal-btn');
+  const modalBackdrop = document.getElementById('modal-backdrop');
+  const journeyModal = document.getElementById('journey-modal');
+
+  const closeModal = function () {
+    if (journeyModal) {
+      journeyModal.classList.add('hidden');
+    }
+  };
+
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', closeModal);
+  }
+  if (modalBackdrop) {
+    modalBackdrop.addEventListener('click', closeModal);
+  }
 }
 
 function checkAuth() {
@@ -169,7 +200,10 @@ function processData(events) {
       clickEvents: events.filter(function (event) {
         return String(event.event_name || '').includes('_click');
       }).length,
-      uniqueSessions: uniqueSessions.size
+      uniqueSessions: uniqueSessions.size,
+      errorsLogged: events.filter(function (event) {
+        return event.event_name === 'error';
+      }).length
     }
   };
 }
@@ -179,6 +213,7 @@ function renderStats(data) {
   document.getElementById('stat-page-views').textContent = formatNumber(data.metrics.pageViews);
   document.getElementById('stat-clicks').textContent = formatNumber(data.metrics.clickEvents);
   document.getElementById('stat-sessions').textContent = formatNumber(data.metrics.uniqueSessions);
+  document.getElementById('stat-errors').textContent = formatNumber(data.metrics.errorsLogged);
 }
 
 function renderCharts(data) {
@@ -251,22 +286,179 @@ function renderTable(events) {
   const rows = events.slice(0, 20);
 
   if (rows.length === 0) {
-    tableBody.innerHTML = '<tr><td colspan="6">No matching events.</td></tr>';
+    tableBody.innerHTML = '<tr><td colspan="7">No matching events.</td></tr>';
     return;
   }
 
   tableBody.innerHTML = rows.map(function (event) {
+    const isError = event.event_name === 'error';
+    const rowClass = isError ? 'class="table-row-error"' : '';
+    const pillClass = isError ? 'event-pill event-pill-error' : 'event-pill';
+
     return [
-      '<tr>',
-      '<td><span class="event-pill">' + escapeHtml(event.event_name || 'unknown') + '</span></td>',
+      '<tr ' + rowClass + '>',
+      '<td><span class="' + pillClass + '">' + escapeHtml(event.event_name || 'unknown') + '</span></td>',
       '<td>' + escapeHtml(event.page || '/') + '</td>',
       '<td>' + escapeHtml(event.device || 'unknown') + '</td>',
       '<td>' + escapeHtml(event.browser || 'unknown') + '</td>',
       '<td>' + escapeHtml(shortSession(event.session_id)) + '</td>',
       '<td>' + escapeHtml(formatDateTime(event.created_at)) + '</td>',
+      '<td><button type="button" class="journey-action-btn" data-session="' + escapeHtml(event.session_id) + '">View Journey</button></td>',
       '</tr>'
     ].join('');
   }).join('');
+
+  // Bind click handlers to "View Journey" buttons
+  tableBody.querySelectorAll('.journey-action-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const sessionId = btn.getAttribute('data-session');
+      viewJourney(sessionId);
+    });
+  });
+}
+
+function viewJourney(sessionId) {
+  if (!sessionId) return;
+
+  // Filter all events belonging to this session
+  const sessionEvents = allEvents.filter(function (event) {
+    return event.session_id === sessionId;
+  });
+
+  if (sessionEvents.length === 0) return;
+
+  // Sort events chronologically (ascending)
+  sessionEvents.sort(function (a, b) {
+    return new Date(a.created_at) - new Date(b.created_at);
+  });
+
+  const firstEvent = sessionEvents[0];
+  
+  // Set modal summary header information
+  document.getElementById('journey-device').textContent = firstEvent.device || 'unknown';
+  document.getElementById('journey-browser').textContent = firstEvent.browser || 'unknown';
+  document.getElementById('journey-steps').textContent = sessionEvents.length;
+  document.getElementById('journey-session-id').textContent = sessionId;
+
+  const timelineContainer = document.getElementById('journey-timeline');
+  timelineContainer.innerHTML = '';
+
+  let lastTime = null;
+
+  sessionEvents.forEach(function (event, index) {
+    const itemEl = document.createElement('div');
+    itemEl.className = 'timeline-item';
+    if (event.event_name === 'error') {
+      itemEl.classList.add('timeline-item-error');
+    }
+
+    const eventName = event.event_name || 'unknown';
+    const currentTime = new Date(event.created_at);
+    
+    // Calculate elapsed time since previous action
+    let offsetHtml = '';
+    if (lastTime) {
+      const diffMs = currentTime - lastTime;
+      const diffSec = Math.round(diffMs / 1000);
+      if (diffSec < 60) {
+        offsetHtml = '<span class="timeline-offset">+' + diffSec + 's</span>';
+      } else {
+        const diffMin = Math.floor(diffSec / 60);
+        const remSec = diffSec % 60;
+        offsetHtml = '<span class="timeline-offset">+' + diffMin + 'm ' + remSec + 's</span>';
+      }
+    } else {
+      offsetHtml = '<span class="timeline-offset">Start</span>';
+    }
+    lastTime = currentTime;
+
+    // Badge styling and display description based on event type
+    let badgeClass = 'timeline-badge-view';
+    let descHtml = '';
+    let extraHtml = '';
+
+    if (eventName === 'error') {
+      badgeClass = 'timeline-badge-error';
+      
+      // Parse error details stored in referrer
+      let errorMsg = 'Unknown Runtime Error';
+      let errorLoc = '';
+      let errorStack = '';
+      
+      try {
+        const parsed = JSON.parse(event.referrer);
+        errorMsg = parsed.message || errorMsg;
+        errorLoc = parsed.filename ? parsed.filename + ':' + parsed.lineno + ':' + parsed.colno : '';
+        errorStack = parsed.stack || '';
+      } catch (e) {
+        // Fallback to raw referrer if not valid JSON
+        errorMsg = event.referrer || 'Unknown Error';
+      }
+
+      descHtml = 'Crashed with JavaScript Error:';
+      
+      const toggleId = 'stack-toggle-' + index;
+      const preId = 'stack-pre-' + index;
+
+      extraHtml = [
+        '<div class="timeline-error-card">',
+        '  <h4 class="timeline-error-title">' + escapeHtml(errorMsg) + '</h4>',
+        errorLoc ? '  <p class="timeline-error-loc">Source: ' + escapeHtml(errorLoc) + '</p>' : '',
+        errorStack ? [
+          '  <button type="button" id="' + toggleId + '" class="timeline-error-stack-toggle">Show Stack Trace</button>',
+          '  <pre id="' + preId + '" class="error-stack-pre">' + escapeHtml(errorStack) + '</pre>'
+        ].join('') : '',
+        '</div>'
+      ].join('');
+
+    } else if (eventName === 'page_view') {
+      badgeClass = 'timeline-badge-view';
+      descHtml = 'Visited page <code>' + escapeHtml(event.page || '/') + '</code>';
+    } else if (eventName === 'page_exit') {
+      badgeClass = 'timeline-badge-exit';
+      descHtml = 'Left page <code>' + escapeHtml(event.page || '/') + '</code> (Active for ' + (event.time_on_page || 0) + 's)';
+    } else if (eventName.includes('_click')) {
+      badgeClass = 'timeline-badge-click';
+      descHtml = 'Clicked on element: <code>' + escapeHtml(eventName) + '</code>';
+    } else {
+      badgeClass = 'timeline-badge-view';
+      descHtml = 'Triggered event: <code>' + escapeHtml(eventName) + '</code>';
+    }
+
+    itemEl.innerHTML = [
+      '<div class="timeline-badge ' + badgeClass + '"></div>',
+      '<div class="timeline-content">',
+      '  <div class="timeline-meta">',
+      '    <span class="timeline-time">' + escapeHtml(formatDateTime(event.created_at)) + '</span>',
+      '    ' + offsetHtml,
+      '  </div>',
+      '  <p class="timeline-desc">' + descHtml + '</p>',
+      '  ' + extraHtml,
+      '</div>'
+    ].join('');
+
+    timelineContainer.appendChild(itemEl);
+
+    // Bind stack trace toggle click listener if it exists
+    if (eventName === 'error') {
+      setTimeout(function () {
+        const toggleBtn = document.getElementById('stack-toggle-' + index);
+        const preEl = document.getElementById('stack-pre-' + index);
+        if (toggleBtn && preEl) {
+          toggleBtn.addEventListener('click', function () {
+            const isOpen = preEl.classList.toggle('open');
+            toggleBtn.textContent = isOpen ? 'Hide Stack Trace' : 'Show Stack Trace';
+          });
+        }
+      }, 50);
+    }
+  });
+
+  // Display the modal
+  const modal = document.getElementById('journey-modal');
+  if (modal) {
+    modal.classList.remove('hidden');
+  }
 }
 
 function updateDashboard() {
