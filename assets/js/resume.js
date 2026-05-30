@@ -1,18 +1,17 @@
 (function () {
   function shareResume() {
-    const shareUrl = "https://meetiosdev.com/";
+    const shareText = "Swarajmeet — Senior iOS Engineer\nWebsite: https://meetiosdev.com/\nResume: https://meetiosdev.com/resume/";
     const shareData = {
-      title: 'Swarajmeet Singh — Senior iOS Engineer',
-      text: "Check out Swarajmeet's portfolio and iOS Developer resume!",
-      url: shareUrl
+      title: 'Swarajmeet — Senior iOS Engineer',
+      text: shareText
     };
 
     // Helper to copy to clipboard
     function copyToClipboard() {
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(shareUrl)
+        navigator.clipboard.writeText(shareText)
           .then(function () {
-            window.alert('Portfolio link copied to clipboard!');
+            window.alert('Contact details copied to clipboard!');
           })
           .catch(function (e) {
             console.error('Clipboard copy failed:', e);
@@ -26,12 +25,12 @@
     // Older fallback method
     function fallbackCopy() {
       const el = document.createElement('textarea');
-      el.value = shareUrl;
+      el.value = shareText;
       document.body.appendChild(el);
       el.select();
       try {
         document.execCommand('copy');
-        window.alert('Portfolio link copied to clipboard!');
+        window.alert('Contact details copied to clipboard!');
       } catch (err) {
         console.error('Fallback copy failed:', err);
       }
@@ -42,7 +41,7 @@
     if (navigator.share) {
       // 1. Copy to clipboard first
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(shareUrl).catch(() => {});
+        navigator.clipboard.writeText(shareText).catch(() => {});
       }
       // 2. Open native mobile share sheet
       navigator.share(shareData)
