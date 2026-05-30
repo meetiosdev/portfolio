@@ -323,13 +323,13 @@
         // Special handling for Resume and Contact to open natively in a new tab/page directly
         if (inputId === 'nav-resume') {
           e.preventDefault();
-          window.open(resolveUrl('resume/'), '_blank');
+          window.open('./resume/', '_blank');
           return;
         }
 
         if (inputId === 'nav-contact') {
           e.preventDefault();
-          window.open(resolveUrl('contact/'), '_blank');
+          window.open('./contact/', '_blank');
           return;
         }
 

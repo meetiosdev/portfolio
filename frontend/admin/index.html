@@ -45,9 +45,6 @@
         <span class="badge">SaaS-Grade v2.0</span>
       </div>
       <div class="header-actions">
-        <a href="./errors/" class="btn secondary flex-center gap-2" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px;">
-          <span class="icon">⚠️</span> Error Logs
-        </a>
         <a href="https://clarity.microsoft.com/" target="_blank" class="btn secondary flex-center gap-2" style="text-decoration: none; color: inherit;">
           <span class="icon">👁</span> Open Clarity
         </a>
@@ -223,7 +220,6 @@
                 <th>Device</th>
                 <th>Time on Page (s)</th>
                 <th>Date & Time</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody id="events-tbody">
@@ -231,45 +227,9 @@
             </tbody>
           </table>
         </div>
+      </section>
     </main>
   </div>
-
-  <!-- User Journey Timeline Modal -->
-  <section id="journey-modal" class="journey-modal hidden" aria-modal="true" role="dialog" aria-labelledby="modal-title">
-    <div class="modal-backdrop" id="modal-backdrop"></div>
-    <div class="journey-card glass-card">
-      <header class="modal-header">
-        <div>
-          <span class="eyebrow" id="modal-session-tag">Session Journey</span>
-          <h2 id="modal-title" style="margin-bottom: 0;">User Flow Timeline</h2>
-        </div>
-        <button id="close-modal-btn" type="button" class="close-button" aria-label="Close modal">&times;</button>
-      </header>
-      <div class="modal-summary-bar">
-        <div class="summary-item">
-          <span class="summary-label">Device</span>
-          <span id="journey-device" class="summary-value">-</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-label">Browser</span>
-          <span id="journey-browser" class="summary-value">-</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-label">Total Steps</span>
-          <span id="journey-steps" class="summary-value">0</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-label">Session ID</span>
-          <span id="journey-session-id" class="summary-value" style="font-family: monospace; font-size: 11px;">-</span>
-        </div>
-      </div>
-      <div class="modal-body-scroll">
-        <div id="journey-timeline" class="journey-timeline">
-          <!-- Timeline items injected dynamically -->
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- JS Modules -->
   <script src="js/api.js"></script>

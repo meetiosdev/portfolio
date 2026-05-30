@@ -100,36 +100,3 @@ document.addEventListener('DOMContentLoaded', function () {
 window.addEventListener('beforeunload', function () {
   window.trackSupabaseEvent('page_exit');
 });
-
-// Global exception and promise rejection interceptors for robust error telemetry
-window.addEventListener('error', function (event) {
-  // Prevent infinite loops if telemetry endpoint encounters an issue
-  if (event.filename && event.filename.includes('supabase-tracking.js')) return;
-
-  const errorObj = {
-    message: event.message || 'Unknown runtime error',
-    filename: event.filename ? event.filename.split('/').pop() : 'unknown',
-    lineno: event.lineno || 0,
-    colno: event.colno || 0,
-    stack: event.error ? event.error.stack : ''
-  };
-
-  window.trackSupabaseEvent('error', {
-    referrer: JSON.stringify(errorObj)
-  });
-});
-
-window.addEventListener('unhandledrejection', function (event) {
-  const reason = event.reason;
-  const errorObj = {
-    message: reason ? reason.message || String(reason) : 'Unhandled promise rejection',
-    filename: 'promise',
-    lineno: 0,
-    colno: 0,
-    stack: reason && reason.stack ? reason.stack : ''
-  };
-
-  window.trackSupabaseEvent('error', {
-    referrer: JSON.stringify(errorObj)
-  });
-});

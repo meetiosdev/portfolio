@@ -189,9 +189,6 @@ function renderDashboard(data) {
   // ==========================================
   const statusBadge = document.getElementById('connection-status');
   
-  // Save events globally for user journey query tracer
-  window.allEvents = (supabase && supabase.raw) ? supabase.raw : [];
-  
   if (!supabase || supabase.error) {
     console.warn('Supabase event streams are currently disabled.');
     if (statusBadge) {
@@ -200,7 +197,7 @@ function renderDashboard(data) {
     }
     const tbody = document.getElementById('events-tbody');
     if (tbody) {
-      tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No live database connection. Displaying local client events.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No live database connection. Displaying local client events.</td></tr>';
     }
   } else {
     if (statusBadge) {
@@ -208,7 +205,28 @@ function renderDashboard(data) {
       statusBadge.className = 'status-badge success';
     }
 
-    populateEventsTable(window.allEvents);
+    const tbody = document.getElementById('events-tbody');
+    if (tbody) {
+      tbody.innerHTML = '';
+      const recentEvents = (supabase.raw || []).slice(0, 15);
+      
+      if (recentEvents.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Database connected. No user click events stored yet.</td></tr>';
+      } else {
+        recentEvents.forEach(event => {
+          const tr = document.createElement('tr');
+          const time = new Date(event.created_at).toLocaleString();
+          tr.innerHTML = `
+            <td><span class="badge">${event.event_name || '-'}</span></td>
+            <td><code>${event.page || '-'}</code></td>
+            <td>${event.device || '-'}</td>
+            <td>${event.time_on_page || '0'}s</td>
+            <td>${time}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+    }
   }
 }
 
@@ -233,234 +251,3 @@ function updateKPICard({ metricId, trendId, sparklineId, currentVal, changeVal, 
     window.dashboardCharts.initSparkline(sparklineId, sparklineData, changeVal >= 0);
   }
 }
-
-// Helpers and user journey tracing logic for error visualization
-function escapeHtml(value) {
-  return String(value || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
-
-function formatDateTime(value) {
-  if (!value) return 'Unknown';
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return 'Unknown';
-  return date.toLocaleString(undefined, {
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
-}
-
-function populateEventsTable(events) {
-  const tbody = document.getElementById('events-tbody');
-  if (!tbody) return;
-
-  tbody.innerHTML = '';
-  let displayEvents = events;
-  if (window.errorsFilterActive) {
-    displayEvents = events.filter(e => e.event_name === 'error');
-  }
-
-  const recentEvents = displayEvents.slice(0, 15);
-  
-  if (recentEvents.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No user events to display.</td></tr>';
-    return;
-  }
-
-  recentEvents.forEach(event => {
-    const tr = document.createElement('tr');
-    const isError = event.event_name === 'error';
-    if (isError) {
-      tr.className = 'table-row-error';
-    }
-    const pillClass = isError ? 'badge event-pill-error' : 'badge';
-    const time = new Date(event.created_at).toLocaleString();
-    tr.innerHTML = `
-      <td><span class="${pillClass}">${escapeHtml(event.event_name || '-')}</span></td>
-      <td><code>${escapeHtml(event.page || '-')}</code></td>
-      <td>${escapeHtml(event.device || '-')}</td>
-      <td>${escapeHtml(event.time_on_page || '0')}s</td>
-      <td>${escapeHtml(time)}</td>
-      <td><button type="button" class="journey-action-btn" data-session="${escapeHtml(event.session_id)}">View Journey</button></td>
-    `;
-    tbody.appendChild(tr);
-  });
-
-  // Bind click handlers to View Journey buttons
-  tbody.querySelectorAll('.journey-action-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      const sessionId = btn.getAttribute('data-session');
-      viewJourney(sessionId);
-    });
-  });
-}
-
-function viewJourney(sessionId) {
-  if (!sessionId) return;
-
-  // Filter all events belonging to this session
-  const sessionEvents = window.allEvents.filter(function (event) {
-    return event.session_id === sessionId;
-  });
-
-  if (sessionEvents.length === 0) return;
-
-  // Sort events chronologically (ascending)
-  sessionEvents.sort(function (a, b) {
-    return new Date(a.created_at) - new Date(b.created_at);
-  });
-
-  const firstEvent = sessionEvents[0];
-  
-  // Set modal summary header information
-  document.getElementById('journey-device').textContent = firstEvent.device || 'unknown';
-  document.getElementById('journey-browser').textContent = firstEvent.browser || 'unknown';
-  document.getElementById('journey-steps').textContent = sessionEvents.length;
-  document.getElementById('journey-session-id').textContent = sessionId;
-
-  const timelineContainer = document.getElementById('journey-timeline');
-  timelineContainer.innerHTML = '';
-
-  let lastTime = null;
-
-  sessionEvents.forEach(function (event, index) {
-    const itemEl = document.createElement('div');
-    itemEl.className = 'timeline-item';
-    if (event.event_name === 'error') {
-      itemEl.classList.add('timeline-item-error');
-    }
-
-    const eventName = event.event_name || 'unknown';
-    const currentTime = new Date(event.created_at);
-    
-    // Calculate elapsed time since previous action
-    let offsetHtml = '';
-    if (lastTime) {
-      const diffMs = currentTime - lastTime;
-      const diffSec = Math.round(diffMs / 1000);
-      if (diffSec < 60) {
-        offsetHtml = `<span class="timeline-offset">+${diffSec}s</span>`;
-      } else {
-        const diffMin = Math.floor(diffSec / 60);
-        const remSec = diffSec % 60;
-        offsetHtml = `<span class="timeline-offset">+${diffMin}m ${remSec}s</span>`;
-      }
-    } else {
-      offsetHtml = '<span class="timeline-offset">Start</span>';
-    }
-    lastTime = currentTime;
-
-    // Badge styling and display description based on event type
-    let badgeClass = 'timeline-badge-view';
-    let descHtml = '';
-    let extraHtml = '';
-
-    if (eventName === 'error') {
-      badgeClass = 'timeline-badge-error';
-      
-      // Parse error details stored in referrer
-      let errorMsg = 'Unknown Runtime Error';
-      let errorLoc = '';
-      let errorStack = '';
-      
-      try {
-        const parsed = JSON.parse(event.referrer);
-        errorMsg = parsed.message || errorMsg;
-        errorLoc = parsed.filename ? parsed.filename + ':' + parsed.lineno + ':' + parsed.colno : '';
-        errorStack = parsed.stack || '';
-      } catch (e) {
-        // Fallback to raw referrer if not valid JSON
-        errorMsg = event.referrer || 'Unknown Error';
-      }
-
-      descHtml = 'Crashed with JavaScript Error:';
-      
-      const toggleId = 'stack-toggle-' + index;
-      const preId = 'stack-pre-' + index;
-
-      extraHtml = `
-        <div class="timeline-error-card">
-          <h4 class="timeline-error-title">${escapeHtml(errorMsg)}</h4>
-          ${errorLoc ? `<p class="timeline-error-loc">Source: ${escapeHtml(errorLoc)}</p>` : ''}
-          ${errorStack ? `
-            <button type="button" id="${toggleId}" class="timeline-error-stack-toggle">Show Stack Trace</button>
-            <pre id="${preId}" class="error-stack-pre">${escapeHtml(errorStack)}</pre>
-          ` : ''}
-        </div>
-      `;
-
-    } else if (eventName === 'page_view') {
-      badgeClass = 'timeline-badge-view';
-      descHtml = `Visited page <code>${escapeHtml(event.page || '/')}</code>`;
-    } else if (eventName === 'page_exit') {
-      badgeClass = 'timeline-badge-exit';
-      descHtml = `Left page <code>${escapeHtml(event.page || '/')}</code> (Active for ${event.time_on_page || 0}s)`;
-    } else if (eventName.includes('_click')) {
-      badgeClass = 'timeline-badge-click';
-      descHtml = `Clicked on element: <code>${escapeHtml(eventName)}</code>`;
-    } else {
-      badgeClass = 'timeline-badge-view';
-      descHtml = `Triggered event: <code>${escapeHtml(eventName)}</code>`;
-    }
-
-    itemEl.innerHTML = `
-      <div class="timeline-badge ${badgeClass}"></div>
-      <div class="timeline-content">
-        <div class="timeline-meta">
-          <span class="timeline-time">${escapeHtml(formatDateTime(event.created_at))}</span>
-          ${offsetHtml}
-        </div>
-        <p class="timeline-desc">${descHtml}</p>
-        ${extraHtml}
-      </div>
-    `;
-
-    timelineContainer.appendChild(itemEl);
-
-    // Bind stack trace toggle click listener if it exists
-    if (eventName === 'error') {
-      setTimeout(function () {
-        const toggleBtn = document.getElementById('stack-toggle-' + index);
-        const preEl = document.getElementById('stack-pre-' + index);
-        if (toggleBtn && preEl) {
-          toggleBtn.addEventListener('click', function () {
-            const isOpen = preEl.classList.toggle('open');
-            toggleBtn.textContent = isOpen ? 'Hide Stack Trace' : 'Show Stack Trace';
-          });
-        }
-      }, 50);
-    }
-  });
-
-  // Display the modal
-  const modal = document.getElementById('journey-modal');
-  if (modal) {
-    modal.classList.remove('hidden');
-  }
-}
-
-// Bind modal close listeners on init
-document.addEventListener('DOMContentLoaded', function () {
-  const closeModalBtn = document.getElementById('close-modal-btn');
-  const modalBackdrop = document.getElementById('modal-backdrop');
-  const journeyModal = document.getElementById('journey-modal');
-
-  const closeModal = function () {
-    if (journeyModal) {
-      journeyModal.classList.add('hidden');
-    }
-  };
-
-  if (closeModalBtn) {
-    closeModalBtn.addEventListener('click', closeModal);
-  }
-  if (modalBackdrop) {
-    modalBackdrop.addEventListener('click', closeModal);
-  }
-});
