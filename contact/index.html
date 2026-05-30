@@ -76,6 +76,11 @@
             padding: 0;
         }
 
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
             font-family: var(--font-family);
             background-color: var(--background);
@@ -85,11 +90,10 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 2.5rem 1.5rem;
+            padding: 5rem 1.5rem 2.5rem 1.5rem;
             -webkit-font-smoothing: antialiased;
             transition: background-color 0.3s ease, color 0.3s ease;
             position: relative;
-            overflow-x: hidden;
         }
 
         /* --- DYNAMIC DECORATIVE BLUR BLOBS --- */
@@ -509,6 +513,17 @@
             line-height: 1.5;
         }
 
+        .blur-blobs-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
         /* --- RESPONSIVE DESKTOP ADJUSTMENT --- */
         @media (min-width: 900px) {
             body {
@@ -520,13 +535,53 @@
                 padding: 4rem 3.5rem;
             }
         }
+
+        /* --- MOBILE LAYOUT & VERTICAL SCROLL OPTIMIZATIONS --- */
+        @media (max-width: 768px) {
+            body {
+                display: block; /* Normal flow for vertical scrolling */
+                padding: 90px 1rem 3rem 1rem; /* Precise clearance for navbar */
+            }
+            .contact-container {
+                padding: 2.5rem 1.5rem;
+                gap: 2rem;
+                border-radius: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 80px 0.75rem 2rem 0.75rem; /* Ultra compact margins */
+            }
+            .contact-container {
+                padding: 2rem 1rem; /* Maximize button text width */
+                gap: 1.75rem;
+            }
+            .profile-name {
+                font-size: 1.6rem;
+            }
+            .link-item-btn {
+                padding: 0.75rem 1rem;
+                border-radius: 16px;
+            }
+            .link-btn-icon {
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+            }
+            .link-btn-text {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- DECORATIVE BLOBS -->
-    <div class="blur-blob blob-1"></div>
-    <div class="blur-blob blob-2"></div>
+    <!-- DECORATIVE BLOBS (Clipped inside wrapper to completely eliminate offscreen horizontal scrolling) -->
+    <div class="blur-blobs-wrapper">
+        <div class="blur-blob blob-1"></div>
+        <div class="blur-blob blob-2"></div>
+    </div>
 
     <!-- TOP FLOATING NAVBAR -->
     <nav class="top-navbar" style="justify-content: flex-end;">
