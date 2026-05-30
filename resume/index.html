@@ -177,6 +177,14 @@
             gap: 1.5rem;
         }
 
+        .nav-actions .nav-btn {
+            order: 1;
+        }
+
+        .nav-actions .theme-toggle-btn {
+            order: 2;
+        }
+
         .nav-btn {
             background: transparent;
             border: 1px solid var(--outline);
@@ -838,6 +846,53 @@
             }
         }
 
+        @media (max-width: 768px) {
+            .navbar-container {
+                padding: 0 1rem;
+            }
+            .nav-actions {
+                gap: 0.5rem;
+            }
+            /* Hide brand avatar and name on mobile, keeping only back arrow */
+            .nav-brand {
+                gap: 0 !important;
+            }
+            .nav-brand img, .nav-brand span:not(.material-symbols-outlined) {
+                display: none !important;
+            }
+            /* Keep only Download PDF button on mobile (hide Share and Print) */
+            [data-share-resume],
+            [data-track="Resume Print"] {
+                display: none !important;
+            }
+            /* Make button actions compact icon-only on mobile */
+            .nav-btn span {
+                display: none !important;
+            }
+            .nav-btn {
+                padding: 0 !important;
+                width: 36px;
+                height: 36px;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                border-radius: 50% !important; /* Premium circular shape */
+                order: 1 !important;
+            }
+            /* Adjust the theme switcher button layout to match outline circle style */
+            .theme-toggle-btn {
+                width: 36px;
+                height: 36px;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                border-radius: 50% !important;
+                background: transparent !important;
+                border: 1px solid var(--outline) !important;
+                order: 2 !important;
+            }
+        }
+
         @media (max-width: 500px) {
             .experience-header {
                 flex-direction: column;
@@ -846,12 +901,6 @@
             }
             .tenure-badge {
                 align-self: flex-start;
-            }
-            .nav-btn span {
-                display: none;
-            }
-            .navbar-container {
-                padding: 0 1rem;
             }
         }
 
@@ -1032,11 +1081,6 @@
             </a>
 
             <div class="nav-actions">
-                <!-- Theme Toggle Icon Button -->
-                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark Mode">
-                    <span id="theme-toggle-icon" class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
-                </button>
-
                 <!-- Share Action Trigger -->
                 <button class="nav-btn" data-share-resume data-track="Resume Share">
                     <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
@@ -1054,6 +1098,11 @@
                     <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                     <span>Download PDF</span>
                 </a>
+
+                <!-- Theme Toggle Icon Button (Shifted to the End) -->
+                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark Mode">
+                    <span id="theme-toggle-icon" class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
+                </button>
             </div>
         </div>
     </nav>
