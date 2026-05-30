@@ -1,14 +1,15 @@
 (function () {
   function shareResume() {
-    const shareText = "Swarajmeet — Senior iOS Engineer\nWebsite: https://meetiosdev.com/\nResume: https://meetiosdev.com/resume/";
+    const clipboardText = "Swarajmeet — Senior iOS Engineer\nWebsite: https://meetiosdev.com/\nResume: https://meetiosdev.com/resume/";
     const shareData = {
-      text: shareText
+      title: 'Swarajmeet — Senior iOS Engineer',
+      text: "Website: https://meetiosdev.com/\nResume: https://meetiosdev.com/resume/"
     };
 
     // Helper to copy to clipboard
     function copyToClipboard() {
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(shareText)
+        navigator.clipboard.writeText(clipboardText)
           .then(function () {
             window.alert('Contact details copied to clipboard!');
           })
@@ -24,7 +25,7 @@
     // Older fallback method
     function fallbackCopy() {
       const el = document.createElement('textarea');
-      el.value = shareText;
+      el.value = clipboardText;
       document.body.appendChild(el);
       el.select();
       try {
@@ -40,7 +41,7 @@
     if (navigator.share) {
       // 1. Copy to clipboard first
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(shareText).catch(() => {});
+        navigator.clipboard.writeText(clipboardText).catch(() => {});
       }
       // 2. Open native mobile share sheet
       navigator.share(shareData)
