@@ -814,7 +814,7 @@
             </div>
 
             <!-- Hidden Metadata Fields for Email Form Handler (Web3Forms/Formspree) -->
-            <input type="hidden" name="access_key" id="meta-access-key" value="5d9c9c15-5611-4c8d-969e-61f728fe7aa6">
+            <input type="hidden" name="access_key" id="meta-access-key" value="5d9c9e15-5611-4c8d-969e-61f728fe7aa6">
             <input type="hidden" name="Browser" id="meta-browser">
             <input type="hidden" name="OS" id="meta-os">
             <input type="hidden" name="Screen Resolution" id="meta-resolution">
@@ -992,7 +992,7 @@
                 // Paste your Web3Forms Access Key here (e.g. 'xxxxxx-xxxx-xxxx-xxxx-xxxxxxxx').
                 // If you do not have one yet, enter your email hello@meetiosdev.com on https://web3forms.com/ to get a free key instantly.
                 // Web3Forms is safe to use client-side as it acts as an alias to your email address.
-                const WEB3FORMS_ACCESS_KEY = "5d9c9c15-5611-4c8d-969e-61f728fe7aa6"; 
+                const WEB3FORMS_ACCESS_KEY = "5d9c9e15-5611-4c8d-969e-61f728fe7aa6"; 
 
                 const nameInput = document.getElementById('form-name');
                 const emailInput = document.getElementById('form-email');
@@ -1014,6 +1014,12 @@
                     // Re-populate metadata fields just before submit to ensure fresh metrics
                     if (typeof populateMetadataFields === 'function') {
                         populateMetadataFields();
+                    }
+
+                    // Dynamically populate the access key hidden field right before fetch execution
+                    const accessKeyField = document.getElementById('meta-access-key');
+                    if (accessKeyField) {
+                        accessKeyField.value = WEB3FORMS_ACCESS_KEY;
                     }
 
                     // Disable inputs and button
