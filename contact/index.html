@@ -9,7 +9,7 @@
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://*.supabase.co https://api.qrserver.com https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com; img-src 'self' data: https: https://api.qrserver.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://*.supabase.co https://api.web3forms.com https://api.qrserver.com https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com; img-src 'self' data: https: https://api.qrserver.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="theme-color" content="#000000">
@@ -814,7 +814,7 @@
             </div>
 
             <!-- Hidden Metadata Fields for Email Form Handler (Web3Forms/Formspree) -->
-            <input type="hidden" name="access_key" id="meta-access-key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+            <input type="hidden" name="access_key" id="meta-access-key" value="5d9c9c15-5611-4c8d-969e-61f728fe7aa6">
             <input type="hidden" name="Browser" id="meta-browser">
             <input type="hidden" name="OS" id="meta-os">
             <input type="hidden" name="Screen Resolution" id="meta-resolution">
@@ -992,7 +992,7 @@
                 // Paste your Web3Forms Access Key here (e.g. 'xxxxxx-xxxx-xxxx-xxxx-xxxxxxxx').
                 // If you do not have one yet, enter your email hello@meetiosdev.com on https://web3forms.com/ to get a free key instantly.
                 // Web3Forms is safe to use client-side as it acts as an alias to your email address.
-                const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY_HERE"; 
+                const WEB3FORMS_ACCESS_KEY = "5d9c9c15-5611-4c8d-969e-61f728fe7aa6"; 
 
                 const nameInput = document.getElementById('form-name');
                 const emailInput = document.getElementById('form-email');
@@ -1104,37 +1104,31 @@
                     }
 
                     // 2. Email Delivery Submission (Web3Forms API)
-                    const isKeyConfigured = WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== "YOUR_WEB3FORMS_ACCESS_KEY_HERE";
-                    if (isKeyConfigured) {
-                        try {
-                            const emailResponse = await fetch("https://api.web3forms.com/submit", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "Accept": "application/json"
-                                },
-                                body: JSON.stringify({
-                                    access_key: WEB3FORMS_ACCESS_KEY,
-                                    name: nameVal,
-                                    email: emailVal,
-                                    message: messageVal,
-                                    subject: `New Portfolio Message from ${nameVal}`,
-                                    Browser: metaBrowser,
-                                    OS: metaOS,
-                                    "Screen Resolution": metaResolution,
-                                    "Device Pixel Ratio": metaDPR,
-                                    Timezone: metaTimezone,
-                                    Language: metaLanguage
-                                })
-                            });
-                            const emailData = await emailResponse.json();
-                            emailSuccess = emailResponse.ok && emailData.success;
-                        } catch (err) {
-                            console.error('Web3Forms email submission failed:', err);
-                        }
-                    } else {
-                        console.warn("Web3Forms email delivery is in local simulation mode. To receive real emails to hello@meetiosdev.com, paste your free Web3Forms key inside contact/index.html's WEB3FORMS_ACCESS_KEY constant.");
-                        emailSuccess = true; // Simulate email success locally for visual verification
+                    try {
+                        const emailResponse = await fetch("https://api.web3forms.com/submit", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json"
+                            },
+                            body: JSON.stringify({
+                                access_key: WEB3FORMS_ACCESS_KEY,
+                                name: nameVal,
+                                email: emailVal,
+                                message: messageVal,
+                                subject: `New Portfolio Message from ${nameVal}`,
+                                Browser: metaBrowser,
+                                OS: metaOS,
+                                "Screen Resolution": metaResolution,
+                                "Device Pixel Ratio": metaDPR,
+                                Timezone: metaTimezone,
+                                Language: metaLanguage
+                            })
+                        });
+                        const emailData = await emailResponse.json();
+                        emailSuccess = emailResponse.ok && emailData.success;
+                    } catch (err) {
+                        console.error('Web3Forms email submission failed:', err);
                     }
 
                     btnIcon.classList.remove('animate-form-spin');
