@@ -591,8 +591,45 @@
             background: var(--outline-variant) !important;
         }
         .message-form button:disabled {
-            cursor: not-allowed;
+            opacity: 0.5 !important;
+            cursor: not-allowed !important;
+            background: var(--outline) !important;
+            color: var(--secondary) !important;
+            transform: none !important;
+            box-shadow: none !important;
         }
+        
+        /* Bouncy Pop Animation for Success Confirmation */
+        @keyframes button-pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+        .animate-button-pop {
+            animation: button-pop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* Micro CSS Confetti Particles Burst System */
+        @keyframes confetti-fly {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(0) rotate(var(--r));
+                opacity: 0;
+            }
+        }
+        .confetti-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+            animation: confetti-fly 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+        }
+
         .message-form button:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
@@ -1008,6 +1045,71 @@
                 const originalBtnBg = submitBtn.style.background;
                 const originalBtnColor = submitBtn.style.color;
 
+                // Micro Confetti Particle Burst Function
+                function triggerConfetti(button) {
+                    const colors = ['#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+                    const container = button.parentElement;
+                    
+                    // Ensure relative container positioning for accurate particle offset mapping
+                    const originalPosition = container.style.position;
+                    if (!originalPosition || originalPosition === 'static') {
+                        container.style.position = 'relative';
+                    }
+
+                    const buttonLeft = button.offsetLeft;
+                    const buttonTop = button.offsetTop;
+                    const buttonWidth = button.offsetWidth;
+                    const buttonHeight = button.offsetHeight;
+
+                    for (let i = 0; i < 20; i++) {
+                        const p = document.createElement('div');
+                        p.classList.add('confetti-particle');
+
+                        // Randomize angle, flight distance, and spin
+                        const angle = Math.random() * Math.PI * 2;
+                        const distance = 40 + Math.random() * 80;
+                        const x = Math.cos(angle) * distance;
+                        const y = Math.sin(angle) * distance;
+                        const rotation = Math.random() * 360;
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+
+                        p.style.setProperty('--x', `${x}px`);
+                        p.style.setProperty('--y', `${y}px`);
+                        p.style.setProperty('--r', `${rotation}deg`);
+                        p.style.background = color;
+
+                        // Align to the visual center of the button relative to its container parent
+                        p.style.left = `${buttonLeft + buttonWidth / 2 - 4}px`;
+                        p.style.top = `${buttonTop + buttonHeight / 2 - 4}px`;
+
+                        container.appendChild(p);
+
+                        // Safely collect after animation completes
+                        setTimeout(() => p.remove(), 800);
+                    }
+                }
+
+                // Simple validation check: email must have @ format, message must have >= 5 chars
+                function validateForm() {
+                    const nameVal = nameInput.value.trim();
+                    const emailVal = emailInput.value.trim();
+                    const messageVal = messageInput.value.trim();
+                    
+                    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+                    const isMessageValid = messageVal.length >= 5;
+                    const isNameValid = nameVal.length > 0;
+                    
+                    submitBtn.disabled = !(isEmailValid && isMessageValid && isNameValid);
+                }
+
+                // Attach real-time validation input listeners
+                nameInput.addEventListener('input', validateForm);
+                emailInput.addEventListener('input', validateForm);
+                messageInput.addEventListener('input', validateForm);
+
+                // Run initial validation state
+                validateForm();
+
                 messageForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
 
@@ -1145,10 +1247,16 @@
 
                     if (telemetrySuccess || emailSuccess) {
                         // Success state
-                        btnText.textContent = 'Message Sent!';
+                        btnText.textContent = 'Message Sent';
                         btnIcon.textContent = 'check_circle';
                         submitBtn.style.background = '#10b981';
                         submitBtn.style.color = '#ffffff';
+
+                        // Apply bouncy pop scale-up animation
+                        submitBtn.classList.add('animate-button-pop');
+
+                        // Trigger micro confetti particle burst
+                        triggerConfetti(submitBtn);
 
                         statusMsg.textContent = 'Thank you! Your message has been sent successfully.';
                         statusMsg.style.color = '#10b981';
@@ -1173,7 +1281,12 @@
                         nameInput.disabled = false;
                         emailInput.disabled = false;
                         messageInput.disabled = false;
-                        submitBtn.disabled = false;
+
+                        // Remove bouncy animation class so it can trigger next time
+                        submitBtn.classList.remove('animate-button-pop');
+
+                        // Re-run validation to re-disable form button for empty inputs
+                        validateForm();
 
                         btnText.textContent = originalBtnText;
                         btnIcon.textContent = originalBtnIcon;
