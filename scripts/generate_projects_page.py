@@ -61,8 +61,11 @@ html_template = """<!DOCTYPE html>
                     <input type="radio" name="options" id="nav-experience">
                     <label for="nav-experience" data-href="../index.html#experience">Experience</label>
 
+                    <input type="radio" name="options" id="nav-resume">
+                    <label for="nav-resume" data-href="../resume/">Resume</label>
+
                     <input type="radio" name="options" id="nav-contact">
-                    <label for="nav-contact" data-href="../index.html#contact">Contact</label>
+                    <label for="nav-contact" data-href="../contact/">Contact</label>
 
                     <div class="selection-pill"></div>
                 </div>
@@ -82,7 +85,8 @@ html_template = """<!DOCTYPE html>
                 <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html">Home</a>
                 <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html#work">Projects</a>
                 <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html#experience">Experience</a>
-                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../index.html#contact">Contact</a>
+                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../resume/" target="_blank">Resume</a>
+                <a class="text-secondary hover:text-on-background transition-colors font-medium" href="../contact/" target="_blank">Contact</a>
             </div>
         </nav>
     </header>
