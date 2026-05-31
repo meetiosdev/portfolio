@@ -451,6 +451,17 @@
             letter-spacing: 0.05em;
         }
 
+        .skill-subgroup-title {
+            font-size: 0.65rem;
+            font-weight: 650;
+            color: var(--secondary);
+            opacity: 0.75;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-top: 0.15rem;
+            margin-bottom: -0.1rem;
+        }
+
         .skill-chips {
             display: flex;
             flex-wrap: wrap;
@@ -1172,46 +1183,64 @@
                     <div class="skill-group-title">Languages</div>
                     <div class="skill-chips">
                         <span class="skill-chip spotlight">Swift 6.2</span>
-                        <span class="skill-chip">SwiftUI</span>
                         <span class="skill-chip">Objective-C</span>
                         <span class="skill-chip">C++</span>
+                        <span class="skill-chip">C</span>
                     </div>
                 </div>
 
                 <div class="skill-group">
-                    <div class="skill-group-title">Core Frameworks</div>
+                    <div class="skill-group-title">Core Frameworks & UI</div>
+                    
+                    <div class="skill-subgroup-title">UI Frameworks</div>
                     <div class="skill-chips">
+                        <span class="skill-chip">SwiftUI</span>
                         <span class="skill-chip">UIKit</span>
-                        <span class="skill-chip">Combine</span>
+                    </div>
+
+                    <div class="skill-subgroup-title">Data & System</div>
+                    <div class="skill-chips">
+                        <span class="skill-chip">AVFoundation</span>
+                        <span class="skill-chip">Core Data</span>
+                        <span class="skill-chip">Core Location</span>
+                        <span class="skill-chip">Core Bluetooth</span>
+                        <span class="skill-chip">MapKit</span>
+                    </div>
+
+                    <div class="skill-subgroup-title">Concurrency & Reactive</div>
+                    <div class="skill-chips">
                         <span class="skill-chip">Async/Await</span>
                         <span class="skill-chip">Actors</span>
-                        <span class="skill-chip">Core Data</span>
-                        <span class="skill-chip">AVFoundation</span>
-                        <span class="skill-chip">Core Location</span>
-                        <span class="skill-chip">MapKit</span>
-                        <span class="skill-chip">Core Bluetooth</span>
+                        <span class="skill-chip">Combine</span>
+                        <span class="skill-chip">Observation Framework</span>
                     </div>
                 </div>
 
                 <div class="skill-group">
-                    <div class="skill-group-title">Architecture</div>
+                    <div class="skill-group-title">Architecture & Design</div>
                     <div class="skill-chips">
-                        <span class="skill-chip">MVVM-C</span>
                         <span class="skill-chip">Clean (VIPER)</span>
-                        <span class="skill-chip">DI</span>
-                        <span class="skill-chip">Modular (SPM)</span>
+                        <span class="skill-chip">MVVM-C</span>
+                        <span class="skill-chip">Dependency Injection (DI)</span>
+                        <span class="skill-chip">Modular Architecture (SPM)</span>
                     </div>
                 </div>
 
                 <div class="skill-group">
                     <div class="skill-group-title">DevOps & Tools</div>
+                    
+                    <div class="skill-subgroup-title">CI/CD & Automation</div>
                     <div class="skill-chips">
-                        <span class="skill-chip">Fastlane</span>
-                        <span class="skill-chip">Xcode Cloud</span>
                         <span class="skill-chip">CircleCI</span>
+                        <span class="skill-chip">Fastlane</span>
                         <span class="skill-chip">GitHub Actions</span>
-                        <span class="skill-chip">Instruments</span>
+                        <span class="skill-chip">Xcode Cloud</span>
+                    </div>
+
+                    <div class="skill-subgroup-title">Backend & Performance</div>
+                    <div class="skill-chips">
                         <span class="skill-chip">Firebase</span>
+                        <span class="skill-chip">Xcode Instruments</span>
                     </div>
                 </div>
             </div>
