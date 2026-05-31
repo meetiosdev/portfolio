@@ -1,7 +1,13 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
+const dns = require('dns');
 const { supabase } = require('../services/supabaseService');
 const { verifyToken } = require('../middleware/auth');
+
+// Force IPv4 DNS resolution first to bypass broken IPv6 timeout drops on cloud hosting environments
+if (dns.setDefaultResultOrder) {
+  dns.setDefaultResultOrder('ipv4first');
+}
 
 const router = express.Router();
 
