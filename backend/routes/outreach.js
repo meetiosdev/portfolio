@@ -67,17 +67,13 @@ router.get('/next-pending', verifyToken, async (req, res) => {
  * Sends an email immediately and updates recruiter status
  */
 router.post('/single-send', verifyToken, async (req, res) => {
-  const { id, email, subject, body } = req.body;
+  const { email, name, subject, body } = req.body;
 
-  if (!id || !email || !subject || !body) {
-    return res.status(400).json({ error: 'Missing required parameters: id, email, subject, and body are required.' });
+  if (!email || !subject || !body) {
+    return res.status(400).json({ error: 'Missing required parameters: email, subject, and body are required.' });
   }
 
   try {
-    if (!supabase) {
-      return res.status(500).json({ error: 'Supabase client is not initialized.' });
-    }
-
     // 1. Get/Verify Nodemailer transporter
     let transporter;
     try {
@@ -89,11 +85,10 @@ router.post('/single-send', verifyToken, async (req, res) => {
 
     // 2. Draft & send the email
     const mailOptions = {
-      from: `"Swaraj (Portfolio Outreach)" <${process.env.GMAIL_USER}>`,
+      from: `"Swarajmeet Singh" <${process.env.GMAIL_USER}>`,
       to: email,
       subject: subject,
       text: body
-      // We can add html support if needed later, but text is excellent and highly deliverable for plain outreach!
     };
 
     let sendSuccess = false;
@@ -102,46 +97,64 @@ router.post('/single-send', verifyToken, async (req, res) => {
     try {
       await transporter.sendMail(mailOptions);
       sendSuccess = true;
-      console.log(`Email successfully sent to ${email} (Recruiter ID: ${id})`);
+      console.log(`Email successfully sent to ${email}`);
     } catch (mailError) {
       console.error(`Failed to send email to ${email}:`, mailError);
       mailErrorMsg = mailError.message || 'Mail server error';
     }
 
-    // 3. Update status in Supabase database
+    // 3. Update/Log status in Supabase database for historical tracking (non-blocking)
     if (sendSuccess) {
-      const { error: dbError } = await supabase
-        .from('recruiters')
-        .update({
-          status: 'sent',
-          sent_at: new Date().toISOString()
-        })
-        .eq('id', id);
-
-      if (dbError) {
-        console.error(`Email sent to ${email} but failed to update status to 'sent' in Supabase:`, dbError);
-        return res.status(500).json({
-          message: 'Email was sent successfully, but updating status in Supabase database failed.',
-          error: dbError.message
-        });
+      if (supabase) {
+        supabase
+          .from('recruiters')
+          .upsert(
+            {
+              email: email,
+              name: name || 'Manual Entry',
+              company: 'Manual Entry',
+              status: 'sent',
+              sent_at: new Date().toISOString()
+            },
+            { onConflict: 'email' }
+          )
+          .then(({ error: dbError }) => {
+            if (dbError) {
+              console.error(`Email sent to ${email} but failed to log history in Supabase:`, dbError);
+            } else {
+              console.log(`Email outreach to ${email} logged in Supabase.`);
+            }
+          })
+          .catch(dbCatchError => {
+            console.error(`Unexpected database error logging outreach to Supabase:`, dbCatchError);
+          });
       }
 
-      return res.status(200).json({ success: true, message: `Email successfully sent to ${email}!` });
+      return res.status(200).json({ success: true, message: `Email successfully sent to ${email}!`, senderEmail: process.env.GMAIL_USER });
     } else {
-      // Mark as failed in Supabase so it can be debugged or retried later
-      const { error: dbError } = await supabase
-        .from('recruiters')
-        .update({
-          status: 'failed'
-        })
-        .eq('id', id);
-
-      if (dbError) {
-        console.error(`Email failed to send and also failed to update status to 'failed' in Supabase:`, dbError);
+      // Non-blocking log database status to failed if send fails
+      if (supabase) {
+        supabase
+          .from('recruiters')
+          .upsert(
+            {
+              email: email,
+              name: name || 'Manual Entry',
+              company: 'Manual Entry',
+              status: 'failed'
+            },
+            { onConflict: 'email' }
+          )
+          .then(({ error: dbError }) => {
+            if (dbError) {
+              console.error(`Failed to log 'failed' status to Supabase:`, dbError);
+            }
+          })
+          .catch(() => {});
       }
 
       return res.status(500).json({
-        error: `Failed to deliver email. Status updated to failed. Reason: ${mailErrorMsg}`
+        error: `Failed to deliver email. Reason: ${mailErrorMsg}`
       });
     }
   } catch (error) {

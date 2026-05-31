@@ -12,7 +12,7 @@
     /* Premium Outreach Additions */
     .outreach-grid {
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
+      grid-template-columns: 1.25fr 1fr;
       gap: 24px;
       margin-top: 10px;
     }
@@ -69,7 +69,7 @@
 
     .text-area-custom {
       width: 100%;
-      height: 220px;
+      height: 240px;
       padding: 14px 16px;
       border-radius: 8px;
       border: 1px solid var(--border-subtle);
@@ -89,19 +89,10 @@
       background: rgba(255, 255, 255, 0.04);
     }
 
-    .recruiter-meta-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.04);
-      padding: 6px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--border-subtle);
-      font-size: 0.8rem;
-    }
-
-    .recruiter-meta-tag strong {
-      color: var(--text-primary);
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
 
     .card-actions {
@@ -142,37 +133,6 @@
       color: #a5b4fc;
     }
 
-    .empty-state {
-      text-align: center;
-      padding: 64px 32px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-      max-width: 500px;
-      margin: 40px auto;
-    }
-
-    .empty-icon {
-      font-size: 3.5rem;
-      filter: drop-shadow(0 0 15px var(--indigo-accent));
-      animation: pulse-glow 2.5s infinite;
-    }
-
-    .code-sql-block {
-      background: #010409;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-      padding: 16px;
-      font-family: 'Fira Code', monospace;
-      font-size: 0.8rem;
-      color: #c9d1d9;
-      text-align: left;
-      width: 100%;
-      overflow-x: auto;
-      margin-top: 10px;
-    }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
@@ -180,6 +140,9 @@
 
     @media (max-width: 1024px) {
       .outreach-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-row {
         grid-template-columns: 1fr;
       }
     }
@@ -193,7 +156,7 @@
       <div class="brand-group">
         <span class="live-dot" style="background-color: var(--indigo-accent); box-shadow: 0 0 10px var(--indigo-accent);"></span>
         <h1>Outreach Console</h1>
-        <span class="badge">Single Sender</span>
+        <span class="badge">Paste & Send</span>
       </div>
       <div class="header-actions">
         <a href="/" class="btn secondary flex-center gap-2" style="text-decoration: none; color: inherit;">
@@ -209,40 +172,39 @@
       <div id="toast-container"></div>
 
       <!-- Main Dual Pane Layout -->
-      <div id="main-outreach-view" class="outreach-grid hidden">
+      <div id="main-outreach-view" class="outreach-grid">
         
         <!-- Left: Composer -->
         <div class="glass-card composer-card">
           <div class="chart-header" style="margin-bottom: 0;">
-            <h2>Outreach Email Draft</h2>
-            <p class="chart-subtitle">Personalize your outreach. Dynamic variables `[Name]` and `[Company]` are auto-resolved below.</p>
+            <h2>Outreach Workstation</h2>
+            <p class="chart-subtitle">Paste a recruiter's email to instantly deliver your high-impact cold outreach message.</p>
           </div>
 
-          <!-- Recruiter Metadata Row -->
-          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <div class="recruiter-meta-tag">
-              👤 <span class="meta-value" style="font-family: inherit;"><strong id="recruiter-name-badge">--</strong></span>
+          <!-- Recruiter Dynamic Fields -->
+          <div class="form-row">
+            <div class="input-group" style="margin-bottom: 0;">
+              <label for="recruiter-email">Recruiter Email Address <span style="color: var(--rose-danger);">*</span></label>
+              <input type="email" id="recruiter-email" placeholder="e.g. stara93@gmail.com" required autocomplete="off">
             </div>
-            <div class="recruiter-meta-tag">
-              🏢 <span class="meta-value" style="font-family: inherit;"><strong id="recruiter-company-badge">--</strong></span>
-            </div>
-            <div class="recruiter-meta-tag">
-              ✉️ <span class="meta-value" style="font-family: inherit;"><strong id="recruiter-email-badge">--</strong></span>
+            <div class="input-group" style="margin-bottom: 0;">
+              <label for="recruiter-name">Recruiter Name <span style="color: var(--text-muted); font-weight: normal;">(Optional)</span></label>
+              <input type="text" id="recruiter-name" placeholder="e.g. John" autocomplete="off">
             </div>
           </div>
 
           <!-- Subject Input -->
           <div class="input-group" style="margin-bottom: 0;">
             <label for="email-subject">Email Subject</label>
-            <input type="text" id="email-subject" placeholder="Outreach Subject Line" value="Opportunity | Swaraj - Full Stack Engineer Outreach">
+            <input type="text" id="email-subject" placeholder="Outreach Subject Line" value="Senior iOS Engineer Opportunity - Swarajmeet Singh">
           </div>
 
           <!-- Body Template Editor -->
           <div class="input-group" style="margin-bottom: 0; display: flex; flex-direction: column; flex-grow: 1;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-              <label for="email-body" style="margin-bottom: 0;">Email Template Body</label>
+              <label for="email-body" style="margin-bottom: 0;">Message Body</label>
               <span class="badge" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); color: var(--text-secondary); text-transform: none; font-size: 0.65rem; font-weight: 500;">
-                Live Sync Enabled
+                Pre-loaded Template
               </span>
             </div>
             <textarea id="email-body" class="text-area-custom"></textarea>
@@ -250,9 +212,9 @@
 
           <!-- Actions -->
           <div class="card-actions">
-            <button id="skip-btn" class="btn secondary">Skip Recruiter</button>
+            <button id="clear-btn" class="btn secondary">Clear Fields</button>
             <button id="send-btn" class="btn primary">
-              <span class="icon" style="margin-right: 8px;">✈️</span> Send Email Now
+              <span class="icon" style="margin-right: 8px;">✈️</span> Send Email
             </button>
           </div>
         </div>
@@ -268,11 +230,11 @@
           <div class="preview-header-meta">
             <div class="meta-row">
               <span class="meta-label">From:</span>
-              <span class="meta-value" id="preview-from">portfolio@meetiosdev.com</span>
+              <span class="meta-value" id="preview-from">swarajmeet.singh@gmail.com</span>
             </div>
             <div class="meta-row">
               <span class="meta-label">To:</span>
-              <span class="meta-value" id="preview-to">--</span>
+              <span class="meta-value" id="preview-to">recruiter@company.com</span>
             </div>
             <div class="meta-row">
               <span class="meta-label">Subject:</span>
@@ -284,43 +246,6 @@
           <div class="preview-body-container" id="preview-body"></div>
         </div>
 
-      </div>
-
-      <!-- Loading View -->
-      <div id="loading-state" class="glass-card" style="text-align: center; padding: 60px 20px;">
-        <span class="icon animate-spin" style="font-size: 2rem; color: var(--indigo-accent); display: inline-block;">↻</span>
-        <p style="margin-top: 16px; color: var(--text-secondary);">Querying your recruiters queue database...</p>
-      </div>
-
-      <!-- Queue Empty View -->
-      <div id="empty-state" class="glass-card empty-state hidden">
-        <div class="empty-icon">🎉</div>
-        <h2>Queue Fully Processed!</h2>
-        <p style="color: var(--text-secondary); margin-bottom: 10px;">All recruiters in your database have been successfully emailed or marked. Ready to load more?</p>
-        <a href="/" class="btn primary" style="text-decoration: none;">Return to Dashboard</a>
-      </div>
-
-      <!-- Error State (e.g. Table Missing) -->
-      <div id="error-state" class="glass-card empty-state hidden" style="max-width: 720px;">
-        <div class="empty-icon" style="filter: drop-shadow(0 0 15px var(--rose-danger));">⚠️</div>
-        <h2 id="error-title">Database Error</h2>
-        <p id="error-description" style="color: var(--text-secondary); line-height: 1.5;"></p>
-        <div id="sql-block-wrap" class="hidden">
-          <p style="text-align: left; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-top: 16px; margin-bottom: 4px;">Run this SQL script in your Supabase SQL Editor:</p>
-          <pre class="code-sql-block">
-CREATE TABLE recruiters (
-  id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-  email VARCHAR UNIQUE NOT NULL,
-  name VARCHAR NOT NULL,
-  company VARCHAR,
-  status VARCHAR DEFAULT 'pending' CHECK (status IN ('pending', 'sent', 'failed')),
-  sent_at TIMESTAMP WITH TIME ZONE
-);
-
-CREATE INDEX idx_recruiters_status ON recruiters(status);
-          </pre>
-        </div>
-        <button id="retry-btn" class="btn primary" style="margin-top: 12px;">Retry Connection</button>
       </div>
 
     </main>
@@ -340,47 +265,48 @@ CREATE INDEX idx_recruiters_status ON recruiters(status);
       }
 
       // DOM Elements
-      const mainOutreachView = document.getElementById('main-outreach-view');
-      const loadingState = document.getElementById('loading-state');
-      const emptyState = document.getElementById('empty-state');
-      const errorState = document.getElementById('error-state');
-      const errorTitle = document.getElementById('error-title');
-      const errorDescription = document.getElementById('error-description');
-      const sqlBlockWrap = document.getElementById('sql-block-wrap');
-
-      const nameBadge = document.getElementById('recruiter-name-badge');
-      const companyBadge = document.getElementById('recruiter-company-badge');
-      const emailBadge = document.getElementById('recruiter-email-badge');
-
+      const recruiterEmailInput = document.getElementById('recruiter-email');
+      const recruiterNameInput = document.getElementById('recruiter-name');
       const subjectInput = document.getElementById('email-subject');
-      const templateInput = document.getElementById('email-body');
+      const bodyTextarea = document.getElementById('email-body');
 
       const previewTo = document.getElementById('preview-to');
       const previewSubject = document.getElementById('preview-subject');
       const previewBody = document.getElementById('preview-body');
+      const previewFrom = document.getElementById('preview-from');
 
       const sendBtn = document.getElementById('send-btn');
-      const skipBtn = document.getElementById('skip-btn');
-      const retryBtn = document.getElementById('retry-btn');
+      const clearBtn = document.getElementById('clear-btn');
       const logoutBtn = document.getElementById('logout-btn');
       const toastContainer = document.getElementById('toast-container');
 
-      // State
-      let currentRecruiter = null;
-      let originalTemplate = `Hi [Name],
+      // Default outreach template
+      const originalTemplate = `Hi [Name],
 
-I am looking for a job change. You can review my portfolio here: https://meetiosdev.com/
-I noticed your outstanding work at [Company] and wanted to reach out. Let me know if you have any open roles matching my skill set!
+I hope you are doing well. I am an experienced Senior iOS Software Engineer currently looking for a professional job change. 
+
+You can review my resume, credentials, and full interactive portfolio here: https://meetiosdev.com/
+
+Looking forward to connecting with you.
 
 Best regards,
-Swaraj`;
+Swarajmeet Singh`;
 
-      // Prepopulate original template
-      templateInput.value = originalTemplate;
+      // Set initial values
+      bodyTextarea.value = originalTemplate;
+      previewSubject.textContent = subjectInput.value;
+      previewBody.textContent = originalTemplate;
+
+      // Set 'From' field to active user if cached or loaded
+      const savedUserEmail = localStorage.getItem('saas_gmail_user');
+      if (savedUserEmail) {
+        previewFrom.textContent = savedUserEmail;
+      }
 
       // Handle Logouts
       logoutBtn?.addEventListener('click', () => {
         window.api.clearToken();
+        localStorage.removeItem('saas_gmail_user');
         window.location.href = '/';
       });
 
@@ -405,143 +331,123 @@ Swaraj`;
         }, 6000);
       }
 
-      // Synchronize Live Sandbox Preview based on Inputs & Current Recruiter Data
+      // Synchronize Live Sandbox Preview
       function updateLivePreview() {
-        if (!currentRecruiter) {
-          previewTo.textContent = 'recruiter@company.com';
-          previewSubject.textContent = subjectInput.value;
-          previewBody.textContent = 'Draft template preview...';
+        const email = recruiterEmailInput.value.trim();
+        const name = recruiterNameInput.value.trim();
+
+        // Sync Recruiter Email in Preview
+        previewTo.textContent = email ? (name ? `${name} <${email}>` : email) : 'recruiter@company.com';
+        
+        // Sync Subject Line
+        previewSubject.textContent = subjectInput.value;
+
+        // Sync Message Body (mirror exactly what's typed inside the textarea)
+        previewBody.textContent = bodyTextarea.value;
+      }
+
+      // Dynamic placeholder replacement in Message Body as user types the Recruiter's Name
+      recruiterNameInput.addEventListener('input', () => {
+        const name = recruiterNameInput.value.trim() || '[Name]';
+        
+        // Update [Name] dynamically inside the textarea
+        bodyTextarea.value = originalTemplate.replace(/\[Name\]/g, name);
+        updateLivePreview();
+      });
+
+      // Input change hook listeners to maintain live outbox rendering
+      recruiterEmailInput.addEventListener('input', updateLivePreview);
+      bodyTextarea.addEventListener('input', updateLivePreview);
+      subjectInput.addEventListener('input', updateLivePreview);
+
+      // Handle Form Clear button
+      clearBtn.addEventListener('click', () => {
+        recruiterEmailInput.value = '';
+        recruiterNameInput.value = '';
+        bodyTextarea.value = originalTemplate;
+        updateLivePreview();
+        showToast('Form cleared.', 'info');
+      });
+
+      // Send Email trigger
+      sendBtn.addEventListener('click', async () => {
+        const email = recruiterEmailInput.value.trim();
+        const name = recruiterNameInput.value.trim();
+        const subject = subjectInput.value.trim();
+        const body = bodyTextarea.value;
+
+        // Validation checks
+        if (!email) {
+          showToast('Please enter the recruiter email address.', 'error');
+          recruiterEmailInput.focus();
           return;
         }
 
-        const name = currentRecruiter.name || 'Recruiter';
-        const company = currentRecruiter.company || 'your company';
-
-        // 1. Resolve tokens inside the template text area
-        let bodyText = templateInput.value;
-        bodyText = bodyText.replace(/\[Name\]/g, name);
-        bodyText = bodyText.replace(/\[Company\]/g, company);
-
-        // 2. Map to Sandbox View HTML
-        previewTo.textContent = `${name} <${currentRecruiter.email}>`;
-        previewSubject.textContent = subjectInput.value;
-        previewBody.textContent = bodyText;
-      }
-
-      // Input change hook listeners to maintain live outbox rendering
-      templateInput.addEventListener('input', updateLivePreview);
-      subjectInput.addEventListener('input', updateLivePreview);
-
-      // Fetch Next Recruiter Queue Entry
-      async function loadNextRecruiter() {
-        loadingState.classList.remove('hidden');
-        mainOutreachView.classList.add('hidden');
-        emptyState.classList.add('hidden');
-        errorState.classList.add('hidden');
-
-        try {
-          const res = await window.api.request('/outreach/next-pending', { method: 'GET' });
-          
-          if (res.recruiter) {
-            currentRecruiter = res.recruiter;
-            
-            // Populating visual elements
-            nameBadge.textContent = currentRecruiter.name;
-            companyBadge.textContent = currentRecruiter.company || 'Unknown Company';
-            emailBadge.textContent = currentRecruiter.email;
-
-            // Reset template structure to original format so live replacements trigger fresh
-            templateInput.value = originalTemplate;
-
-            // Sync rendering
-            updateLivePreview();
-
-            // Reveal
-            loadingState.classList.add('hidden');
-            mainOutreachView.classList.remove('hidden');
-          } else {
-            // Queue Empty
-            currentRecruiter = null;
-            loadingState.classList.add('hidden');
-            emptyState.classList.remove('hidden');
-          }
-        } catch (error) {
-          console.error('Outreach Load Error:', error);
-          loadingState.classList.add('hidden');
-          errorState.classList.remove('hidden');
-          
-          // Custom description if the recruiters table was never deployed
-          if (error.message.includes('not found') || error.message.includes('SQL') || error.message.includes('exist')) {
-            errorTitle.textContent = 'Table Setup Required';
-            errorDescription.textContent = 'The `recruiters` relational table is missing from your Supabase database. Please launch your Supabase SQL Editor and execute the code block below to provision it.';
-            sqlBlockWrap.classList.remove('hidden');
-          } else {
-            errorTitle.textContent = 'Connection Error';
-            errorDescription.textContent = error.message || 'Could not fetch recruiter queue details. Please verify your server connection and JWT credentials.';
-            sqlBlockWrap.classList.add('hidden');
-          }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          showToast('Please enter a valid email address.', 'error');
+          recruiterEmailInput.focus();
+          return;
         }
-      }
 
-      // Skip current Recruiter
-      skipBtn.addEventListener('click', () => {
-        showToast('Recruiter skipped. Loading next...', 'info');
-        loadNextRecruiter();
-      });
+        if (!subject) {
+          showToast('Please enter a subject line.', 'error');
+          subjectInput.focus();
+          return;
+        }
 
-      // Send manual Email POST
-      sendBtn.addEventListener('click', async () => {
-        if (!currentRecruiter) return;
+        if (!body) {
+          showToast('Please enter the message body.', 'error');
+          bodyTextarea.focus();
+          return;
+        }
 
-        const name = currentRecruiter.name || 'Recruiter';
-        const company = currentRecruiter.company || 'your company';
-
-        // Resolve subject and body directly
-        const subject = subjectInput.value;
-        let body = templateInput.value;
-        body = body.replace(/\[Name\]/g, name);
-        body = body.replace(/\[Company\]/g, company);
-
-        // UI Feedback - Processing Send State
+        // Lock form during transaction
         sendBtn.disabled = true;
-        sendBtn.innerHTML = '<span class="icon animate-spin" style="margin-right: 8px;">↻</span> Sending Email...';
-        skipBtn.disabled = true;
+        sendBtn.innerHTML = '<span class="icon animate-spin" style="margin-right: 8px;">↻</span> Sending...';
+        clearBtn.disabled = true;
 
         try {
           const result = await window.api.request('/outreach/single-send', {
             method: 'POST',
-            body: JSON.stringify({
-              id: currentRecruiter.id,
-              email: currentRecruiter.email,
-              subject: subject,
-              body: body
-            })
+            body: JSON.stringify({ email, name, subject, body })
           });
 
           if (result.success) {
-            showToast(`Email delivered successfully to ${currentRecruiter.name}!`, 'success');
-            // Wait slightly before loading next to ensure visual success toast is noticed
-            setTimeout(() => {
-              sendBtn.disabled = false;
-              sendBtn.innerHTML = '<span class="icon" style="margin-right: 8px;">✈️</span> Send Email Now';
-              skipBtn.disabled = false;
-              loadNextRecruiter();
-            }, 1000);
+            // Show Success Notification Banner
+            showToast(`Outreach successfully sent to ${email}!`, 'success');
+
+            // Cache Gmail User address once for rendering the "From" metadata
+            if (result.senderEmail) {
+              localStorage.setItem('saas_gmail_user', result.senderEmail);
+              previewFrom.textContent = result.senderEmail;
+            }
+
+            // CRITICAL: Clear out Email Input and Name Input fields immediately
+            recruiterEmailInput.value = '';
+            recruiterNameInput.value = '';
+
+            // Reset body template back to default
+            bodyTextarea.value = originalTemplate;
+
+            // Re-render outbox preview
+            updateLivePreview();
+            
+            // Focus on email input for immediate paste of the next recruiter!
+            recruiterEmailInput.focus();
           }
         } catch (error) {
-          console.error('Send Error:', error);
-          showToast(`Sending failed: ${error.message}`, 'error');
+          console.error('Outreach Send Error:', error);
+          showToast(error.message || 'Failed to send email. Check SMTP setup.', 'error');
+        } finally {
           sendBtn.disabled = false;
-          sendBtn.innerHTML = '<span class="icon" style="margin-right: 8px;">✈️</span> Send Email Now';
-          skipBtn.disabled = false;
+          sendBtn.innerHTML = '<span class="icon" style="margin-right: 8px;">✈️</span> Send Email';
+          clearBtn.disabled = false;
         }
       });
 
-      // Retry hook
-      retryBtn.addEventListener('click', loadNextRecruiter);
-
-      // Trigger load on startup
-      loadNextRecruiter();
+      // Run live preview sync once on initial launch
+      updateLivePreview();
     });
   </script>
 </body>
