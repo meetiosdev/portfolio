@@ -14,11 +14,17 @@ const getTransporter = () => {
     throw new Error('Gmail outreach credentials (GMAIL_USER or GMAIL_APP_PASSWORD) are not configured in backend/.env');
   }
 
+  // Explicit SMTP configuration to bypass hosting SMTP blocks
   return nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // false for port 587 (uses STARTTLS)
     auth: {
       user,
       pass
+    },
+    tls: {
+      rejectUnauthorized: false // avoids SSL handshake blocks on cloud platforms
     }
   });
 };

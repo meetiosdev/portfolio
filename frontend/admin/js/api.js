@@ -1,6 +1,4 @@
-const API_BASE_URL = window.location.hostname === 'admin.meetiosdev.com'
-  ? 'https://meetiosdev.com/api'
-  : '/api';
+const API_BASE_URL = '/api';
 
 class Api {
   constructor() {
