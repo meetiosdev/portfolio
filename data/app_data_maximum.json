@@ -1,7 +1,7 @@
 [
   {
     "name": "Melpot",
-    "description": "Melpot \u2013 Communities That Create Value\n\nMelpot is a community-driven social platform where creators and groups come together to build, manage, and monetize their content, all in one place.\n\nUnlike traditional social networks, Melpot is built around communities, not feeds. Whether you\u2019re a creator, educator, or niche group leader, Melpot gives you the tools to grow an audience, engage deeply, and generate revenue, without juggling multiple platforms.\n\nWhat you can do on Melpot\n\nBuild and join communities\n\t\u2022\tCreate or join interest-based communities around topics you care about\n\t\u2022\tEngage through posts, images, videos, and voice content\n\t\u2022\tParticipate in focused, meaningful conversations, not noise\n\nCreate and share content\n\t\u2022\tPublish posts, media, and updates inside your community\n\t\u2022\tInteract through reactions, comments, and discussions\n\t\u2022\tDiscover new communities aligned with your interests\n\nMonetize your content (for creators)\n\t\u2022\tChoose monetization models that fit your business\n\t\u2022\tManage members, content access, and revenue in one place\n\t\u2022\tTrack performance and earnings transparently\n\nStay connected, your way\n\t\u2022\tFollow creators and communities you trust\n\t\u2022\tControl what you see, who you engage with, and how you participate\n\t\u2022\tEnjoy a cleaner, more intentional social experience\n\nMelpot is designed for creators and communities who want ownership, control, and sustainability, not just reach.\n\nJoin communities that matter.\nBuild value, not just followers.\n\nTerms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/",
+    "description": "Melpot is a community-driven social platform designed for creators, educators, and niche group leaders to build, manage, and monetize their content in one unified space. Unlike feed-based networks, it focuses on interest-based groups, enabling deep audience engagement through posts, media, and voice conversations. It solves platform fatigue by giving creators direct control and clean monetization tools.",
     "screenshots": [
       "./assets/images/melpot/screenshot_1.png",
       "./assets/images/melpot/screenshot_2.png",
@@ -47,7 +47,7 @@
   },
   {
     "name": "MO - mobyyou",
-    "description": "MO - mobyyou is a cutting-edge mobile application that delivers an exceptional user experience with innovative features and modern design. Experience the future of mobile technology with advanced functionality, intuitive navigation, and seamless performance. This app represents the pinnacle of mobile app development, combining creativity with technical excellence.",
+    "description": "MO - mobyyou is a cutting-edge lifestyle and productivity platform designed to deliver a modern, intuitive mobile experience. The app connects users with local events, personalized activity recommendations, and seamless social sharing features. By streamlining daily planning and intuitive navigation, it solves the challenge of finding relevant local experiences, combining creativity with technical excellence.",
     "screenshots": [
       "./mo_mobyyou_local/0x0ss (6).png",
       "./mo_mobyyou_local/0x0ss (7).png",
@@ -96,7 +96,7 @@
   },
   {
     "name": "Droob \u2013 Moving & Delivery App",
-    "description": "Droob is a comprehensive moving and delivery application that revolutionizes the logistics industry. This innovative app connects customers with reliable moving and delivery services, offering real-time tracking, instant quotes, and seamless booking experiences. With advanced features like route optimization, delivery scheduling, and secure payment processing, Droob makes moving and delivery simple, efficient, and transparent.",
+    "description": "Droob is an innovative logistics app that connects customers with reliable moving and delivery services. It offers real-time route tracking, instant pricing, and seamless booking for a stress-free experience. By integrating advanced route optimization, flexible delivery scheduling, and secure payments, Droob solves common moving headaches and brings transparency, efficiency, and speed to local logistics.",
     "screenshots": [
       "./droob_local/0x0ss (6).png",
       "./droob_local/0x0ss (7).png",
@@ -149,7 +149,7 @@
   },
   {
     "name": "Franck Muller Labs",
-    "description": "Franck Muller Labs - Premium luxury watch application. Experience the world of haute horlogerie with cutting-edge technology and timeless elegance. This app represents the perfect fusion of traditional craftsmanship and modern digital innovation.",
+    "description": "Franck Muller Labs is a premium lifestyle application that connects watch enthusiasts with the world of haute horlogerie. It bridges traditional craftsmanship with modern digital innovation, offering personalized luxury watch collections, interactive experiences, and high-end tracking features. Designed for collectors and connoisseurs, the app delivers a seamless digital gateway to timeless elegance.",
     "screenshots": [
       "./franck_muller_local/0x0ss (6).png",
       "./franck_muller_local/0x0ss (7).png",
@@ -197,7 +197,7 @@
   },
   {
     "name": "LuxBubble Provider",
-    "description": "Luxubble is Your Salon In Your Pocket. \nYour Customers know what they want and they want it now.\nLuxbubble is the premier app for Hair, Nail, Makeup, Piercing, Massage, Waxing, Brow, Lash, Tattoo, Tanning and Style professionals.\nConnect with your Customers. Anytime. Anywhere. \nGrow your business, increase your staff, provide more services, easily adjust your prices and even go mobile.\nBe found. Be local. Wherever you are.\nFeatures include:\n- Manage Business Profile and payment details\n- Dashboard for summary revenue and booking information\n- Appointment Notifications\n- Revenue Tracking\n- Rating Reviews\n- Manage Staff Profiles (including their work hours and the - services they provide)\n- Manage Salon Calendar\n- Online Bookings\n- Online Payments\n\nPlease take a look at our Terms of Use (EULA) here:\u00a0https://admin.luxbubble.app/#/eula\nPlease take a look at our privacy policy here:\u00a0https://admin.luxbubble.app/#/privacyPolicy",
+    "description": "LuxBubble Provider is a business management app tailored for beauty, hair, makeup, and wellness professionals. It serves as a salon-in-your-pocket, allowing service providers to manage their profiles, calendars, and online payments easily. With built-in tools for appointment notifications, staff scheduling, and revenue tracking, it empowers local beauty experts to grow their business and go mobile.",
     "screenshots": [
       "./assets/images/luxbubble_provider/screenshot_1.png",
       "./assets/images/luxbubble_provider/screenshot_2.png",
@@ -244,7 +244,7 @@
   },
   {
     "name": "LuxBubble Staff",
-    "description": "Luxubble is Your Salon In Your Pocket. \nYour Customers know what they want and they want it now.\nLuxbubble is the premier app for Hair, Nail, Makeup, Piercing, Massage, Waxing, Brow, Lash, Tattoo, Tanning and Style professionals.\nConnect with your Customers. Anytime. Anywhere. \nKey Features:\n- Manage Your Own Profile\n- Receive Instant Booking Notifications\n- App Chat with Your Customers\n- View, Accept or Cancel Bookings\n- Rate your customers\n- Track your own earnings",
+    "description": "LuxBubble Staff is a dedicated app designed for beauty and styling professionals working under registered salons. It simplifies daily workflows by letting staff members manage their booking calendars, receive real-time appointment notifications, and chat directly with clients. By facilitating schedule coordination, booking reviews, and earnings tracking, it helps salon staff optimize their daily productivity.",
     "screenshots": [
       "./assets/images/luxbubble_staff/screenshot_1.png",
       "./assets/images/luxbubble_staff/screenshot_2.png",
@@ -291,7 +291,7 @@
   },
   {
     "name": "LuxBubble",
-    "description": "You want it and you want it now.\nWherever you are.\n\nLuxbubble is your salon in your pocket. You can find, book and pay for a salon or mobile service anytime anywhere.\n \nLuxbubble is the premier app for Hair, Nail, Makeup, Piercing, Massage, Waxing, Brow, Lash, Tattoo, Tanning and Style services.\nKey Features:\n - Manage your profile\n - Use geo-location to find service providers close to wherever you are in the world.\n - Sort by Popularity, Price or Newest service provider\n - Filter by Distance, Gender , Mobile or Salon\n - Check and select available calendar slots\n - Process instant pre-payment for service bookings\n - Receive notification of booking confirmation or cancellation \n- App chat with your service provider\n- Geo-location tracking\n- Review and rate your service",
+    "description": "LuxBubble is a premium lifestyle app that connects customers with local beauty and wellness service providers. It serves as a personal salon finder, enabling users to easily search, book, and pay for services like hair, makeup, and massage using geo-location. With instant pre-payment, live provider tracking, and in-app chat, it simplifies booking beauty services on-demand, anywhere, anytime.",
     "screenshots": [
       "./assets/images/luxbubble/screenshot_1.png",
       "./assets/images/luxbubble/screenshot_2.png",
@@ -337,7 +337,7 @@
   },
   {
     "name": "LandBurro: Hunt, Fish & Camp",
-    "description": "Getting outdoors has never been easier. Find and book daily rentals for land, lodging and experiences on LandBurro . LandBurro was founded by outdoorsmen for outdoorsmen and completely free to join! We enable guests to experience an abundance of outdoor activities on private land such as hunting, fishing, hiking, camping, picnicking, biking, kayaking, etc. while creating meaningful revenue opportunities for landowners. LandBurro is proud to be the home to the largest selection of allowed outdoor activities and experiences of any online marketplace in the U.S. \n\nLandBurro is designed to connect people who want to rent their property with people who want to rent it - short term rentals for land, experiences and lodging. It\u2019s Airbnb meets land - land on demand. The platform is designed to provide the flexibility that landowners and guests desire - easy, noncommittal and safe. Landowners maintain complete control over their property with the ability to block out dates, set property rules, and outline activities allowed on their property, all while being backed by a LandBurro $1 million general liability insurance policy. At the same time, guests are able to select the length of stay, budget, location and activities that work best for them. While anyone can enjoy public lands, having access to a private piece of land for your own solitary enjoyment offers a different type of joy!\n\nFeatures of the app: \n- Search outdoor stays based on geolocation\n- Check real time availability of the properties\n- Search based on dates available\n- Filter search results based on your needs and desires (price, activities, amenities, user reviews)\n- Quick search function based on activity\n- Easily switch between map view and list view in the search results\n- Save properties in your favorites\n- Become a Host. List your property on LANDBURRO and begin earning money today!\n- Purchase Gift Cards\n- LandHosts are able to blackout dates that property will not be available.\n- Earn BurroBucks (our rewards program) through completing bookings.\n- Access and edit your account information\n- See past trips and future trips \n- Share properties and trips with friends\n\nThe Great Outdoors is at your fingertips and happiness awaits! Download our app and go explore! Experience life.\n\nLandBurro was created to make a difference - whether in the life of a landowner, outdoor enthusiast, or child - we\u2019re in pursuit to make your life better. The pursuit to make the life of others better doesn\u2019t stop here, at least 10% of LANDBURRO\u2019s annual profit will be donated every year to non-profits, churches, and other charity groups focused on land conservation, rural communities, children well-being and mental health. \n\nUse our hashtags on Instagram, Facebook and Twitter: #landbum #landburro",
+    "description": "LandBurro is a comprehensive outdoor rental marketplace that connects travelers with daily land rentals, private lodging, and outdoor experiences like hunting, fishing, and camping. It solves the challenge of finding exclusive private land for recreational activities, offering hosts secure general liability insurance and guests interactive search tools, map views, and real-time booking flexibility.",
     "screenshots": [
       "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource122/v4/90/8e/cf/908ecfb8-44cc-c80d-906b-21bf50b94cea/cc583742-a1a4-4c20-8a8c-cd46636cc05c_1.png/392x696bb.png",
       "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource122/v4/e3/6f/55/e36f55c1-91c1-f2c7-125f-da5f60146bba/005a3b08-4246-4f0b-976d-33dfadae67fa_2.png/392x696bb.png",
@@ -390,7 +390,7 @@
   },
   {
     "name": "Blendly",
-    "description": "The best and free business card in the market. Create multiple business cards and save cards from others in your app to easily find your contacts!",
+    "description": "Blendly is a premium, free digital business card platform designed for modern professionals and entrepreneurs. The app enables users to easily create multiple custom digital business cards, share them instantly via QR code or links, and organize received contacts in a smart, searchable library. It solves the problem of paper waste and lost connections, keeping networking efficient, clean, and organized.",
     "screenshots": [
       "./assets/images/blendly/screenshot_1.png",
       "./assets/images/blendly/screenshot_2.png",
@@ -436,7 +436,7 @@
   },
   {
     "name": "MentorCalls",
-    "description": "Welcome to Mentorcalls. \nA place where you can instantly make 1:1 video calls with world's leading minds. \nLearn from professionals, get answers from your mentors and meet your examples.\n\nDo you want to talk about business, sport, music, or a topic of your choosing? Mentorcalls offers different types of video calls. It\u2019s up to you! Don\u2019t forget to be ready for the picture that you and your mentor take at the end of the call! The app allows you to share this picture on your favorite social media channel. \n\nIt\u2019s amazing that you can learn from the best mentors in the world and you simultaneously make the world a better and a happier place. \n\nAre you ready to develop your full potential and learn from the best? Then we\u2019re so excited for you to join! Upgrade your life and choose your mentor now!",
+    "description": "MentorCalls is an innovative business and personal development app that connects users with the world\u2019s leading minds for instant 1:1 video consultations. It solves the barrier of accessing high-profile advice, letting mentees ask burning questions about sports, music, and business. Users receive personalized video mentorship, take a memorable call photo, and support global charities in the process.",
     "screenshots": [
       "./assets/images/mentorcalls/screenshot_1.png",
       "./assets/images/mentorcalls/screenshot_2.png",
@@ -482,7 +482,7 @@
   },
   {
     "name": "MC For Mentors",
-    "description": "Welcome to Mentorcalls. \nA place where you can instantly make 1:1 video calls with world's leading minds. \nLearn from professionals, get answers from your mentors and meet your examples.\n\nDo you want to talk about business, sport, music, or a topic of your choosing? Mentorcalls offers different types of video calls. It\u2019s up to you! Don\u2019t forget to be ready for the picture that you and your mentor take at the end of the call! The app allows you to share this picture on your favorite social media channel. \nAll mentors donate a small percentage of their earning to a charity of their choice. \nIt\u2019s amazing that you can learn from the best mentors in the world and you simultaneously make the world a better and a happier place. \n\nAre you ready to develop your full potential and learn from the best? Then we\u2019re so excited for you to join! Upgrade your life and choose your mentor now!",
+    "description": "MC For Mentors is a professional video consultation app designed for industry experts, global leaders, and mentors to conduct 1:1 sessions with eager mentees. It provides a secure, streamlined platform for managing booking requests, hosting high-quality video calls, and organizing charity donations. It solves calendar scheduling for high-profile advisors while helping them easily monetize their expertise.",
     "screenshots": [
       "./assets/images/mc_for_mentors/screenshot_1.png",
       "./assets/images/mc_for_mentors/screenshot_2.png",
@@ -528,7 +528,7 @@
   },
   {
     "name": "Cabau",
-    "description": "\u201cOnce I developed effective workout routines that actually help me achieve visible results and keep me motivated, I knew I had to share my secrets with as many women as possible.\u201d\n\n\nNo time? No problem.\nNo gym? No problem.\nNo equipment? No problem.\nNo motivation? No problem.\n\nWe\u2019ve got you covered. We help you put in the work and see the results.\n\nTurn training into a habit with a fitness coach right in your pocket! Join Yolanthe\u2019s fun and feasible workout program to get fitter, stronger, and more confident. \n\nFEATURES\n\n\u2022\tHigh quality step by step video workouts with Yolanthe\n\u2022\tSeamless integration of your favorite music apps\n\u2022\tFor all fitness levels from beginner to advanced\n\u2022\tWorkout planner & fitness tracker\n\u2022\tDaily tips & tricks to keep you going\n\u2022\tGuided meditation sessions to balance body, mind and soul\n\n\u201cOnly freedom of choice can empower women.\u201d\n\nYOU CHOOSE\n\n\u2022\tHome workout or gym exercise\n\u2022\tWith or without equipment\n\u2022\tBeginner workouts or advanced training\n\u2022\t10-minute workouts or 30-minute programs\n\u2022\tFull body fitness or target training\n\u2022\tFreemium or premium subscription\n\nTerms: https://cabaulifestyle.com/pages/terms-app",
+    "description": "Cabau is a premium health and fitness companion designed to help women build healthy workout habits anywhere, anytime. The app offers high-quality, step-by-step video workouts coached by Yolanthe, alongside integrated music apps, progress tracking, and daily motivational tips. By providing flexible 10 to 30-minute training plans and mindfulness sessions, it makes achieving a balanced lifestyle easy.",
     "screenshots": [
       "./assets/images/cabau/screenshot_1.png",
       "./assets/images/cabau/screenshot_2.png",
@@ -574,7 +574,7 @@
   },
   {
     "name": "Tabler",
-    "description": "A simple, affordable and user-friendly clubbing or private event experience anyone? Be my guest.\n\nTabler App is an all-in-one sharing and inviting marketplace for night outs & hospitality. Pick your own crowd, share costs and enjoy exclusive tables at the best clubs or private events around the world.\n\n\u201eMark\u201c can post his booked table and invite others to join him. Easiest way to make new friends, maybe even meet the love of his life... ;) \n\n\u201eShaun\u201c can finally save some money and split table costs with others with just a few clicks. \n\n\u201eEllie\u201c has now the opportunity to choose and join a private table with the easiness of just sending a request. \n\n\u201eJules\u201c is ecstatic! He can use the app to promote empty tables, attract more girls to the club and enhance VIP experience without a hassle. \n\n*Inspired*\n\u201eThis app inspired me to go out with people I didn\u2019t know and now we are a cool group going out every Friday\u201c by alex_wo\n\n*Individual*\n\u201eI love how you can make your own \u201eparty profile\u201c and you can see where people have partied before\u201c by sam0y\n\n*Practical*\n\u201eI was in Miami with a friend and we didn\u2019t get into a club on Friday because we didn\u2018t have a table.. On Saturday we just joined someone\u2019s table with this App and everything went smooth\u201c by john91cal \n\n*Popular*\n\u201eSo much easier to get to know people to party with\u201c by clarasims\n\u201eI was looking for something like this for a very long time! Great work\u201c by klemenhm\n\u201eBrilliant concept, amazing app\u201c by pjennn\n\nTerms: https://www.tablerapp.com/terms-and-conditions\nPrivacy Policy: https://www.tablerapp.com/privacy-policy",
+    "description": "Tabler is a social marketplace for clubbing and VIP hospitality, allowing users to invite others, share table costs, and access exclusive venues worldwide. It solves the high cost of VIP night outs by letting hosts list available spots and allowing guests to request joins and split bills with a few taps. It creates a fun, affordable way to make friends and enjoy premium nightlife experiences.",
     "screenshots": [
       "./assets/images/tabler/screenshot_1.png",
       "./assets/images/tabler/screenshot_2.png",
@@ -621,7 +621,7 @@
   },
   {
     "name": "Diet Zone",
-    "description": "Enjoy life to the fullest, with diet. This app helps you to track your diet progress, discover and share healthy recipes, and shop for curated international diet products. This app uses Apple Healthkit to track the 'Steps walked' and calculate the approximate calories you burn with your walking/jogging activities. This results in better management of your calorie intake and improves the overall dieting experience.",
+    "description": "Diet Zone is a comprehensive health app designed to make dieting simple and effective. It integrates seamlessly with Apple HealthKit to automatically track steps and calculate active calories burned, enabling precise calorie balance management. The app serves as a personal wellness guide, helping users track their diet progress, discover healthy recipes, and shop for curated international products.",
     "screenshots": [
       "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/a0/f7/e5/a0f7e55a-3b4d-5221-7323-d2d56872d61b/pr_source.png/392x696bb.png",
       "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/ab/86/29/ab862917-b53d-962e-8a73-6e48c2b540da/pr_source.png/392x696bb.png",
@@ -670,7 +670,7 @@
   },
   {
     "name": "Audiovibes",
-    "description": "Audiovibes produces and also curates regional language audiobooks and podcasts. Our focus is on Asian languages with their rich literature not yet available in audio formats.  \nTerms of Use - https://audiovibes.in/privacy.html",
+    "description": "Audiovibes is a dedicated educational and entertainment platform that produces and curates regional language audiobooks and podcasts. It focuses on bringing rich Asian literature, which is not yet widely digitized, into high-quality audio formats. Solving the lack of localized cultural content, the app provides a smooth, accessible listening experience for audio enthusiasts and lifelong learners.",
     "screenshots": [
       "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/39/7b/34/397b34e7-e6d7-0f09-eed6-60584e22650c/pr_source.png/392x696bb.png",
       "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/92/47/ca/9247ca66-bd24-b84a-a184-3944c25e5b59/pr_source.png/392x696bb.png",
@@ -717,7 +717,7 @@
   },
   {
     "name": "Alhend\u00edn",
-    "description": "Informaci\u00f3n sobre noticias locales, agenda cultural y deportiva, callejero con mapa y geolocalizador, tel\u00e9fonos de inter\u00e9s, horario de autobuses, notificaciones...\n\nNOTICIAS - Todas las noticias de cada concejal\u00eda municipal en un solo click en tu m\u00f3vil, y adem\u00e1s podr\u00e1s compartir las que m\u00e1s te interesen en las redes sociales.\n\nMAPAS - Su geolocalizador te permitir\u00e1 encontrar el lugar que buscas: la farmacia m\u00e1s cercana, el polideportivo, biblioteca.... Adem\u00e1s va acompa\u00f1ado de una br\u00fajula que facilita la orientaci\u00f3n en el mapa.\n\nDIRECTORIO - Directorio telef\u00f3nico, distintos tel\u00e9fonos como emergencias, teatro, Juzgado, centro de salud... simplemente tocar y llamar.\n\nBUS - Consulta el horario de tu autob\u00fas seleccionando el destino. Aparecer\u00e1 zona y hora tanto de salida como de llegada.\n\nCALENDARIO - Inf\u00f3rmate de todos los eventos que tendr\u00e1n lugar en tu municipio, para que no te lo pierdas!!\n\nGALER\u00cdA - Exposici\u00f3n de Fotos y V\u00eddeos de Alhend\u00edn.\n\nRADIO - M\u00fasica y noticias de actualidad.\n\nALERTAS - Notificaciones Push de nuestro municipio. Todo lo que debes saber en tiempo real.",
+    "description": "Alhend\u00edn is a comprehensive local community application designed for the residents and visitors of Alhend\u00edn, Spain. It serves as a digital town guide, providing real-time local news, cultural and sports calendars, bus schedules, and a geo-localized directory of municipal services. By delivering instant push alerts, it solves the challenge of keeping the community connected, informed, and safe.",
     "screenshots": [
       "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource122/v4/ce/e7/c4/cee7c479-0a95-7638-db99-9cd9b6a5f15e/80a27d38-5ef1-413d-87f9-f88ff64b9e9a_11.jpg/392x696bb.jpg",
       "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource122/v4/0e/d3/84/0ed3842f-25be-0813-98c4-917f1e235c73/e9e052d1-2975-459c-8fe5-8abd5114fcae_33.jpg/392x696bb.jpg",
@@ -764,7 +764,7 @@
   },
   {
     "name": "Canna&Biotic",
-    "description": "\u05e7\u05e0\u05d0&\u05d1\u05d9\u05d5\u05d8\u05d9\u05e7\n\u05d4\u05d9\u05e0\u05d5 \u05de\u05d9\u05d6\u05dd \u05d7\u05d1\u05e8\u05ea\u05d9 \u05de\u05e9\u05ea\u05e3 \u05e4\u05e2\u05d5\u05dc\u05d4 \u05e2\u05dd \u05d2\u05d5\u05e8\u05de\u05d9\u05dd \u05de\u05e8\u05db\u05d6\u05d9\u05d9\u05dd \u05d1\u05d9\u05e9\u05e8\u05d0\u05dc\n\u05d5\u05d1\u05d7\u05d5\"\u05dc \u05e9\u05dc \u05e2\u05d5\u05dc\u05dd \u05d4\u05e7\u05e0\u05d0\u05d1\u05d9\u05e1 \u05d4\u05e8\u05e4\u05d5\u05d0\u05d9 \u05d5\u05d4\u05de\u05d1\u05d5\u05e7\u05e8 !\n\u05e7\u05e0\u05d0&\u05d1\u05d9\u05d5\u05d8\u05d9\u05e7\n\u05de\u05e9\u05ea\u05e3 \u05e4\u05e2\u05d5\u05dc\u05d4 \u05d1\u05de\u05d2\u05d5\u05d5\u05df \u05de\u05d9\u05d6\u05de\u05d9\u05dd/\u05e4\u05d9\u05ea\u05d5\u05d7\u05d9\u05dd, \u05e2\u05d6\u05e8\u05d4,\n\u05d9\u05d9\u05e2\u05d5\u05e5  \u05d5\u05d1\u05db\u05da \u05de\u05e0\u05d2\u05d9\u05e9\u05d9\u05dd \u05de\u05d9\u05d3\u05e2 \u05e8\u05d7\u05d1,\n\u05d7\u05e9\u05d5\u05d1 \u05d5\u05e2\u05d3\u05db\u05e0\u05d9 \u05dc\u05de\u05d8\u05d5\u05e4\u05dc\u05d9 \u05d4\u05e7\u05e0\u05d0\u05d1\u05d9\u05e1 \u05d1\u05d9\u05e9\u05e8\u05d0\u05dc!",
+    "description": "Canna&Biotic is a pioneer social venture and medical cannabis platform that provides reliable, up-to-date guidance for patients in Israel and abroad. The app serves as an informative hub, offering users accessible medical cannabis research, doctor consult paths, and safety advice. By centralizing expert guides and product information, it solves the challenge of navigating complex medical treatments.",
     "screenshots": [
       "./assets/images/canna&biotic/screenshot_1.png",
       "./assets/images/canna&biotic/screenshot_2.png",
@@ -809,7 +809,7 @@
   },
   {
     "name": "Henri - Become Financially Fit",
-    "description": "The Henri Financially Fit App is your all-in-one solution for mastering personal finance through education, management, and collaboration. With a wealth of interactive courses, articles, and personalized tips, Henri helps you build financial knowledge while tracking income, expenses, savings, and investments.\nLearning is made fun with engaging quizzes, and for those seeking a challenge, you can test your knowledge by competing against friends. Whether you're budgeting, setting goals, or building financial confidence, Henri has the tools to guide your journey.",
+    "description": "Henri is a premium personal finance app designed to help users master their money through interactive learning, expense tracking, and goal setting. It turns complex budgeting, income tracking, and investment planning into a fun, gamified experience with quizzes and friendly competitions. Suitable for anyone seeking financial wellness, Henri simplifies wealth building and guides your financial journey.",
     "screenshots": [],
     "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cf/1a/b7/cf1ab786-ac8d-d0f4-2b33-cdb9df58c428/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
     "version": "1.0.13",
