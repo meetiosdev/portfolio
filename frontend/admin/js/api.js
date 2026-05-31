@@ -1,4 +1,6 @@
-const API_BASE_URL = '/api';
+const API_BASE_URL = window.location.hostname === 'admin.meetiosdev.com'
+  ? 'https://meetiosdev.com/api'
+  : '/api';
 
 class Api {
   constructor() {
@@ -17,13 +19,14 @@ class Api {
   }
 
   async request(endpoint, options = {}) {
+    const accessToken = localStorage.getItem('saas_token') || this.token;
     const headers = {
       'Content-Type': 'application/json',
       ...options.headers
     };
 
-    if (this.token) {
-      headers['Authorization'] = `Bearer ${this.token}`;
+    if (accessToken) {
+      headers['Authorization'] = `Bearer ${accessToken}`;
     }
 
     try {
